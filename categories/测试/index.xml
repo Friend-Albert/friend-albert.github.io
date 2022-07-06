@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>测试 - 分类 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/categories/%E6%B5%8B%E8%AF%95/</link>
+        <description>测试 - 分类 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Jul 2022 21:20:50 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/%E6%B5%8B%E8%AF%95/" rel="self" type="application/rss+xml" /><item>
+    <title>First_page</title>
+    <link>https://friend-albert.github.io/posts/first_page/</link>
+    <pubDate>Wed, 06 Jul 2022 21:20:50 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/first_page/</guid>
+    <description><![CDATA[title: 文章标题. subtitle: 文章副标题. date: 这篇文章创建的日期时间. 它通常是从文章的前置参数中的 date 字段获取的 lastmod: 上次修改内容的日期时间. draft: 如果设为 true, 除非 hugo 命令]]></description>
+</item>
+</channel>
+</rss>
