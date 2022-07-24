@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Java - 标签 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/tags/java/</link>
+        <description>Java - 标签 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>SpringBoot_Notes</title>
+    <link>https://friend-albert.github.io/posts/mvc/</link>
+    <pubDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/mvc/</guid>
+    <description><![CDATA[MVC设计模式（框架） 1.简介 MVC是三个单词的首字母缩写，它们是Model（模型）、View（视图）和Controller（控制）。 1.1 视图]]></description>
+</item>
+<item>
+    <title>SpringBoot_General</title>
+    <link>https://friend-albert.github.io/posts/springboot_general/</link>
+    <pubDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/springboot_general/</guid>
+    <description><![CDATA[SpringBoot 框架概述]]></description>
+</item>
+<item>
+    <title>Java_OOP</title>
+    <link>https://friend-albert.github.io/posts/java_oop/</link>
+    <pubDate>Fri, 15 Jul 2022 21:11:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_oop/</guid>
+    <description><![CDATA[Java 面向对象笔记 1.继承 1.1基础 Java使用extends关键字来实现继承 注意：子类自动获得了父类的所有字段，严禁定义与父类重名的字段！ 1.2 继]]></description>
+</item>
+<item>
+    <title>SpringBoot_Notes</title>
+    <link>https://friend-albert.github.io/posts/springboot_notes/</link>
+    <pubDate>Fri, 15 Jul 2022 15:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/springboot_notes/</guid>
+    <description><![CDATA[1.注解（annotation） 1.1 简介 Annotation（注解）是JDK5开始引入的新特性，可以看作是一种特殊的注释，主要用于修饰类，方法]]></description>
+</item>
+</channel>
+</rss>

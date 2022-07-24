@@ -3,7 +3,25 @@
         <title>Categories - 分类 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/categories/</link>
         <description>Categories - 分类 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 06 Jul 2022 21:20:50 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 24 Jul 2022 14:12:26 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+    <title>计算机视觉</title>
+    <link>https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</link>
+    <pubDate>Sun, 24 Jul 2022 14:12:26 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>SpringBoot</title>
+    <link>https://friend-albert.github.io/categories/springboot/</link>
+    <pubDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/springboot/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Java</title>
+    <link>https://friend-albert.github.io/categories/java/</link>
+    <pubDate>Fri, 15 Jul 2022 21:11:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/java/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>测试</title>
     <link>https://friend-albert.github.io/categories/%E6%B5%8B%E8%AF%95/</link>
     <pubDate>Wed, 06 Jul 2022 21:20:50 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/%E6%B5%8B%E8%AF%95/</guid>

@@ -1,0 +1,25 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>SpringBoot - 分类 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/categories/springboot/</link>
+        <description>SpringBoot - 分类 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/springboot/" rel="self" type="application/rss+xml" /><item>
+    <title>SpringBoot_Notes</title>
+    <link>https://friend-albert.github.io/posts/mvc/</link>
+    <pubDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/mvc/</guid>
+    <description><![CDATA[MVC设计模式（框架） 1.简介 MVC是三个单词的首字母缩写，它们是Model（模型）、View（视图）和Controller（控制）。 1.1 视图]]></description>
+</item>
+<item>
+    <title>SpringBoot_General</title>
+    <link>https://friend-albert.github.io/posts/springboot_general/</link>
+    <pubDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/springboot_general/</guid>
+    <description><![CDATA[SpringBoot 框架概述]]></description>
+</item>
+<item>
+    <title>SpringBoot_Notes</title>
+    <link>https://friend-albert.github.io/posts/springboot_notes/</link>
+    <pubDate>Fri, 15 Jul 2022 15:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/springboot_notes/</guid>
+    <description><![CDATA[1.注解（annotation） 1.1 简介 Annotation（注解）是JDK5开始引入的新特性，可以看作是一种特殊的注释，主要用于修饰类，方法]]></description>
+</item>
+</channel>
+</rss>

@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_2图像分类和线性分类器（上） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_2图像分类和线性分类器（上）" />
+<meta property="og:description" content="二、图像分类和线性分类器（上） （一）图像分类 1.定义 根据图像特征进行区分 从已知标签集合中为输入图片选定一个标签 2.难点 语义鸿沟-图像的特征、" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-24T14:12:26+08:00" />
+<meta property="article:modified_time" content="2022-07-24T14:12:26+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_2图像分类和线性分类器（上）"/>
+<meta name="twitter:description" content="二、图像分类和线性分类器（上） （一）图像分类 1.定义 根据图像特征进行区分 从已知标签集合中为输入图片选定一个标签 2.难点 语义鸿沟-图像的特征、"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_1%E5%89%8D%E8%A8%80/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_2图像分类和线性分类器（上）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A\/"
+        },"genre": "posts","keywords": "CV","wordcount":  864 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A\/","datePublished": "2022-07-24T14:12:26+08:00","dateModified": "2022-07-24T14:12:26+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_2图像分类和线性分类器（上）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89/"><i class="far fa-folder fa-fw"></i>计算机视觉</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Sun 2022.7.24">Sun 2022.7.24</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 864 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#一图像分类">（一）图像分类</a>
+      <ul>
+        <li><a href="#1定义">1.定义</a></li>
+        <li><a href="#2难点">2.难点</a></li>
+        <li><a href="#3数据驱动图像分类方法">3.数据驱动图像分类方法</a></li>
+        <li><a href="#4分类器设计与学习">4.分类器设计与学习</a></li>
+      </ul>
+    </li>
+    <li><a href="#二线性分类器上">（二）线性分类器（上）</a>
+      <ul>
+        <li><a href="#1基于像素图像表示">1.基于像素图像表示</a></li>
+        <li><a href="#2定义">2.定义</a></li>
+        <li><a href="#3权值向量">3.权值向量</a></li>
+        <li><a href="#4损失函数">4.损失函数</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="二图像分类和线性分类器上">二、图像分类和线性分类器（上）</h1>
+<h2 id="一图像分类">（一）图像分类</h2>
+<h3 id="1定义">1.定义</h3>
+<p>根据图像特征进行区分</p>
+<p>从已知标签集合中为输入图片选定一个标签</p>
+<h3 id="2难点">2.难点</h3>
+<ol>
+<li>语义鸿沟-图像的特征、内涵、主题</li>
+<li>视角</li>
+<li>光照</li>
+<li>尺度（相对性）</li>
+<li>遮挡</li>
+<li>形变</li>
+<li>背景杂波（相似性）</li>
+<li>类内形变（不同形状的椅子）</li>
+<li>运动模糊</li>
+<li>类别繁多（人能识别10000-30000种）</li>
+</ol>
+<h3 id="3数据驱动图像分类方法">3.数据驱动图像分类方法</h3>
+<ol>
+<li>
+<p>数据集构建</p>
+</li>
+<li>
+<p>分类器设计与学习</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141706769.png"
+        data-srcset="C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141706769.png, C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141706769.png 1.5x, C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141706769.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\April\AppData\Roaming\Typora\typora-user-images\image-20220724141706769.png"
+        title="image-20220724141706769" /></p>
+</li>
+<li>
+<p>分类器决策</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141816495.png"
+        data-srcset="C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141816495.png, C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141816495.png 1.5x, C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724141816495.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\April\AppData\Roaming\Typora\typora-user-images\image-20220724141816495.png"
+        title="image-20220724141816495" /></p>
+</li>
+</ol>
+<h3 id="4分类器设计与学习">4.分类器设计与学习</h3>
+<ol>
+<li>
+<p>图像表示</p>
+<ul>
+<li><strong>像素表示</strong></li>
+<li>全局特征表示（GIST）——适用于风景、大场景图片</li>
+<li>局部特征表示（SIFT+词袋模型）</li>
+</ul>
+</li>
+<li>
+<p>分类器</p>
+<ul>
+<li>近邻分类器</li>
+<li>贝叶斯分类器</li>
+<li><strong>线性分类器</strong></li>
+<li>SVM分类器</li>
+<li><strong>神经网络分类器</strong></li>
+<li>随机森林分类器</li>
+</ul>
+</li>
+<li>
+<p>损失函数</p>
+<ul>
+<li>0-1损失</li>
+<li><strong>多类支撑向量机损失</strong></li>
+<li>&hellip;&hellip;</li>
+</ul>
+</li>
+<li>
+<p>优化方法</p>
+<ul>
+<li><strong>一阶</strong>
+<ul>
+<li>梯度下降</li>
+<li>小批量梯度下降</li>
+<li>随机梯度下降</li>
+</ul>
+</li>
+<li>二阶
+<ul>
+<li><strong>牛顿法</strong></li>
+<li>BFGS</li>
+<li>L-BFGS</li>
+</ul>
+</li>
+</ul>
+</li>
+<li>
+<p>训练</p>
+<ul>
+<li>数据集划分</li>
+<li>数据集预处理</li>
+<li>数据集增强</li>
+<li>欠拟合、过拟合</li>
+<li>超参数调整</li>
+<li>模型集成</li>
+</ul>
+</li>
+<li>
+<p>评价</p>
+<ul>
+<li>Top1——只看第一预测正确性</li>
+<li>Top5——只要前五预测有一正确即可</li>
+</ul>
+</li>
+</ol>
+<h2 id="二线性分类器上">（二）线性分类器（上）</h2>
+<p>CIFAR数据集</p>
+<h3 id="1基于像素图像表示">1.基于像素图像表示</h3>
+<p>图像表示方式</p>
+<ul>
+<li>二进制</li>
+<li>灰度</li>
+<li>彩色</li>
+</ul>
+<p>图像转换为列向量</p>
+<h3 id="2定义">2.定义</h3>
+<p>（是神经网络以及SVM基础）</p>
+<p>是一种线性映射，将输入图像特征映射到类别分数
+$$
+f_i(\overrightarrow{x},\overrightarrow{w_i}) = \overrightarrow{w_i^T}\overrightarrow{x}+b_i \quad i = 1,2,3,&hellip;i
+$$</p>
+<ul>
+<li>$\overrightarrow{x_i}$为图像向量</li>
+<li>$\overrightarrow{w_i^T}$为第i类的权值向量</li>
+</ul>
+<p>矩阵表示：
+$$
+f(\overrightarrow{x},W)=W\overrightarrow{x}+\overrightarrow{b}
+$$
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724143415464.png"
+        data-srcset="C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724143415464.png, C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724143415464.png 1.5x, C:%5cUsers%5cApril%5cAppData%5cRoaming%5cTypora%5ctypora-user-images%5cimage-20220724143415464.png 2x"
+        data-sizes="auto"
+        alt="C:\Users\April\AppData\Roaming\Typora\typora-user-images\image-20220724143415464.png"
+        title="image-20220724143415464" /></p>
+<h3 id="3权值向量">3.权值向量</h3>
+<p>类别信息的平均值，是一个模板</p>
+<p>分类——与模板的匹配程度</p>
+<p>分数为0的线为决策面  $\overrightarrow{w_i}$控制方向  $b$控制截距 箭头方向为正方向，越远离分数越高</p>
+<h3 id="4损失函数">4.损失函数</h3>
+<p>损失函数搭建了模板性能与模型参数间的桥梁，指导模型参数优化</p>
+<ul>
+<li>输出非负</li>
+<li>作为反馈信息调优</li>
+</ul>
+<p>一般定义：
+$$
+L=\frac{1}{N}\sum_iL_i(f(x_i,w),y_i)
+$$</p>
+<ul>
+<li>$f(x_i,w)$为对样本$x_i$的预测</li>
+<li>$L_i$为i样本损失当预测值</li>
+<li>$L$为数据集损失，是所有样本损失平均</li>
+</ul>
+<p><strong>多类支撑向量机损失</strong>
+$$
+S_{ij}=f_i(x_i,w_j,b_j)=w_j^T+b_j
+$$</p>
+<ul>
+<li>$S_{ij}$为第i样本第j类的预测分</li>
+</ul>
+<p>$$
+L_i=\sum_{j\ne y_i}\max(0,S_{ij}-S_{yi}+1)\quad——折页损失
+$$</p>
+<p>损失函数解读：</p>
+<ul>
+<li>正确比不正确多一分$\rightarrow$无损失</li>
+<li>否则有损失</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Sun 2022.7.24</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/" data-title="CV_2图像分类和线性分类器（上）" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_1%E5%89%8D%E8%A8%80/" class="prev" rel="prev" title="CV_1前言"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>
