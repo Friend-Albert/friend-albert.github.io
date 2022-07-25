@@ -4,32 +4,32 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="robots" content="noodp" />
-        <title>SpringBoot_General - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="SpringBoot_General" />
-<meta property="og:description" content="SpringBoot 框架概述" />
+        <title>CV_3线性分类器（下） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_3线性分类器（下）" />
+<meta property="og:description" content="线性分类器（下） 1.正则项与超参数 含义：对模型的偏好设置 情景：如果有多个$W$均可得到最优的损失函数，该如何选择？ 定义： $$ L(w)=\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)&#43;\lambda R(W) $$ $\frac" />
 <meta property="og:type" content="article" />
-<meta property="og:url" content="https://friend-albert.github.io/posts/springboot_general/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
-<meta property="article:published_time" content="2022-07-16T00:26:02+08:00" />
-<meta property="article:modified_time" content="2022-07-16T00:26:02+08:00" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-25T18:19:35+08:00" />
+<meta property="article:modified_time" content="2022-07-25T18:19:35+08:00" />
 
 <meta name="twitter:card" content="summary_large_image"/>
 <meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
 
-<meta name="twitter:title" content="SpringBoot_General"/>
-<meta name="twitter:description" content="SpringBoot 框架概述"/>
+<meta name="twitter:title" content="CV_3线性分类器（下）"/>
+<meta name="twitter:description" content="线性分类器（下） 1.正则项与超参数 含义：对模型的偏好设置 情景：如果有多个$W$均可得到最优的损失函数，该如何选择？ 定义： $$ L(w)=\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)&#43;\lambda R(W) $$ $\frac"/>
 <meta name="application-name" content="FeelIt">
 <meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/springboot_general/" /><link rel="prev" href="https://friend-albert.github.io/posts/java_oop/" /><link rel="next" href="https://friend-albert.github.io/posts/mvc/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
-        "headline": "SpringBoot_General",
+        "headline": "CV_3线性分类器（下）",
         "inLanguage": "zh-CN",
         "mainEntityOfPage": {
             "@type": "WebPage",
-            "@id": "https:\/\/friend-albert.github.io\/posts\/springboot_general\/"
-        },"genre": "posts","keywords": "Java","wordcount":  5 ,
-        "url": "https:\/\/friend-albert.github.io\/posts\/springboot_general\/","datePublished": "2022-07-16T00:26:02+08:00","dateModified": "2022-07-16T00:26:02+08:00","publisher": {
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B\/"
+        },"genre": "posts","keywords": "CV","wordcount":  644 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B\/","datePublished": "2022-07-25T18:19:35+08:00","dateModified": "2022-07-25T18:19:35+08:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
                 "@type": "Person",
@@ -102,10 +102,10 @@
                 <div class="container"><div class="toc" id="toc-auto">
             <h2 class="toc-title">目录</h2>
             <div class="toc-content" id="toc-content-auto"></div>
-        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">SpringBoot_General</h2><div class="post-meta">
-                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/springboot/"><i class="far fa-folder fa-fw"></i>SpringBoot</a></span></div>
-                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Sat 2022.7.16">Sat 2022.7.16</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 5 字</span>&nbsp;
-                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟</span>&nbsp;</div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_3线性分类器（下）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.7.25">Mon 2022.7.25</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 644 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</span>&nbsp;</div>
             </div>
             
             <hr><div class="details toc" id="toc-static"  data-kept="true">
@@ -113,17 +113,101 @@
                         <span>目录</span>
                         <span><i class="details-icon fas fa-angle-right"></i></span>
                     </div>
-                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents"></nav></div>
-                </div><div class="content" id="content"><h1 id="springboot-框架概述">SpringBoot 框架概述</h1>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1正则项与超参数">1.正则项与超参数</a>
+      <ul>
+        <li><a href="#多种正则项">多种正则项：</a></li>
+      </ul>
+    </li>
+    <li><a href="#2优化算法">2.优化算法</a>
+      <ul>
+        <li><a href="#梯度下降算法">梯度下降算法</a></li>
+      </ul>
+    </li>
+    <li><a href="#3数据集划分">3.数据集划分</a></li>
+    <li><a href="#4数据预处理">4.数据预处理</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="线性分类器下">线性分类器（下）</h1>
+<h2 id="1正则项与超参数">1.正则项与超参数</h2>
+<p>含义：对模型的偏好设置</p>
+<p>情景：如果有多个$W$均可得到最优的损失函数，该如何选择？</p>
+<p>定义：
+$$
+L(w)=\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)+\lambda R(W)
+$$</p>
+<ul>
+<li>$\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)$为数据损失：预测和训练集匹配</li>
+<li>$\lambda R(W)$为正则损失：防止模型训练的太好（防止过拟合）</li>
+</ul>
+<p>$\lambda$为超参数：正则项所占比重——学习前设置</p>
+<p>$W$参数——通过学习得到</p>
+<h3 id="多种正则项">多种正则项：</h3>
+<ol>
+<li>
+<p>$L_2$正则项——喜欢对于大数值权值惩罚，喜欢分散权值，<strong>鼓励分类器使用全部特征</strong>
+$$
+R(W)=\sum_k\sum_lW_{kl}^2\quad\quad(每项平方后求和)
+$$</p>
+</li>
+<li>
+<p>$L_1$正则项</p>
+</li>
+<li>
+<p>弹性网络：$\alpha L_1 + \beta L_2$</p>
+</li>
+</ol>
+<h2 id="2优化算法">2.优化算法</h2>
+<h3 id="梯度下降算法">梯度下降算法</h3>
+<p>利用所有/部分（小批量梯度下降）/单个（随机梯度下降）计算损失并更新梯度</p>
+<p>伪代码：</p>
+<pre tabindex="0"><code>while True:
+	权值梯度 &lt;- 计算梯度（损失， 样本， 权重）
+	权值 &lt;- 权值 - 学习率 * 梯度
+</code></pre><p>方法：</p>
+<ul>
+<li>
+<p>数值法 ：利用导数定义（一般用于检查梯度，速度慢）
+$$
+\frac{dL(W)}{dW} = \lim_{h \to 0}\frac{L(W+h)-L(W)}{h}
+$$</p>
+</li>
+<li>
+<p>解析法：利用求导，速度快易出错</p>
+</li>
+</ul>
+<p>术语介绍：</p>
+<ul>
+<li>itreation：表示一次迭代，每次迭代更新一次参数</li>
+<li>batch_size：一次迭代使用的样本量</li>
+<li>epoch：表示使用了全部样本，即$1\ epoch\ =\ \frac{N}{batch\ size}$</li>
+</ul>
+<h2 id="3数据集划分">3.数据集划分</h2>
+<ul>
+<li><strong>训练集</strong>：用于给定的超参数是分类器参数学习</li>
+<li><strong>验证集</strong>：用于选择超参数</li>
+<li><strong>测试集</strong>：评估泛化能力</li>
+</ul>
+<p>划分手段：</p>
+<p><strong>K折交叉验证</strong>/带打乱的K折交叉验证</p>
+<h2 id="4数据预处理">4.数据预处理</h2>
+<ol>
+<li>去均值：去除范围影响</li>
+<li>归一化：去除量纲影响</li>
+<li>去相关：降维</li>
+<li>白化：去相关后归一化</li>
+</ol>
+<p>tips:3,4不常用于神经网络分类器</p>
 </div><div class="post-footer" id="post-footer">
-    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/java/">Java</a>
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
                 </span></div><div class="post-info-line"><div class="post-info-mod">
-                <span>更新于 Sat 2022.7.16</span>
+                <span>更新于 Mon 2022.7.25</span>
             </div><div class="post-info-mod"></div>
         </div><div class="post-info-share">
-            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/springboot_general/" data-title="SpringBoot_General" data-hashtags="Java"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/springboot_general/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
-        </div></div><div class="post-nav"><a href="/posts/java_oop/" class="prev" rel="prev" title="Java_OOP"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
-            <a href="/posts/mvc/" class="next" rel="next" title="MVC">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/" data-title="CV_3线性分类器（下）" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/" class="prev" rel="prev" title="CV_2图像分类和线性分类器（上）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" class="next" rel="next" title="CV_4全连接神经网络（上）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
 </div></article></div>
             </main>
             <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>

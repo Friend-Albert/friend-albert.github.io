@@ -3,7 +3,25 @@
         <title>所有文章 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/posts/</link>
         <description>所有文章 | FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 24 Jul 2022 14:12:26 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>Java_异常</title>
+    <link>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</link>
+    <pubDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</guid>
+    <description><![CDATA[Java 异常 1.java的异常体系 因为Java的异常是class，它的继承关系如下： ┌───────────┐ │ Object │ └───────────┘ ▲ │]]></description>
+</item>
+<item>
+    <title>CV_4全连接神经网络（上）</title>
+    <link>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link>
+    <pubDate>Mon, 25 Jul 2022 22:45:56 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid>
+    <description><![CDATA[全连接神经网络（上） 全连接神经网络通过多个变换来实现输入到输出的映射 eg.两层神经网络：$f=W_2\max(0,W_1x+b_1)+b_2]]></description>
+</item>
+<item>
+    <title>CV_3线性分类器（下）</title>
+    <link>https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/</link>
+    <pubDate>Mon, 25 Jul 2022 18:19:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/</guid>
+    <description><![CDATA[线性分类器（下） 1.正则项与超参数 含义：对模型的偏好设置 情景：如果有多个$W$均可得到最优的损失函数，该如何选择？ 定义： $$ L(w)=\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)+\lambda R(W) $$ $\frac]]></description>
+</item>
+<item>
     <title>CV_2图像分类和线性分类器（上）</title>
     <link>https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/</link>
     <pubDate>Sun, 24 Jul 2022 14:12:26 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/</guid>
@@ -16,7 +34,7 @@
     <description><![CDATA[一.前言 [https://www.bilibili.com/video/BV1V54y1B7K3?spm_id_from=333.337.s]]></description>
 </item>
 <item>
-    <title>SpringBoot_Notes</title>
+    <title>MVC</title>
     <link>https://friend-albert.github.io/posts/mvc/</link>
     <pubDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/mvc/</guid>
     <description><![CDATA[MVC设计模式（框架） 1.简介 MVC是三个单词的首字母缩写，它们是Model（模型）、View（视图）和Controller（控制）。 1.1 视图]]></description>
@@ -38,12 +56,6 @@
     <link>https://friend-albert.github.io/posts/springboot_notes/</link>
     <pubDate>Fri, 15 Jul 2022 15:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/springboot_notes/</guid>
     <description><![CDATA[1.注解（annotation） 1.1 简介 Annotation（注解）是JDK5开始引入的新特性，可以看作是一种特殊的注释，主要用于修饰类，方法]]></description>
-</item>
-<item>
-    <title>First_page</title>
-    <link>https://friend-albert.github.io/posts/first_page/</link>
-    <pubDate>Wed, 06 Jul 2022 21:20:50 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/first_page/</guid>
-    <description><![CDATA[title: 文章标题. subtitle: 文章副标题. date: 这篇文章创建的日期时间. 它通常是从文章的前置参数中的 date 字段获取的 lastmod: 上次修改内容的日期时间. draft: 如果设为 true, 除非 hugo 命令]]></description>
 </item>
 </channel>
 </rss>

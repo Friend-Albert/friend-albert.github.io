@@ -3,8 +3,14 @@
         <title>Java - 标签 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/tags/java/</link>
         <description>Java - 标签 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
-    <title>SpringBoot_Notes</title>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>Java_异常</title>
+    <link>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</link>
+    <pubDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</guid>
+    <description><![CDATA[Java 异常 1.java的异常体系 因为Java的异常是class，它的继承关系如下： ┌───────────┐ │ Object │ └───────────┘ ▲ │]]></description>
+</item>
+<item>
+    <title>MVC</title>
     <link>https://friend-albert.github.io/posts/mvc/</link>
     <pubDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/mvc/</guid>
     <description><![CDATA[MVC设计模式（框架） 1.简介 MVC是三个单词的首字母缩写，它们是Model（模型）、View（视图）和Controller（控制）。 1.1 视图]]></description>

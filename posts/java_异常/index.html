@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java_异常 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="Java_异常" />
+<meta property="og:description" content="Java 异常 1.java的异常体系 因为Java的异常是class，它的继承关系如下： ┌───────────┐ │ Object │ └───────────┘ ▲ │" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-25T23:11:02+08:00" />
+<meta property="article:modified_time" content="2022-07-25T23:11:02+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Java_异常"/>
+<meta name="twitter:description" content="Java 异常 1.java的异常体系 因为Java的异常是class，它的继承关系如下： ┌───────────┐ │ Object │ └───────────┘ ▲ │"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java_异常",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/java_%E5%BC%82%E5%B8%B8\/"
+        },"genre": "posts","keywords": "Java","wordcount":  3872 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/java_%E5%BC%82%E5%B8%B8\/","datePublished": "2022-07-25T23:11:02+08:00","dateModified": "2022-07-25T23:11:02+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">Java_异常</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java%E6%95%99%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>Java教程</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.7.25">Mon 2022.7.25</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3872 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1java的异常体系">1.java的异常体系</a>
+      <ul>
+        <li><a href="#捕获异常">捕获异常</a></li>
+        <li><a href="#查看异常">查看异常</a></li>
+      </ul>
+    </li>
+    <li><a href="#2捕获异常">2.捕获异常</a></li>
+    <li><a href="#3抛出异常">3.抛出异常</a>
+      <ul>
+        <li><a href="#异常的传播">异常的传播</a></li>
+        <li><a href="#抛出异常">抛出异常</a></li>
+        <li><a href="#异常屏蔽">异常屏蔽</a></li>
+      </ul>
+    </li>
+    <li><a href="#4自定义异常">4.自定义异常</a></li>
+    <li><a href="#5nullpointerexception">5.NullPointerException</a>
+      <ul>
+        <li><a href="#处理nullpointerexception">处理NullPointerException</a></li>
+        <li><a href="#定位nullpointerexception">定位NullPointerException</a></li>
+      </ul>
+    </li>
+    <li><a href="#5使用断言">5.使用断言</a></li>
+    <li><a href="#6使用jdk-logging">6.使用JDK Logging</a></li>
+    <li><a href="#7常用日志库使用">7.常用日志库使用</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="java-异常">Java 异常</h1>
+<h2 id="1java的异常体系">1.java的异常体系</h2>
+<p>因为Java的异常是<code>class</code>，它的继承关系如下：</p>
+<pre tabindex="0"><code class="language-ascii" data-lang="ascii">                     ┌───────────┐
+                     │  Object   │
+                     └───────────┘
+                           ▲
+                           │
+                     ┌───────────┐
+                     │ Throwable │
+                     └───────────┘
+                           ▲
+                 ┌─────────┴─────────┐
+                 │                   │
+           ┌───────────┐       ┌───────────┐
+           │   Error   │       │ Exception │
+           └───────────┘       └───────────┘
+                 ▲                   ▲
+         ┌───────┘              ┌────┴──────────┐
+         │                      │               │
+┌─────────────────┐    ┌─────────────────┐┌───────────┐
+│OutOfMemoryError │... │RuntimeException ││IOException│...
+└─────────────────┘    └─────────────────┘└───────────┘
+                                ▲
+                    ┌───────────┴─────────────┐
+                    │                         │
+         ┌─────────────────────┐ ┌─────────────────────────┐
+         │NullPointerException │ │IllegalArgumentException │...
+         └─────────────────────┘ └─────────────────────────┘
+</code></pre><p>从继承关系可知：<code>Throwable</code>是异常体系的根，它继承自<code>Object</code>。<code>Throwable</code>有两个体系：<code>Error</code>和<code>Exception</code>，<code>Error</code>表示严重的错误，程序对此一般无能为力</p>
+<p>而<code>Exception</code>则是运行时的错误，它可以被捕获并处理。</p>
+<p>某些异常是应用程序逻辑处理的一部分，应该捕获并处理。还有一些异常是程序逻辑编写不对造成的，应该修复程序本身。</p>
+<p><code>Exception</code>又分为两大类：</p>
+<ol>
+<li><code>RuntimeException</code>以及它的子类；</li>
+<li>非<code>RuntimeException</code>（包括<code>IOException</code>、<code>ReflectiveOperationException</code>等等）</li>
+</ol>
+<p><strong>Java规定：</strong></p>
+<ul>
+<li><strong>必须捕获的异常，包括<code>Exception</code>及其子类，但不包括<code>RuntimeException</code>及其子类，这种类型的异常称为Checked Exception。</strong></li>
+<li><strong>不需要捕获的异常，包括<code>Error</code>及其子类，<code>RuntimeException</code>及其子类。</strong></li>
+</ul>
+<h3 id="捕获异常">捕获异常</h3>
+<p>try&hellip;catch语句</p>
+<p><strong>例子：</strong></p>
+<p><code>String.getBytes(String)</code>方法定义是：</p>
+<pre tabindex="0"><code>public byte[] getBytes(String charsetName) throws UnsupportedEncodingException {
+    ...
+}
+</code></pre><p>在方法定义的时候，使用<code>throws Xxx</code>表示该方法可能抛出的异常类型。调用方在调用的时候，必须强制捕获这些异常，否则编译器会报错。</p>
+<p>在<code>toGBK()</code>方法中，因为调用了<code>String.getBytes(String)</code>方法，就必须捕获<code>UnsupportedEncodingException</code>。我们也可以不捕获它，而是在方法定义处用throws表示<code>toGBK()</code>方法可能会抛出<code>UnsupportedEncodingException</code>，就可以让<code>toGBK()</code>方法通过编译器检查，即将方法声明为：<code>static byte[] toGBK(String s) throws UnsupportedEncodingException</code></p>
+<h3 id="查看异常">查看异常</h3>
+<p>所有异常都可以调用<code>printStackTrace()</code>方法打印异常栈，这是一个简单有用的快速打印异常的方法。</p>
+<h2 id="2捕获异常">2.捕获异常</h2>
+<p>使用<code>try ... catch ... finally</code>时：</p>
+<ul>
+<li>多个<code>catch</code>语句的匹配顺序非常重要，子类必须放在前面；</li>
+<li><code>finally</code>语句保证了有无异常都会执行，它是可选的；</li>
+<li>一个<code>catch</code>语句也可以匹配多个非继承关系的异常。</li>
+</ul>
+<h2 id="3抛出异常">3.抛出异常</h2>
+<h3 id="异常的传播">异常的传播</h3>
+<p>当某个方法抛出了异常时，如果当前方法没有捕获异常，异常就会被抛到上层调用方法，直到遇到某个<code>try ... catch</code>被捕获为止：</p>
+<p>通过<code>printStackTrace()</code>可以打印出方法的调用栈，类似：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">NumberFormatException</span><span class="o">:</span> <span class="kc">null</span>
+</span></span><span class="line"><span class="cl">    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">base</span><span class="o">/</span><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">614</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">at</span> <span class="n">java</span><span class="o">.</span><span class="na">base</span><span class="o">/</span><span class="n">java</span><span class="o">.</span><span class="na">lang</span><span class="o">.</span><span class="na">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">Integer</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">770</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">at</span> <span class="n">Main</span><span class="o">.</span><span class="na">process2</span><span class="o">(</span><span class="n">Main</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">16</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">at</span> <span class="n">Main</span><span class="o">.</span><span class="na">process1</span><span class="o">(</span><span class="n">Main</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">12</span><span class="o">)</span>
+</span></span><span class="line"><span class="cl">    <span class="n">at</span> <span class="n">Main</span><span class="o">.</span><span class="na">main</span><span class="o">(</span><span class="n">Main</span><span class="o">.</span><span class="na">java</span><span class="o">:</span><span class="n">5</span><span class="o">)</span>
+</span></span></code></pre></div><h3 id="抛出异常">抛出异常</h3>
+<p>当发生错误时，例如，用户输入了非法的字符，我们就可以抛出异常。</p>
+<p>如何抛出异常？参考<code>Integer.parseInt()</code>方法，抛出异常分两步：</p>
+<ol>
+<li>创建某个<code>Exception</code>的实例；</li>
+<li>用<code>throw</code>语句抛出。</li>
+</ol>
+<p>实际上，绝大部分抛出异常的代码都会合并写成一行：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kt">void</span> <span class="nf">process2</span><span class="o">(</span><span class="n">String</span> <span class="n">s</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">s</span><span class="o">==</span><span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="n">NullPointerException</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>如果一个方法捕获了某个异常后，又在<code>catch</code>子句中抛出新的异常，就相当于把抛出的异常类型“转换”了而这时候打印异常调用栈则会发现丢失了原本的异常信息，只能显示转换后的异常栈，而解决这种问题的方法就是将原有异常作为参数传入新异常构造函数中，例如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">static</span> <span class="kt">void</span> <span class="nf">process1</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">process2</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NullPointerException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><blockquote>
+<p>捕获到异常并再次抛出时，一定要留住原始异常，否则很难定位第一案发现场！</p>
+</blockquote>
+<p>在<code>catch</code>中抛出异常，不会影响<code>finally</code>的执行。JVM会先执行<code>finally</code>，然后抛出异常。</p>
+<h3 id="异常屏蔽">异常屏蔽</h3>
+<p>倘若先在catch中抛出异常，随后又在finally中抛出了异常，则会发现<code>finally</code>抛出异常后，原来在<code>catch</code>中准备抛出的异常就“消失”了，因为只能抛出一个异常。没有被抛出的异常称为“被屏蔽”的异常（Suppressed Exception）。</p>
+<p>在极少数的情况下，我们需要获知所有的异常。如何保存所有的异常信息？方法是先用<code>origin</code>变量保存原始异常，然后调用<code>Throwable.addSuppressed()</code>，把原始异常添加进来，最后在<code>finally</code>抛出</p>
+<h2 id="4自定义异常">4.自定义异常</h2>
+<p>当我们在代码中需要抛出异常时，尽量使用JDK已定义的异常类型。例如，参数检查不合法，应该抛出<code>IllegalArgumentException</code>：</p>
+<p>在一个大型项目中，可以自定义新的异常类型，但是，保持一个合理的异常继承体系是非常重要的。</p>
+<p><strong>一个常见的做法是自定义一个<code>BaseException</code>作为“根异常”，然后，派生出各种业务类型的异常。</strong></p>
+<p><code>BaseException</code>需要从一个适合的<code>Exception</code>派生，通常建议从<code>RuntimeException</code>派生</p>
+<h2 id="5nullpointerexception">5.NullPointerException</h2>
+<h3 id="处理nullpointerexception">处理NullPointerException</h3>
+<p>如果遇到<code>NullPointerException</code>，我们应该如何处理？首先，必须明确，<code>NullPointerException</code>是一种代码逻辑错误，遇到<code>NullPointerException</code>，遵循原则是早暴露，早修复，严禁使用<code>catch</code>来隐藏这种编码错误</p>
+<p>好的编码习惯可以极大地降低<code>NullPointerException</code>的产生，例如：</p>
+<p>成员变量在定义时初始化：使用空字符串<code>&quot;&quot;</code>而不是默认的<code>null</code>可避免很多<code>NullPointerException</code>，编写业务逻辑时，用空字符串<code>&quot;&quot;</code>表示未填写比<code>null</code>安全得多。</p>
+<p>返回空字符串<code>&quot;&quot;</code>、空数组而不是<code>null</code>，这样可以使得调用方无需检查结果是否为<code>null</code>。</p>
+<p>如果调用方一定要根据<code>null</code>判断，比如返回<code>null</code>表示文件不存在，那么考虑返回<code>Optional&lt;T&gt;</code>：</p>
+<pre tabindex="0"><code>public Optional&lt;String&gt; readFromFile(String file) {
+    if (!fileExist(file)) {
+        return Optional.empty();
+    }
+    ...
+}
+</code></pre><p>这样调用方必须通过<code>Optional.isPresent()</code>判断是否有结果。</p>
+<h3 id="定位nullpointerexception">定位NullPointerException</h3>
+<p>如果产生了<code>NullPointerException</code>，例如，调用<code>a.b.c.x()</code>时产生了<code>NullPointerException</code>，只能通过如下方式打印日志来定位空指针：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">b</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">.</span><span class="na">b</span><span class="o">.</span><span class="na">c</span><span class="o">);</span>
+</span></span></code></pre></div><p>从Java 14开始，如果产生了<code>NullPointerException</code>，JVM可以给出详细的信息告诉我们<code>null</code>对象到底是谁。</p>
+<p>可以在<code>NullPointerException</code>的详细信息中看到类似<code>... because &quot;&lt;local1&gt;.address.city&quot; is null</code>，意思是<code>city</code>字段为<code>null</code>，这样我们就能快速定位问题所在。</p>
+<p>这种增强的<code>NullPointerException</code>详细信息是Java 14新增的功能，但默认是关闭的，我们可以给JVM添加一个<code>-XX:+ShowCodeDetailsInExceptionMessages</code>参数启用它：</p>
+<h2 id="5使用断言">5.使用断言</h2>
+<p>断言（Assertion）是一种调试程序的方式。在Java中，使用<code>assert</code>关键字来实现断言。</p>
+<p>使用<code>assert</code>语句时，还可以添加一个可选的断言消息：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="k">assert</span> <span class="n">x</span> <span class="o">&gt;=</span> <span class="n">0</span> <span class="o">:</span> <span class="s">&#34;x must &gt;= 0&#34;</span><span class="o">;</span>
+</span></span></code></pre></div><p>这样，断言失败的时候，<code>AssertionError</code>会带上消息<code>x must &gt;= 0</code>，更加便于调试。</p>
+<p>Java断言的特点是：断言失败时会抛出<code>AssertionError</code>，导致程序结束退出。因此，断言不能用于可恢复的程序错误，只应该用于开发和测试阶段。</p>
+<p><strong>要执行<code>assert</code>语句，必须给Java虚拟机传递<code>-enableassertions</code>（可简写为<code>-ea</code>）参数启用断言。</strong></p>
+<p>实际开发中，很少使用断言。更好的方法是编写单元测试，后续我们会讲解<code>JUnit</code>的使用。</p>
+<h2 id="6使用jdk-logging">6.使用JDK Logging</h2>
+<p>Java标准库内置了日志包<code>java.util.logging</code>，我们可以直接用。</p>
+<p>再仔细观察发现，4条日志，只打印了3条，<code>logger.fine()</code>没有打印。这是因为，日志的输出可以设定级别。JDK的Logging定义了7个日志级别，从严重到普通：</p>
+<ul>
+<li>SEVERE</li>
+<li>WARNING</li>
+<li>INFO</li>
+<li>&hellip;</li>
+</ul>
+<p>因为默认级别是INFO，因此，INFO级别以下的日志，不会被打印出来。使用日志级别的好处在于，调整级别，就可以屏蔽掉很多调试相关的日志输出。</p>
+<p>使用Java标准库内置的Logging有以下局限：</p>
+<p>Logging系统在JVM启动时读取配置文件并完成初始化，一旦开始运行<code>main()</code>方法，就无法修改配置；</p>
+<p>配置不太方便，需要在JVM启动时传递参数<code>-Djava.util.logging.config.file=&lt;config-file-name&gt;</code>。</p>
+<p><strong>因此一般不使用logging</strong></p>
+<h2 id="7常用日志库使用">7.常用日志库使用</h2>
+<ol>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264739155914176" target="_blank" rel="noopener noreffer">SLF4J和Logback</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264739436350112" target="_blank" rel="noopener noreffer">Log4j</a></li>
+<li><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264738932870688" target="_blank" rel="noopener noreffer">Commons Logging</a></li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/java/">Java</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Mon 2022.7.25</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" data-title="Java_异常" data-hashtags="Java"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" class="prev" rel="prev" title="CV_4全连接神经网络（上）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>
