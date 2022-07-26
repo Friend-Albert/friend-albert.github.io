@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java_核心类 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="Java_核心类" />
+<meta property="og:description" content="Java核心类 1.字符串和编码 字符串比较 当我们想要比较两个字符串是否相同时，要特别注意，我们实际上是想比较字符串的内容是否相同。必须使用eq" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-26T18:42:02+08:00" />
+<meta property="article:modified_time" content="2022-07-26T18:42:02+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Java_核心类"/>
+<meta name="twitter:description" content="Java核心类 1.字符串和编码 字符串比较 当我们想要比较两个字符串是否相同时，要特别注意，我们实际上是想比较字符串的内容是否相同。必须使用eq"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java_核心类",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/java_%E6%A0%B8%E5%BF%83%E7%B1%BB\/"
+        },"genre": "posts","keywords": "Java","wordcount":  3701 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/java_%E6%A0%B8%E5%BF%83%E7%B1%BB\/","datePublished": "2022-07-26T18:42:02+08:00","dateModified": "2022-07-26T18:42:02+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">Java_核心类</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java%E6%95%99%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>Java教程</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Tue 2022.7.26">Tue 2022.7.26</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3701 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1字符串和编码">1.字符串和编码</a>
+      <ul>
+        <li><a href="#字符串比较">字符串比较</a></li>
+        <li><a href="#去除首尾空白字符">去除首尾空白字符</a></li>
+        <li><a href="#替换子串">替换子串</a></li>
+        <li><a href="#分割字符串">分割字符串</a></li>
+        <li><a href="#拼接字符串">拼接字符串</a></li>
+        <li><a href="#格式化字符串">格式化字符串</a></li>
+        <li><a href="#类型转换">类型转换</a></li>
+        <li><a href="#字节编码">字节编码</a></li>
+      </ul>
+    </li>
+    <li><a href="#2stringbuilder">2.StringBuilder</a></li>
+    <li><a href="#3stringbuilder">3.StringBuilder</a>
+      <ul>
+        <li><a href="#stringjoin">String.join()</a></li>
+      </ul>
+    </li>
+    <li><a href="#4包装类型">4.包装类型</a>
+      <ul>
+        <li><a href="#不变类">不变类</a></li>
+        <li><a href="#5javabean">5.JavaBean</a></li>
+        <li><a href="#javabean的作用">JavaBean的作用</a></li>
+        <li><a href="#枚举javabean属性">枚举JavaBean属性</a></li>
+      </ul>
+    </li>
+    <li><a href="#5枚举">5.枚举</a>
+      <ul>
+        <li><a href="#enum">enum</a></li>
+        <li><a href="#enum的比较">enum的比较</a></li>
+      </ul>
+    </li>
+    <li><a href="#6记录类">6.记录类</a>
+      <ul>
+        <li><a href="#构造方法">构造方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#7biginteger">7.BigInteger</a></li>
+    <li><a href="#8bigdecimal">8.BigDecimal</a>
+      <ul>
+        <li><a href="#比较bigdecimal">比较BigDecimal</a></li>
+      </ul>
+    </li>
+    <li><a href="#9常用工具">9.常用工具</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="java核心类">Java核心类</h1>
+<h2 id="1字符串和编码">1.字符串和编码</h2>
+<h3 id="字符串比较">字符串比较</h3>
+<p>当我们想要比较两个字符串是否相同时，要特别注意，我们实际上是想比较字符串的内容是否相同。必须使用<code>equals()</code>方法而不能用<code>==</code>要忽略大小写比较，使用<code>equalsIgnoreCase()</code>方法</p>
+<h3 id="去除首尾空白字符">去除首尾空白字符</h3>
+<p>使用<code>trim()</code>方法可以移除字符串首尾空白字符。空白字符包括空格，<code>\t</code>，<code>\r</code>，<code>\n</code>；另一个<code>strip()</code>方法也可以移除字符串首尾空白字符。它和<code>trim()</code>不同的是，类似中文的空格字符<code>\u3000</code>也会被移除</p>
+<h3 id="替换子串">替换子串</h3>
+<p>要在字符串中替换子串，有两种方法。一种是根据字符或字符串替换，使用replace方法；</p>
+<p>另一种是通过正则表达式替换：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;A,,B;C ,D&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">s</span><span class="o">.</span><span class="na">replaceAll</span><span class="o">(</span><span class="s">&#34;[\\,\\;\\s]+&#34;</span><span class="o">,</span> <span class="s">&#34;,&#34;</span><span class="o">);</span> <span class="c1">// &#34;A,B,C,D&#34;
+</span></span></span></code></pre></div><p>上面的代码通过正则表达式，把匹配的子串统一替换为<code>&quot;,&quot;</code>。关于正则表达式的用法我们会在后面详细讲解。</p>
+<h3 id="分割字符串">分割字符串</h3>
+<p>要分割字符串，使用<code>split()</code>方法，并且传入的也是正则表达式：</p>
+<pre tabindex="0"><code>String s = &#34;A,B,C,D&#34;;
+String[] ss = s.split(&#34;\\,&#34;); // {&#34;A&#34;, &#34;B&#34;, &#34;C&#34;, &#34;D&#34;}
+</code></pre><h3 id="拼接字符串">拼接字符串</h3>
+<p>拼接字符串使用静态方法<code>join()</code>，它用指定的字符串连接字符串数组：</p>
+<pre tabindex="0"><code>String[] arr = {&#34;A&#34;, &#34;B&#34;, &#34;C&#34;};
+String s = String.join(&#34;***&#34;, arr); // &#34;A***B***C&#34;
+</code></pre><h3 id="格式化字符串">格式化字符串</h3>
+<p>字符串提供了<code>formatted()</code>方法和<code>format()</code>静态方法，可以传入其他参数，替换占位符，然后生成新的字符串：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;Hi %s, your score is %d!&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">s</span><span class="o">.</span><span class="na">formatted</span><span class="o">(</span><span class="s">&#34;Alice&#34;</span><span class="o">,</span> <span class="n">80</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">String</span><span class="o">.</span><span class="na">format</span><span class="o">(</span><span class="s">&#34;Hi %s, your score is %.2f!&#34;</span><span class="o">,</span> <span class="s">&#34;Bob&#34;</span><span class="o">,</span> <span class="n">59</span><span class="o">.</span><span class="na">5</span><span class="o">));</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="类型转换">类型转换</h3>
+<p>要把任意基本类型或引用类型转换为字符串，可以使用静态方法<code>valueOf()</code>。要把字符串转换为其他类型，就需要根据情况使用诸如<code>parseInt,parseBoolean</code>等一系列方法，也可以通过<code>toCahrArray</code>转换为字符数组。</p>
+<h3 id="字节编码">字节编码</h3>
+<p>在Java中，<code>char</code>类型实际上就是两个字节的<code>Unicode</code>编码。如果我们要手动把字符串转换成其他编码，可以这样做：</p>
+<pre tabindex="0"><code>byte[] b1 = &#34;Hello&#34;.getBytes(); // 按系统默认编码转换，不推荐
+byte[] b2 = &#34;Hello&#34;.getBytes(&#34;UTF-8&#34;); // 按UTF-8编码转换
+byte[] b2 = &#34;Hello&#34;.getBytes(&#34;GBK&#34;); // 按GBK编码转换
+byte[] b3 = &#34;Hello&#34;.getBytes(StandardCharsets.UTF_8); // 按UTF-8编码转换
+</code></pre><p>注意：转换编码后，就不再是<code>char</code>类型，而是<code>byte</code>类型表示的数组。</p>
+<p>如果要把已知编码的<code>byte[]</code>转换为<code>String</code>，可以这样做：</p>
+<pre tabindex="0"><code>byte[] b = ...
+String s1 = new String(b, &#34;GBK&#34;); // 按GBK转换
+String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
+</code></pre><p>始终牢记：Java的<code>String</code>和<code>char</code>在内存中总是以Unicode编码表示。</p>
+<h2 id="2stringbuilder">2.StringBuilder</h2>
+<p>为了能高效拼接字符串，Java标准库提供了<code>StringBuilder</code>，它是一个可变对象，可以预分配缓冲区，这样，往<code>StringBuilder</code>中新增字符时，不会创建新的临时对象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="n">1024</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">1000</span><span class="o">;</span> <span class="n">i</span><span class="o">++)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="sc">&#39;,&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="n">sb</span><span class="o">.</span><span class="na">append</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">sb</span><span class="o">.</span><span class="na">toString</span><span class="o">();</span>
+</span></span></code></pre></div><h2 id="3stringbuilder">3.StringBuilder</h2>
+<p>使用StringBuilder按照指定分隔符拼接字符串</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">String</span><span class="o">[]</span> <span class="n">names</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;Bob&#34;</span><span class="o">,</span> <span class="s">&#34;Alice&#34;</span><span class="o">,</span> <span class="s">&#34;Grace&#34;</span><span class="o">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">sj</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringJoiner</span><span class="o">(</span><span class="s">&#34;, &#34;</span><span class="o">,</span> <span class="s">&#34;Hello &#34;</span><span class="o">,</span> <span class="s">&#34;!&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">(</span><span class="n">String</span> <span class="n">name</span> <span class="o">:</span> <span class="n">names</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl"><span class="n">sj</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">name</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">sj</span><span class="o">.</span><span class="na">toString</span><span class="o">());</span>
+</span></span></code></pre></div><h3 id="stringjoin">String.join()</h3>
+<p><code>String</code>还提供了一个静态方法<code>join()</code>，这个方法在内部使用了<code>StringJoiner</code>来拼接字符串，在不需要指定“开头”和“结尾”的时候，用<code>String.join()</code>更方便：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">String</span><span class="o">[]</span> <span class="n">names</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;Bob&#34;</span><span class="o">,</span> <span class="s">&#34;Alice&#34;</span><span class="o">,</span> <span class="s">&#34;Grace&#34;</span><span class="o">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">var</span> <span class="n">s</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">&#34;, &#34;</span><span class="o">,</span> <span class="n">names</span><span class="o">);</span>
+</span></span></code></pre></div><h2 id="4包装类型">4.包装类型</h2>
+<p>Java的数据类型分两种：</p>
+<ul>
+<li>基本类型：<code>byte</code>，<code>short</code>，<code>int</code>，<code>long</code>，<code>boolean</code>，<code>float</code>，<code>double</code>，<code>char</code></li>
+<li>引用类型：所有<code>class</code>和<code>interface</code>类型</li>
+</ul>
+<p>如果想要把<code>int</code>基本类型变成一个引用类型，我们可以定义一个<code>Integer</code>类，它只包含一个实例字段<code>int</code>，这样，<code>Integer</code>类就可以视为<code>int</code>的包装类（Wrapper Class）。</p>
+<p>实际上，因为包装类型非常有用，Java核心库为每种基本类型都提供了对应的包装类型。</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:left">基本类型</th>
+<th style="text-align:left">对应的引用类型</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left">boolean</td>
+<td style="text-align:left">java.lang.Boolean</td>
+</tr>
+<tr>
+<td style="text-align:left">byte</td>
+<td style="text-align:left">java.lang.Byte</td>
+</tr>
+<tr>
+<td style="text-align:left">short</td>
+<td style="text-align:left">java.lang.Short</td>
+</tr>
+<tr>
+<td style="text-align:left">int</td>
+<td style="text-align:left">java.lang.Integer</td>
+</tr>
+<tr>
+<td style="text-align:left">long</td>
+<td style="text-align:left">java.lang.Long</td>
+</tr>
+<tr>
+<td style="text-align:left">float</td>
+<td style="text-align:left">java.lang.Float</td>
+</tr>
+<tr>
+<td style="text-align:left">double</td>
+<td style="text-align:left">java.lang.Double</td>
+</tr>
+<tr>
+<td style="text-align:left">char</td>
+<td style="text-align:left">java.lang.Character</td>
+</tr>
+</tbody>
+</table>
+<h3 id="不变类">不变类</h3>
+<p>所有的包装类型都是不变类。我们查看<code>Integer</code>的源码可知，它的核心代码如下：</p>
+<pre tabindex="0"><code>public final class Integer {
+    private final int value;
+}
+</code></pre><p>因此，一旦创建了<code>Integer</code>对象，该对象就是不变的。</p>
+<p>对两个<code>Integer</code>实例进行比较要特别注意：<strong>绝对不能用<code>==</code>比较，因为<code>Integer</code>是引用类型，必须使用<code>equals()</code>比较</strong></p>
+<p>因为<code>Integer.valueOf()</code>可能始终返回同一个<code>Integer</code>实例，因此，在我们自己创建<code>Integer</code>的时候，以下两种方法：</p>
+<ul>
+<li>方法1：<code>Integer n = new Integer(100);</code></li>
+<li>方法2：<code>Integer n = Integer.valueOf(100);</code></li>
+</ul>
+<p>方法2更好，因为方法1总是创建新的<code>Integer</code>实例，方法2把内部优化留给<code>Integer</code>的实现者去做，即使在当前版本没有优化，也有可能在下一个版本进行优化。</p>
+<p><strong>我们把能创建“新”对象的静态方法称为静态工厂方法。<code>Integer.valueOf()</code>就是静态工厂方法，它尽可能地返回缓存的实例以节省内存。</strong></p>
+<blockquote>
+<p>创建新对象时，优先选用静态工厂方法而不是new操作符。</p>
+</blockquote>
+<h3 id="5javabean">5.JavaBean</h3>
+<p>在Java中，有很多<code>class</code>的定义都符合这样的规范：</p>
+<ul>
+<li>若干<code>private</code>实例字段；</li>
+<li>通过<code>public</code>方法来读写实例字段。</li>
+</ul>
+<p>如果读写方法符合以下这种命名规范：</p>
+<pre tabindex="0"><code>// 读方法:
+public Type getXyz()
+// 写方法:
+public void setXyz(Type value)
+</code></pre><p>那么这种<code>class</code>被称为<code>JavaBean</code>，而<code>boolean</code>字段比较特殊，它的读方法一般命名为<code>isXyz()</code></p>
+<h3 id="javabean的作用">JavaBean的作用</h3>
+<p>JavaBean主要用来传递数据，即把一组数据组合成一个JavaBean便于传输。此外，JavaBean可以方便地被IDE工具分析，生成读写属性的代码，主要用在图形界面的可视化设计中。</p>
+<h3 id="枚举javabean属性">枚举JavaBean属性</h3>
+<p>要枚举一个JavaBean的所有属性，可以直接使用Java核心库提供的<code>Introspector</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">BeanInfo</span> <span class="n">info</span> <span class="o">=</span> <span class="n">Introspector</span><span class="o">.</span><span class="na">getBeanInfo</span><span class="o">(</span><span class="n">Person</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="k">for</span> <span class="o">(</span><span class="n">PropertyDescriptor</span> <span class="n">pd</span> <span class="o">:</span> <span class="n">info</span><span class="o">.</span><span class="na">getPropertyDescriptors</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">pd</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;  &#34;</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="na">getReadMethod</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;  &#34;</span> <span class="o">+</span> <span class="n">pd</span><span class="o">.</span><span class="na">getWriteMethod</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="5枚举">5.枚举</h2>
+<p>在Java中，我们可以通过<code>static final</code>来定义常量。无论是<code>int</code>常量还是<code>String</code>常量，使用这些常量来表示一组枚举值的时候，有一个严重的问题就是，编译器无法检查每个值的合理性。</p>
+<h3 id="enum">enum</h3>
+<p>为了让编译器能自动检查某个值在枚举的集合内，并且，不同用途的枚举需要不同的类型来标记，不能混用，我们可以使用<code>enum</code>来定义枚举类</p>
+<ul>
+<li><code>enum</code>常量本身带有类型信息，即<code>Weekday.SUN</code>类型是<code>Weekday</code>，编译器会自动检查出类型错误。</li>
+<li>不可能引用到非枚举的值，因为无法通过编译。</li>
+<li>不同类型的枚举不能互相比较或者赋值，因为类型不符。</li>
+</ul>
+<h3 id="enum的比较">enum的比较</h3>
+<p>使用<code>enum</code>定义的枚举类是一种引用类型。前面我们讲到，引用类型比较，要使用<code>equals()</code>方法，如果使用<code>==</code>比较，它比较的是两个引用类型的变量是否是同一个对象。因此，引用类型比较，要始终使用<code>equals()</code>方法，但<code>enum</code>类型可以例外。</p>
+<p>这是<strong>因为<code>enum</code>类型的每个常量在JVM中只有一个唯一实例，所以可以直接用<code>==</code>比较</strong>。</p>
+<ul>
+<li>
+<p>通过<code>name()</code>获取常量定义的字符串，注意不要使用<code>toString()</code></p>
+</li>
+<li>
+<p>通过<code>ordinal()</code>返回常量定义的顺序（无实质意义）</p>
+</li>
+</ul>
+<h2 id="6记录类">6.记录类</h2>
+<p>使用<code>String</code>、<code>Integer</code>等类型的时候，这些类型都是不变类，一个不变类具有以下特点：</p>
+<ol>
+<li>定义class时使用<code>final</code>，无法派生子类；</li>
+<li>每个字段使用<code>final</code>，保证创建实例后无法修改任何字段。</li>
+</ol>
+<p>从Java 14开始，提供新的<code>record</code>关键字，可以非常方便地定义Data Class：</p>
+<ul>
+<li>使用<code>record</code>定义的是不变类；</li>
+<li>可以编写Compact Constructor对参数进行验证；</li>
+<li>可以定义静态方法。</li>
+</ul>
+<h3 id="构造方法">构造方法</h3>
+<p>编译器默认按照<code>record</code>声明的变量顺序自动创建一个构造方法，并在方法内给字段赋值。那么问题来了，如果我们要检查参数，应该怎么办？</p>
+<p>假设<code>Point</code>类的<code>x</code>、<code>y</code>不允许负数，我们就得给<code>Point</code>的构造方法加上检查逻辑：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">record</span> <span class="nf">Point</span><span class="o">(</span><span class="kt">int</span> <span class="n">x</span><span class="o">,</span> <span class="kt">int</span> <span class="n">y</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">Point</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">x</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">y</span> <span class="o">&lt;</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="k">throw</span> <span class="k">new</span> <span class="n">IllegalArgumentException</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="7biginteger">7.BigInteger</h2>
+<p>对<code>BigInteger</code>做运算的时候，只能使用实例方法，例如，加法运算：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">BigInteger</span> <span class="n">i1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="s">&#34;1234567890&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">BigInteger</span> <span class="n">i2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">BigInteger</span><span class="o">(</span><span class="s">&#34;12345678901234567890&#34;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="n">BigInteger</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">i1</span><span class="o">.</span><span class="na">add</span><span class="o">(</span><span class="n">i2</span><span class="o">);</span> <span class="c1">// 12345678902469135780
+</span></span></span></code></pre></div><p>和<code>long</code>型整数运算比，<code>BigInteger</code>不会有范围限制，但缺点是速度比较慢。</p>
+<p>通过形如<code>doubleValue()</code>方法，可以把<code>BigInteger</code>转换成基本类型。如果<code>BigInteger</code>表示的范围超过了基本类型的范围，转换时将丢失高位信息，即结果不一定是准确的。如果需要准确地转换成基本类型，可以使用<code>intValueExact()</code>、<code>longValueExact()</code>等方法，在转换时如果超出范围，将直接抛出<code>ArithmeticException</code>异常。</p>
+<h2 id="8bigdecimal">8.BigDecimal</h2>
+<p><code>BigDecimal</code>用<code>scale()</code>表示小数位数，如果一个<code>BigDecimal</code>的<code>scale()</code>返回负数，例如，<code>-2</code>，表示这个数是个整数，并且末尾有2个0。可以对一个<code>BigDecimal</code>设置它的<code>scale</code>，如果精度比原始值低，那么按照指定的方法进行四舍五入或者直接截断</p>
+<p>通过<code>BigDecimal</code>的<code>stripTrailingZeros()</code>方法，可以将一个<code>BigDecimal</code>格式化为一个相等的，但去掉了末尾0的<code>BigDecimal</code></p>
+<h3 id="比较bigdecimal">比较BigDecimal</h3>
+<p>在比较两个<code>BigDecimal</code>的值是否相等时，要特别注意，使用<code>equals()</code>方法不但要求两个<code>BigDecimal</code>的值相等，还要求它们的<code>scale()</code>相等：</p>
+<p><strong>必须使用<code>compareTo()</code>方法来比较，它根据两个值的大小分别返回负数、正数和<code>0</code>，分别表示小于、大于和等于。</strong></p>
+<h2 id="9常用工具">9.常用工具</h2>
+<p>Java提供的常用工具类有：</p>
+<ul>
+<li>Math：数学计算</li>
+<li>Random：生成伪随机数</li>
+<li>SecureRandom：生成安全的随机数</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/java/">Java</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Tue 2022.7.26</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" data-title="Java_核心类" data-hashtags="Java"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" class="prev" rel="prev" title="CV_4全连接神经网络（中）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

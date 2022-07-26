@@ -3,7 +3,13 @@
         <title>计算机视觉与深度学习 - 分类 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <description>计算机视觉与深度学习 - 分类 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 25 Jul 2022 22:45:56 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>CV_4全连接神经网络（中）</title>
+    <link>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</link>
+    <pubDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</guid>
+    <description><![CDATA[全连接神经网络（中） 1.梯度消失与梯度爆炸 梯度消失将导致参数无法更新，网络无法继续训练（无解决方法） eg.sigmoid函数的导数$\in(]]></description>
+</item>
+<item>
     <title>CV_4全连接神经网络（上）</title>
     <link>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link>
     <pubDate>Mon, 25 Jul 2022 22:45:56 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid>

@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_4全连接神经网络（中） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_4全连接神经网络（中）" />
+<meta property="og:description" content="全连接神经网络（中） 1.梯度消失与梯度爆炸 梯度消失将导致参数无法更新，网络无法继续训练（无解决方法） eg.sigmoid函数的导数$\in(" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-26T18:03:16+08:00" />
+<meta property="article:modified_time" content="2022-07-26T18:03:16+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_4全连接神经网络（中）"/>
+<meta name="twitter:description" content="全连接神经网络（中） 1.梯度消失与梯度爆炸 梯度消失将导致参数无法更新，网络无法继续训练（无解决方法） eg.sigmoid函数的导数$\in("/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" /><link rel="prev" href="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" /><link rel="next" href="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_4全连接神经网络（中）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD\/"
+        },"genre": "posts","keywords": "CV","wordcount":  896 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD\/","datePublished": "2022-07-26T18:03:16+08:00","dateModified": "2022-07-26T18:03:16+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_4全连接神经网络（中）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Tue 2022.7.26">Tue 2022.7.26</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 896 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1梯度消失与梯度爆炸">1.梯度消失与梯度爆炸</a></li>
+    <li><a href="#2激活函数再议">2.激活函数再议</a></li>
+    <li><a href="#3梯度算法改进">3.梯度算法改进</a>
+      <ul>
+        <li><a href="#动量法利用累加历史梯度信息更新梯度">动量法：利用累加历史梯度信息更新梯度</a></li>
+        <li><a href="#自适应梯度法调整不同方向的学习率-adagradtormsprop">自适应梯度法：调整不同方向的学习率 AdaGrad$\to$RMSProp</a></li>
+        <li><a href="#adam方法同时使用上述两种方法">ADAM方法：同时使用上述两种方法</a></li>
+      </ul>
+    </li>
+    <li><a href="#4权值初始化">4.权值初始化</a>
+      <ul>
+        <li><a href="#xaiver初始化当激活函数为sigmoid或者tanh函数时">Xaiver初始化——当激活函数为sigmoid或者tanh函数时</a></li>
+        <li><a href="#he初始化当激活函数为relu时">HE初始化——当激活函数为Relu时</a></li>
+      </ul>
+    </li>
+    <li><a href="#5批归一化">5.批归一化</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="全连接神经网络中">全连接神经网络（中）</h1>
+<h2 id="1梯度消失与梯度爆炸">1.梯度消失与梯度爆炸</h2>
+<p>梯度消失将导致参数无法更新，网络无法继续训练（无解决方法）</p>
+<p>eg.sigmoid函数的导数$\in(0,\frac{1}{4}])$使得回传梯度不断变小</p>
+<p>梯度爆炸使得步长过大，超出合理区域，使得算法无法收敛</p>
+<p>解决方法：限制步长最大值——梯度裁剪</p>
+<h2 id="2激活函数再议">2.激活函数再议</h2>
+<ol>
+<li>
+<p>一般不使用sigmoid以及tanh函数：</p>
+<p>局部梯度特性不利（导数小，容易导致梯度消失）</p>
+</li>
+<li>
+<p>常用relu或者leaky relu函数：</p>
+<ul>
+<li>relu：输入大于0时，梯度恒为1，特性好，利于计算</li>
+<li>leaky relu：基本没有死区（除零点），局部梯度特性最佳</li>
+</ul>
+</li>
+</ol>
+<h2 id="3梯度算法改进">3.梯度算法改进</h2>
+<p>原有问题：<strong>损失函数在不同方向上的变化差异大</strong>$\to$在山壁间不断震荡但是在朝低谷方向上行进缓慢（增大步长难以解决）</p>
+<p>改进方法：</p>
+<h3 id="动量法利用累加历史梯度信息更新梯度">动量法：利用累加历史梯度信息更新梯度</h3>
+<p>分析历史数据来消去震荡，从而凸显真正方向</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s2.loli.net/2022/07/26/Hg5s14yJCN2kiqU.png"
+        data-srcset="https://s2.loli.net/2022/07/26/Hg5s14yJCN2kiqU.png, https://s2.loli.net/2022/07/26/Hg5s14yJCN2kiqU.png 1.5x, https://s2.loli.net/2022/07/26/Hg5s14yJCN2kiqU.png 2x"
+        data-sizes="auto"
+        alt="https://s2.loli.net/2022/07/26/Hg5s14yJCN2kiqU.png"
+        title="image-20220726181206771" /></p>
+<p>还可以<strong>冲出局部最小以及鞍点（常见于高维空间）来找到更好解</strong></p>
+<h3 id="自适应梯度法调整不同方向的学习率-adagradtormsprop">自适应梯度法：调整不同方向的学习率 AdaGrad$\to$RMSProp</h3>
+<ul>
+<li>梯度幅度平方大的方向是震荡方向</li>
+<li>梯度幅度平方小的方向是平坦方向</li>
+</ul>
+<p>同时为了纠正当$r\to \infty$时学习率过小的问题，采用了RMSProp方法，修正$r=pr+(1-p)g^2\quad p=0.999(一般情况下)$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/07/26/00d3938498cbd660.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/07/26/00d3938498cbd660.png, https://s3.bmp.ovh/imgs/2022/07/26/00d3938498cbd660.png 1.5x, https://s3.bmp.ovh/imgs/2022/07/26/00d3938498cbd660.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/07/26/00d3938498cbd660.png"
+        title="image-20220726181725077" /></p>
+<h3 id="adam方法同时使用上述两种方法">ADAM方法：同时使用上述两种方法</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/07/26/366de6bdec242d75.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/07/26/366de6bdec242d75.png, https://s3.bmp.ovh/imgs/2022/07/26/366de6bdec242d75.png 1.5x, https://s3.bmp.ovh/imgs/2022/07/26/366de6bdec242d75.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/07/26/366de6bdec242d75.png"
+        title="https://s3.bmp.ovh/imgs/2022/07/26/366de6bdec242d75.png" /></p>
+<p>通过<strong>修正偏差这一步可以解决算法初期的冷启动问题</strong>：由于衰减速率以及动量系数均很大，因此无修正偏差的话会导致算法初期学习效率很低</p>
+<h2 id="4权值初始化">4.权值初始化</h2>
+<p>有效初始化：使得网络各层激活值和局部梯度的方差在传播过程中一致，因此保证网络中正、反向数据流动</p>
+<h3 id="xaiver初始化当激活函数为sigmoid或者tanh函数时">Xaiver初始化——当激活函数为sigmoid或者tanh函数时</h3>
+<p>采样$N(0,\frac{1}{N})$的高斯分布来初始化</p>
+<p>推导过程如下：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/07/26/94eddd9a51e218eb.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/07/26/94eddd9a51e218eb.png, https://s3.bmp.ovh/imgs/2022/07/26/94eddd9a51e218eb.png 1.5x, https://s3.bmp.ovh/imgs/2022/07/26/94eddd9a51e218eb.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/07/26/94eddd9a51e218eb.png"
+        title="image-20220726183726160" /></p>
+<h3 id="he初始化当激活函数为relu时">HE初始化——当激活函数为Relu时</h3>
+<p>采样$N(0,\frac{2}{N})$的高斯分布来初始化</p>
+<h2 id="5批归一化">5.批归一化</h2>
+<p>调整权值分布使得输入输出具有相同分布</p>
+<p>eg.有32样本，则有32输出$y_1,&hellip;,y_{32}$对这32个输出进行归一化（减均值除方差），因此只需要每层每个神经元均进行批归一化即可</p>
+<p><strong>经常用于全连接层后，非线性激活函数前</strong></p>
+<h2 id="总结">总结</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/07/26/2bb7594aae7331ee.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/07/26/2bb7594aae7331ee.png, https://s3.bmp.ovh/imgs/2022/07/26/2bb7594aae7331ee.png 1.5x, https://s3.bmp.ovh/imgs/2022/07/26/2bb7594aae7331ee.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/07/26/2bb7594aae7331ee.png"
+        title="image-20220726184043034" /></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Tue 2022.7.26</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" data-title="CV_4全连接神经网络（中）" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/java_%E5%BC%82%E5%B8%B8/" class="prev" rel="prev" title="Java_异常"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" class="next" rel="next" title="Java_核心类">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

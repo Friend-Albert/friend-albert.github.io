@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/friend-albert.github.io\/posts\/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A\/"
-        },"genre": "posts","keywords": "CV","wordcount":  924 ,
+        },"genre": "posts","keywords": "CV","wordcount":  986 ,
         "url": "https:\/\/friend-albert.github.io\/posts\/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A\/","datePublished": "2022-07-25T22:45:56+08:00","dateModified": "2022-07-25T22:45:56+08:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
@@ -104,7 +104,7 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_4全连接神经网络（上）</h2><div class="post-meta">
                 <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
-                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.7.25">Mon 2022.7.25</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 924 字</span>&nbsp;
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.7.25">Mon 2022.7.25</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 986 字</span>&nbsp;
                     <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</span>&nbsp;</div>
             </div>
             
@@ -168,7 +168,7 @@
 <li>相对熵 $KL(p||q)=-\sum_{x}p(x)\log^{\frac{q(x)}{p(x)}}$——度量概率分布间的不相似性</li>
 <li>关系$H(p,q)=H(p)+KL(p||q)$</li>
 </ul>
-<p>由于真实概率分布一定为一个独热向量（one-hot vector），即一个维度为1，其余维度均为0的概率分布向量，因此$H(p)$一定为0，因此在全连接神经网络中交叉熵$H(p,q)$等于相对熵$KL(p||q)$</p>
+<p>由于真实概率分布一定为一个独热向量（one-hot vector），即一个维度为1，其余维度均为0的概率分布向量，因此$H(p)$一定为0，因此在全连接神经网络中交叉熵$H(p,q)$等于相对熵$KL(p||q)$，即：$-\sum_{i=1}^{c}p(x_i)\log{q(x_i)}=-\log{q_j}$其中j为真实类别的预测概率</p>
 <p>对比多类支撑向量机损失</p>
 <p><strong>多类支撑向量机损失：只高一分即可，高于一分则认为没有损失</strong></p>
 <p><strong>交叉熵损失：正确概率越高越好，错误越低越好</strong></p>

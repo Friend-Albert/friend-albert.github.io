@@ -3,7 +3,13 @@
         <title>Java - 标签 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/tags/java/</link>
         <description>Java - 标签 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 18:42:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>Java_核心类</title>
+    <link>https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/</link>
+    <pubDate>Tue, 26 Jul 2022 18:42:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/</guid>
+    <description><![CDATA[Java核心类 1.字符串和编码 字符串比较 当我们想要比较两个字符串是否相同时，要特别注意，我们实际上是想比较字符串的内容是否相同。必须使用eq]]></description>
+</item>
+<item>
     <title>Java_异常</title>
     <link>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</link>
     <pubDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</guid>
