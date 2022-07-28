@@ -3,11 +3,23 @@
         <title>CV - 标签 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/tags/cv/</link>
         <description>CV - 标签 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/cv/" rel="self" type="application/rss+xml" /><item>
-    <title>CV_4全连接神经网络（中）</title>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 18:02:55 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/cv/" rel="self" type="application/rss+xml" /><item>
+    <title>CV_7卷积&amp;图像去噪&amp;边缘提取</title>
+    <link>https://friend-albert.github.io/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/</link>
+    <pubDate>Thu, 28 Jul 2022 18:02:55 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/</guid>
+    <description><![CDATA[卷积&amp;图像去噪&amp;边缘提取 1.噪声图像 某一点同周围像素差别大$\to$视觉上突兀 2.卷积 数学定义：设F为图像，H为卷积核，F与]]></description>
+</item>
+<item>
+    <title>CV_5全连接神经网络（中）</title>
     <link>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</link>
     <pubDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</guid>
     <description><![CDATA[全连接神经网络（中） 1.梯度消失与梯度爆炸 梯度消失将导致参数无法更新，网络无法继续训练（无解决方法） eg.sigmoid函数的导数$\in(]]></description>
+</item>
+<item>
+    <title>CV_6全连接神经网络（下）</title>
+    <link>https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</link>
+    <pubDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</guid>
+    <description><![CDATA[全连接神经网络（下） 1.欠拟合、过拟合、dropout 过拟合——参数过多，只记住数据而非学习到了特征 欠拟合——过于简单，找不到数据特征 机器学]]></description>
 </item>
 <item>
     <title>CV_4全连接神经网络（上）</title>
