@@ -3,7 +3,13 @@
         <title>Java - 标签 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/tags/java/</link>
         <description>Java - 标签 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 26 Jul 2022 18:42:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 21:51:12 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>Java_反射</title>
+    <link>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</link>
+    <pubDate>Thu, 28 Jul 2022 21:51:12 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</guid>
+    <description><![CDATA[反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。 正常情况下，如果我们要调用一个对象的]]></description>
+</item>
+<item>
     <title>Java_核心类</title>
     <link>https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/</link>
     <pubDate>Tue, 26 Jul 2022 18:42:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/</guid>

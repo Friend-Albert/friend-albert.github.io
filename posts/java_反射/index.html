@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Java_反射 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="Java_反射" />
+<meta property="og:description" content="反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。 正常情况下，如果我们要调用一个对象的" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-28T21:51:12+08:00" />
+<meta property="article:modified_time" content="2022-07-28T21:51:12+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Java_反射"/>
+<meta name="twitter:description" content="反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。 正常情况下，如果我们要调用一个对象的"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Java_反射",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/java_%E5%8F%8D%E5%B0%84\/"
+        },"genre": "posts","keywords": "Java","wordcount":  3658 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/java_%E5%8F%8D%E5%B0%84\/","datePublished": "2022-07-28T21:51:12+08:00","dateModified": "2022-07-28T21:51:12+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">Java_反射</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java%E6%95%99%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>Java教程</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Thu 2022.7.28">Thu 2022.7.28</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3658 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1class类">1.Class类</a></li>
+    <li><a href="#2访问字段">2.访问字段</a></li>
+    <li><a href="#3调用方法">3.调用方法</a>
+      <ul>
+        <li><a href="#调用静态方法">调用静态方法</a></li>
+        <li><a href="#调用非public方法">调用非public方法</a></li>
+        <li><a href="#多态">多态</a></li>
+      </ul>
+    </li>
+    <li><a href="#4调用构造方法">4.调用构造方法</a></li>
+    <li><a href="#5继承关系">5.继承关系</a></li>
+    <li><a href="#6动态代理">6.动态代理</a></li>
+    <li><a href="#-示例代码"># 示例代码</a>
+      <ul>
+        <li><a href="#1从class实例获取获取的基本信息">1.从Class实例获取获取的基本信息</a></li>
+        <li><a href="#2获取父类信息">2.获取父类信息</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="反射">反射</h1>
+<p>什么是反射？</p>
+<p>反射就是Reflection，<strong>Java的反射是指程序在运行期可以拿到一个对象的所有信息。</strong></p>
+<p>正常情况下，如果我们要调用一个对象的方法，或者访问一个对象的字段，通常会传入对象实例，但是，如果不能获得<code>Person</code>类，只有一个<code>Object</code>实例，怎么办？可以使用强制转型，写出如下代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">String</span> <span class="nf">getFullName</span><span class="o">(</span><span class="n">Object</span> <span class="n">obj</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="o">(</span><span class="n">Person</span><span class="o">)</span> <span class="n">obj</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">p</span><span class="o">.</span><span class="na">getFirstName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; &#34;</span> <span class="o">+</span> <span class="n">p</span><span class="o">.</span><span class="na">getLastName</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>但是在强制转型的时候，你会发现一个问题：编译上面的代码，仍然需要引用<code>Person</code>类。不然，去掉<code>import</code>语句，是无法编译通过的，所以，反射是为了解决在运行期，对某个实例一无所知的情况下，如何调用其方法。</p>
+<h2 id="1class类">1.Class类</h2>
+<p>除了<code>int</code>等基本类型外，Java的其他类型全部都是<code>class</code>（包括<code>interface</code>）。例如：</p>
+<ul>
+<li><code>String</code></li>
+<li><code>Object</code></li>
+<li><code>Runnable</code></li>
+<li><code>Exception</code></li>
+<li>&hellip;</li>
+</ul>
+<p>仔细思考，我们可以得出结论：<code>class</code>（包括<code>interface</code>）的本质是数据类型（<code>Type</code>）。而<code>class</code>是由JVM在执行过程中动态加载的。JVM在第一次读取到一种<code>class</code>类型时，将其加载进内存。</p>
+<p>每加载一种<code>class</code>，JVM就为其创建一个<code>Class</code>类型的实例，并关联起来。注意：这里的<code>Class</code>类型是一个名叫<code>Class</code>的<code>class</code>。它长这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Class</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="nf">Class</span><span class="o">()</span> <span class="o">{}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>以<code>String</code>类为例，当JVM加载<code>String</code>类时，它首先读取<code>String.class</code>文件到内存，然后，为<code>String</code>类创建一个<code>Class</code>实例并关联起来：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Class</span><span class="o">(</span><span class="n">String</span><span class="o">);</span>
+</span></span></code></pre></div><p>这个<code>Class</code>实例是JVM内部创建的，如果我们查看JDK源码，可以发现<code>Class</code>类的构造方法是<code>private</code>，只有JVM能创建<code>Class</code>实例，我们自己的Java程序是无法创建<code>Class</code>实例的。</p>
+<p><strong>所以，JVM持有的每个<code>Class</code>实例都指向一个数据类型（<code>class</code>或<code>interface</code>）！</strong></p>
+<p>由于JVM为每个加载的<code>class</code>创建了对应的<code>Class</code>实例，并在实例中保存了该<code>class</code>的所有信息，包括类名、包名、父类、实现的接口、所有方法、字段等，因此，如果获取了某个<code>Class</code>实例，我们就可以通过这个<code>Class</code>实例获取到该实例对应的<code>class</code>的所有信息。</p>
+<p>这种通过<code>Class</code>实例获取<code>class</code>信息的方法称为反射（Reflection）。</p>
+<p>如何获取一个<code>class</code>的<code>Class</code>实例？有三个方法：</p>
+<p>方法一：直接通过一个<code>class</code>的静态变量<code>class</code>获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</span></span></code></pre></div><p>方法二：如果我们有一个实例变量，可以通过该实例变量提供的<code>getClass()</code>方法获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">getClass</span><span class="o">();</span>
+</span></span></code></pre></div><p>方法三：如果知道一个<code>class</code>的完整类名，可以通过静态方法<code>Class.forName()</code>获取：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="s">&#34;java.lang.String&#34;</span><span class="o">);</span>
+</span></span></code></pre></div><p>因为<code>Class</code>实例在JVM中是唯一的，所以，上述方法获取的<code>Class</code>实例是同一个实例。可以用<code>==</code>比较两个<code>Class</code>实例。</p>
+<p>如果获取到了一个<code>Class</code>实例，我们就可以通过该<code>Class</code>实例来创建对应类型的实例：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="c1">// 获取String的Class实例:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">Class</span> <span class="n">cls</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 创建一个String实例:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">cls</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+</span></span></code></pre></div><p>上述代码相当于<code>new String()</code>。通过<code>Class.newInstance()</code>可以创建类实例，它的局限是：只能调用<code>public</code>的无参数构造方法。带参数的构造方法，或者非<code>public</code>的构造方法都无法通过<code>Class.newInstance()</code>被调用。</p>
+<h2 id="2访问字段">2.访问字段</h2>
+<p>对任意的一个<code>Object</code>实例，只要我们获取了它的<code>Class</code>，就可以获取它的一切信息。<code>Class</code>类提供了以下几个方法来获取字段：</p>
+<ul>
+<li><code>Field getField(name)</code>：根据字段名获取某个public的field（包括父类）</li>
+<li><code>Field getDeclaredField(name)</code>：根据字段名获取当前类的某个field（不包括父类）</li>
+<li><code>Field[] getFields()</code>：获取所有public的field（包括父类）</li>
+<li><code>Field[] getDeclaredFields()</code>：获取当前类的所有field（不包括父类）</li>
+<li>一个<code>Field</code>对象包含了一个字段的所有信息：
+<ul>
+<li><code>getName()</code>：返回字段名称，例如，<code>&quot;name&quot;</code>；</li>
+<li><code>getType()</code>：返回字段类型，也是一个<code>Class</code>实例，例如，<code>String.class</code>；</li>
+<li><code>getModifiers()</code>：返回字段的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义。</li>
+</ul>
+</li>
+</ul>
+<p>Field实例可以读取或设置某个对象的字段，可以先获取<code>Class</code>实例，再获取<code>Field</code>实例，然后，用<code>Field.get(Object)</code>获取指定实例的指定字段的值。如果存在访问限制，要首先调用<code>setAccessible(true)</code>来访问非<code>public</code>字段。设置字段值是通过<code>Field.set(Object, Object)</code>实现的，其中第一个<code>Object</code>参数是指定的实例，第二个<code>Object</code>参数是待修改的值。</p>
+<p>通过反射读写字段是一种非常规方法，它会破坏对象的封装。</p>
+<h2 id="3调用方法">3.调用方法</h2>
+<p>我们已经能通过<code>Class</code>实例获取所有<code>Field</code>对象，同样的，可以通过<code>Class</code>实例获取所有<code>Method</code>信息。<code>Class</code>类提供了以下几个方法来获取<code>Method</code>：</p>
+<ul>
+<li><code>Method getMethod(name, Class...)</code>：获取某个<code>public</code>的<code>Method</code>（包括父类）</li>
+<li><code>Method getDeclaredMethod(name, Class...)</code>：获取当前类的某个<code>Method</code>（不包括父类）</li>
+<li><code>Method[] getMethods()</code>：获取所有<code>public</code>的<code>Method</code>（包括父类）</li>
+<li><code>Method[] getDeclaredMethods()</code>：获取当前类的所有<code>Method</code>（不包括父类）</li>
+</ul>
+<p>一个<code>Method</code>对象包含一个方法的所有信息：</p>
+<ul>
+<li><code>getName()</code>：返回方法名称，例如：<code>&quot;getScore&quot;</code>；</li>
+<li><code>getReturnType()</code>：返回方法返回值类型，也是一个Class实例，例如：<code>String.class</code>；</li>
+<li><code>getParameterTypes()</code>：返回方法的参数类型，是一个Class数组，例如：<code>{String.class, int.class}</code>；</li>
+<li><code>getModifiers()</code>：返回方法的修饰符，它是一个<code>int</code>，不同的bit表示不同的含义。</li>
+</ul>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// String对象:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;Hello world&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 获取String substring(int)方法，参数为int:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">Method</span> <span class="n">m</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">class</span><span class="o">.</span><span class="na">getMethod</span><span class="o">(</span><span class="s">&#34;substring&#34;</span><span class="o">,</span> <span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 在s对象上调用该方法并获取结果:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">String</span> <span class="n">r</span> <span class="o">=</span> <span class="o">(</span><span class="n">String</span><span class="o">)</span> <span class="n">m</span><span class="o">.</span><span class="na">invoke</span><span class="o">(</span><span class="n">s</span><span class="o">,</span> <span class="n">6</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="c1">// 打印调用结果:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">r</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>对<code>Method</code>实例调用<code>invoke</code>就相当于调用该方法，<code>invoke</code>的第一个参数是对象实例，即在哪个实例上调用该方法，后面的可变参数要与方法参数一致，否则将报错。</p>
+<h3 id="调用静态方法">调用静态方法</h3>
+<p>如果获取到的Method表示一个静态方法，调用静态方法时，由于无需指定实例对象，所以<code>invoke</code>方法传入的第一个参数永远为<code>null</code>。</p>
+<h3 id="调用非public方法">调用非public方法</h3>
+<p>和Field类似，对于非public方法，我们虽然可以通过<code>Class.getDeclaredMethod()</code>获取该方法实例，但直接对其调用将得到一个<code>IllegalAccessException</code>。为了调用非public方法，我们通过<code>Method.setAccessible(true)</code>允许其调用</p>
+<h3 id="多态">多态</h3>
+<p>如果一个<code>Person</code>类定义了<code>hello()</code>方法，并且它的子类<code>Student</code>也覆写了<code>hello()</code>方法，那么，从<code>Person.class</code>获取的<code>Method</code>，作用于<code>Student</code>实例时，调用的方法到底是哪个？可以发现打印出的是Student的hello方法，因此，<strong>使用反射调用方法时，仍然遵循多态原则：即总是调用实际类型的覆写方法（如果存在）。</strong></p>
+<h2 id="4调用构造方法">4.调用构造方法</h2>
+<p>在Java中通过<code>Constructor</code>对象封装了一个类的某个构造方法的所有信息；</p>
+<p>通过<code>Class</code>实例的方法可以获取<code>Constructor</code>实例：<code>getConstructor()</code>，<code>getConstructors()</code>，<code>getDeclaredConstructor()</code>，<code>getDeclaredConstructors()</code>；</p>
+<p>通过<code>Constructor</code>实例可以创建一个实例对象：<code>newInstance(Object... parameters)</code>； 通过设置<code>setAccessible(true)</code>来访问非<code>public</code>构造方法。</p>
+<h2 id="5继承关系">5.继承关系</h2>
+<p>通过<code>Class</code>对象可以获取继承关系：</p>
+<ul>
+<li><code>Class getSuperclass()</code>：获取父类类型；</li>
+<li><code>Class[] getInterfaces()</code>：获取当前类实现的所有接口。</li>
+<li><code>Class[] getInterfaces()</code>：获取当前类实现的接口（<strong>注意不包括父类实现的接口</strong>）。</li>
+</ul>
+<p>通过<code>Class</code>对象的<code>isAssignableFrom()</code>方法可以判断一个向上转型是否可以实现。</p>
+<h2 id="6动态代理">6.动态代理</h2>
+<p><a href="https://www.liaoxuefeng.com/wiki/1252599548343744/1264804593397984" target="_blank" rel="noopener noreffer">动态代理</a></p>
+<h2 id="-示例代码"># 示例代码</h2>
+<h3 id="1从class实例获取获取的基本信息">1.从Class实例获取获取的基本信息</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printClassInfo</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">.</span><span class="na">getClass</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printClassInfo</span><span class="o">(</span><span class="n">Runnable</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printClassInfo</span><span class="o">(</span><span class="n">java</span><span class="o">.</span><span class="na">time</span><span class="o">.</span><span class="na">Month</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printClassInfo</span><span class="o">(</span><span class="n">String</span><span class="o">[].</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">printClassInfo</span><span class="o">(</span><span class="kt">int</span><span class="o">.</span><span class="na">class</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">static</span> <span class="kt">void</span> <span class="nf">printClassInfo</span><span class="o">(</span><span class="n">Class</span> <span class="n">cls</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Class name: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Simple name: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">getSimpleName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="k">if</span> <span class="o">(</span><span class="n">cls</span><span class="o">.</span><span class="na">getPackage</span><span class="o">()</span> <span class="o">!=</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;Package name: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">getPackage</span><span class="o">().</span><span class="na">getName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;is interface: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">isInterface</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;is enum: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">isEnum</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;is array: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">isArray</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="s">&#34;is primitive: &#34;</span> <span class="o">+</span> <span class="n">cls</span><span class="o">.</span><span class="na">isPrimitive</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>输出：</p>
+<pre tabindex="0"><code>Class name: java.lang.String
+    Simple name: String
+    Package name: java.lang
+    is interface: false
+    is enum: false
+    is array: false
+    is primitive: false
+Class name: java.lang.Runnable
+    Simple name: Runnable
+    Package name: java.lang
+    is interface: true
+    is enum: false
+    is array: false
+    is primitive: false
+Class name: java.time.Month
+    Simple name: Month
+    Package name: java.time
+    is interface: false
+    is enum: true
+    is array: false
+    is primitive: false
+Class name: [Ljava.lang.String;
+    Simple name: String[]
+    is interface: false
+    is enum: false
+    is array: true
+    is primitive: false
+Class name: int
+    Simple name: int
+    is interface: false
+    is enum: false
+    is array: false
+    is primitive: true
+</code></pre><h3 id="2获取父类信息">2.获取父类信息</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">Exception</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Class</span> <span class="n">i</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">class</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Class</span> <span class="n">n</span> <span class="o">=</span> <span class="n">i</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">n</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Class</span> <span class="n">o</span> <span class="o">=</span> <span class="n">n</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">o</span><span class="o">.</span><span class="na">getSuperclass</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>输出：</p>
+<pre tabindex="0"><code>class java.lang.Number
+class java.lang.Object
+null
+</code></pre></div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/java/">Java</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Thu 2022.7.28</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/" data-title="Java_反射" data-hashtags="Java"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/" class="prev" rel="prev" title="CV_7卷积&amp;图像去噪&amp;边缘提取"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

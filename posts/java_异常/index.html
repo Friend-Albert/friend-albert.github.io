@@ -19,7 +19,7 @@
 <meta name="application-name" content="FeelIt">
 <meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -187,10 +187,10 @@
 <p>try&hellip;catch语句</p>
 <p><strong>例子：</strong></p>
 <p><code>String.getBytes(String)</code>方法定义是：</p>
-<pre tabindex="0"><code>public byte[] getBytes(String charsetName) throws UnsupportedEncodingException {
-    ...
-}
-</code></pre><p>在方法定义的时候，使用<code>throws Xxx</code>表示该方法可能抛出的异常类型。调用方在调用的时候，必须强制捕获这些异常，否则编译器会报错。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kt">byte</span><span class="o">[]</span> <span class="nf">getBytes</span><span class="o">(</span><span class="n">String</span> <span class="n">charsetName</span><span class="o">)</span> <span class="kd">throws</span> <span class="n">UnsupportedEncodingException</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>在方法定义的时候，使用<code>throws Xxx</code>表示该方法可能抛出的异常类型。调用方在调用的时候，必须强制捕获这些异常，否则编译器会报错。</p>
 <p>在<code>toGBK()</code>方法中，因为调用了<code>String.getBytes(String)</code>方法，就必须捕获<code>UnsupportedEncodingException</code>。我们也可以不捕获它，而是在方法定义处用throws表示<code>toGBK()</code>方法可能会抛出<code>UnsupportedEncodingException</code>，就可以让<code>toGBK()</code>方法通过编译器检查，即将方法声明为：<code>static byte[] toGBK(String s) throws UnsupportedEncodingException</code></p>
 <h3 id="查看异常">查看异常</h3>
 <p>所有异常都可以调用<code>printStackTrace()</code>方法打印异常栈，这是一个简单有用的快速打印异常的方法。</p>
@@ -251,13 +251,13 @@
 <p>成员变量在定义时初始化：使用空字符串<code>&quot;&quot;</code>而不是默认的<code>null</code>可避免很多<code>NullPointerException</code>，编写业务逻辑时，用空字符串<code>&quot;&quot;</code>表示未填写比<code>null</code>安全得多。</p>
 <p>返回空字符串<code>&quot;&quot;</code>、空数组而不是<code>null</code>，这样可以使得调用方无需检查结果是否为<code>null</code>。</p>
 <p>如果调用方一定要根据<code>null</code>判断，比如返回<code>null</code>表示文件不存在，那么考虑返回<code>Optional&lt;T&gt;</code>：</p>
-<pre tabindex="0"><code>public Optional&lt;String&gt; readFromFile(String file) {
-    if (!fileExist(file)) {
-        return Optional.empty();
-    }
-    ...
-}
-</code></pre><p>这样调用方必须通过<code>Optional.isPresent()</code>判断是否有结果。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="n">Optional</span><span class="o">&lt;</span><span class="n">String</span><span class="o">&gt;</span> <span class="nf">readFromFile</span><span class="o">(</span><span class="n">String</span> <span class="n">file</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(!</span><span class="n">fileExist</span><span class="o">(</span><span class="n">file</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">Optional</span><span class="o">.</span><span class="na">empty</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>这样调用方必须通过<code>Optional.isPresent()</code>判断是否有结果。</p>
 <h3 id="定位nullpointerexception">定位NullPointerException</h3>
 <p>如果产生了<code>NullPointerException</code>，例如，调用<code>a.b.c.x()</code>时产生了<code>NullPointerException</code>，只能通过如下方式打印日志来定位空指针：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">a</span><span class="o">);</span>
@@ -302,7 +302,7 @@
         </div><div class="post-info-share">
             <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" data-title="Java_异常" data-hashtags="Java"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
         </div></div><div class="post-nav"><a href="/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/" class="prev" rel="prev" title="CV_4全连接神经网络（上）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
-            <a href="/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/" class="next" rel="next" title="CV_6全连接神经网络（下）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+            <a href="/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" class="next" rel="next" title="CV_5全连接神经网络（中）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
 </div></article></div>
             </main>
             <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>

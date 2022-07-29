@@ -19,7 +19,7 @@
 <meta name="application-name" content="FeelIt">
 <meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
     {
         "@context": "http://schema.org",
         "@type": "BlogPosting",
@@ -175,13 +175,13 @@
 </span></span></span></code></pre></div><p>上面的代码通过正则表达式，把匹配的子串统一替换为<code>&quot;,&quot;</code>。关于正则表达式的用法我们会在后面详细讲解。</p>
 <h3 id="分割字符串">分割字符串</h3>
 <p>要分割字符串，使用<code>split()</code>方法，并且传入的也是正则表达式：</p>
-<pre tabindex="0"><code>String s = &#34;A,B,C,D&#34;;
-String[] ss = s.split(&#34;\\,&#34;); // {&#34;A&#34;, &#34;B&#34;, &#34;C&#34;, &#34;D&#34;}
-</code></pre><h3 id="拼接字符串">拼接字符串</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="s">&#34;A,B,C,D&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="n">String</span><span class="o">[]</span> <span class="n">ss</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="s">&#34;\\,&#34;</span><span class="o">);</span> <span class="c1">// {&#34;A&#34;, &#34;B&#34;, &#34;C&#34;, &#34;D&#34;}
+</span></span></span></code></pre></div><h3 id="拼接字符串">拼接字符串</h3>
 <p>拼接字符串使用静态方法<code>join()</code>，它用指定的字符串连接字符串数组：</p>
-<pre tabindex="0"><code>String[] arr = {&#34;A&#34;, &#34;B&#34;, &#34;C&#34;};
-String s = String.join(&#34;***&#34;, arr); // &#34;A***B***C&#34;
-</code></pre><h3 id="格式化字符串">格式化字符串</h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">String</span><span class="o">[]</span> <span class="n">arr</span> <span class="o">=</span> <span class="o">{</span><span class="s">&#34;A&#34;</span><span class="o">,</span> <span class="s">&#34;B&#34;</span><span class="o">,</span> <span class="s">&#34;C&#34;</span><span class="o">};</span>
+</span></span><span class="line"><span class="cl"><span class="n">String</span> <span class="n">s</span> <span class="o">=</span> <span class="n">String</span><span class="o">.</span><span class="na">join</span><span class="o">(</span><span class="s">&#34;***&#34;</span><span class="o">,</span> <span class="n">arr</span><span class="o">);</span> <span class="c1">// &#34;A***B***C&#34;
+</span></span></span></code></pre></div><h3 id="格式化字符串">格式化字符串</h3>
 <p>字符串提供了<code>formatted()</code>方法和<code>format()</code>静态方法，可以传入其他参数，替换占位符，然后生成新的字符串：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
 </span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
@@ -194,16 +194,16 @@ String s = String.join(&#34;***&#34;, arr); // &#34;A***B***C&#34;
 <p>要把任意基本类型或引用类型转换为字符串，可以使用静态方法<code>valueOf()</code>。要把字符串转换为其他类型，就需要根据情况使用诸如<code>parseInt,parseBoolean</code>等一系列方法，也可以通过<code>toCahrArray</code>转换为字符数组。</p>
 <h3 id="字节编码">字节编码</h3>
 <p>在Java中，<code>char</code>类型实际上就是两个字节的<code>Unicode</code>编码。如果我们要手动把字符串转换成其他编码，可以这样做：</p>
-<pre tabindex="0"><code>byte[] b1 = &#34;Hello&#34;.getBytes(); // 按系统默认编码转换，不推荐
-byte[] b2 = &#34;Hello&#34;.getBytes(&#34;UTF-8&#34;); // 按UTF-8编码转换
-byte[] b2 = &#34;Hello&#34;.getBytes(&#34;GBK&#34;); // 按GBK编码转换
-byte[] b3 = &#34;Hello&#34;.getBytes(StandardCharsets.UTF_8); // 按UTF-8编码转换
-</code></pre><p>注意：转换编码后，就不再是<code>char</code>类型，而是<code>byte</code>类型表示的数组。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kt">byte</span><span class="o">[]</span> <span class="n">b1</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">();</span> <span class="c1">// 按系统默认编码转换，不推荐
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b2</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;UTF-8&#34;</span><span class="o">);</span> <span class="c1">// 按UTF-8编码转换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b2</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="s">&#34;GBK&#34;</span><span class="o">);</span> <span class="c1">// 按GBK编码转换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kt">byte</span><span class="o">[]</span> <span class="n">b3</span> <span class="o">=</span> <span class="s">&#34;Hello&#34;</span><span class="o">.</span><span class="na">getBytes</span><span class="o">(</span><span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span> <span class="c1">// 按UTF-8编码转换
+</span></span></span></code></pre></div><p>注意：转换编码后，就不再是<code>char</code>类型，而是<code>byte</code>类型表示的数组。</p>
 <p>如果要把已知编码的<code>byte[]</code>转换为<code>String</code>，可以这样做：</p>
-<pre tabindex="0"><code>byte[] b = ...
-String s1 = new String(b, &#34;GBK&#34;); // 按GBK转换
-String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
-</code></pre><p>始终牢记：Java的<code>String</code>和<code>char</code>在内存中总是以Unicode编码表示。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kt">byte</span><span class="o">[]</span> <span class="n">b</span> <span class="o">=</span> <span class="o">...</span>
+</span></span><span class="line"><span class="cl"><span class="n">String</span> <span class="n">s1</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="s">&#34;GBK&#34;</span><span class="o">);</span> <span class="c1">// 按GBK转换
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="n">String</span> <span class="n">s2</span> <span class="o">=</span> <span class="k">new</span> <span class="n">String</span><span class="o">(</span><span class="n">b</span><span class="o">,</span> <span class="n">StandardCharsets</span><span class="o">.</span><span class="na">UTF_8</span><span class="o">);</span> <span class="c1">// 按UTF-8转换
+</span></span></span></code></pre></div><p>始终牢记：Java的<code>String</code>和<code>char</code>在内存中总是以Unicode编码表示。</p>
 <h2 id="2stringbuilder">2.StringBuilder</h2>
 <p>为了能高效拼接字符串，Java标准库提供了<code>StringBuilder</code>，它是一个可变对象，可以预分配缓冲区，这样，往<code>StringBuilder</code>中新增字符时，不会创建新的临时对象。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="n">StringBuilder</span> <span class="n">sb</span> <span class="o">=</span> <span class="k">new</span> <span class="n">StringBuilder</span><span class="o">(</span><span class="n">1024</span><span class="o">);</span>
@@ -276,10 +276,10 @@ String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
 </table>
 <h3 id="不变类">不变类</h3>
 <p>所有的包装类型都是不变类。我们查看<code>Integer</code>的源码可知，它的核心代码如下：</p>
-<pre tabindex="0"><code>public final class Integer {
-    private final int value;
-}
-</code></pre><p>因此，一旦创建了<code>Integer</code>对象，该对象就是不变的。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">final</span> <span class="kd">class</span> <span class="nc">Integer</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kd">final</span> <span class="kt">int</span> <span class="n">value</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>因此，一旦创建了<code>Integer</code>对象，该对象就是不变的。</p>
 <p>对两个<code>Integer</code>实例进行比较要特别注意：<strong>绝对不能用<code>==</code>比较，因为<code>Integer</code>是引用类型，必须使用<code>equals()</code>比较</strong></p>
 <p>因为<code>Integer.valueOf()</code>可能始终返回同一个<code>Integer</code>实例，因此，在我们自己创建<code>Integer</code>的时候，以下两种方法：</p>
 <ul>
@@ -298,11 +298,11 @@ String s2 = new String(b, StandardCharsets.UTF_8); // 按UTF-8转换
 <li>通过<code>public</code>方法来读写实例字段。</li>
 </ul>
 <p>如果读写方法符合以下这种命名规范：</p>
-<pre tabindex="0"><code>// 读方法:
-public Type getXyz()
-// 写方法:
-public void setXyz(Type value)
-</code></pre><p>那么这种<code>class</code>被称为<code>JavaBean</code>，而<code>boolean</code>字段比较特殊，它的读方法一般命名为<code>isXyz()</code></p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="c1">// 读方法:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="n">Type</span> <span class="nf">getXyz</span><span class="o">()</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 写方法:
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">void</span> <span class="nf">setXyz</span><span class="o">(</span><span class="n">Type</span> <span class="n">value</span><span class="o">)</span>
+</span></span></code></pre></div><p>那么这种<code>class</code>被称为<code>JavaBean</code>，而<code>boolean</code>字段比较特殊，它的读方法一般命名为<code>isXyz()</code></p>
 <h3 id="javabean的作用">JavaBean的作用</h3>
 <p>JavaBean主要用来传递数据，即把一组数据组合成一个JavaBean便于传输。此外，JavaBean可以方便地被IDE工具分析，生成读写属性的代码，主要用在图形界面的可视化设计中。</p>
 <h3 id="枚举javabean属性">枚举JavaBean属性</h3>
@@ -383,7 +383,7 @@ public void setXyz(Type value)
         </div><div class="post-info-share">
             <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" data-title="Java_核心类" data-hashtags="Java"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
         </div></div><div class="post-nav"><a href="/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/" class="prev" rel="prev" title="CV_5全连接神经网络（中）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
-            <a href="/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/" class="next" rel="next" title="CV_7卷积&amp;图像去噪&amp;边缘提取">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+            <a href="/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/" class="next" rel="next" title="CV_6全连接神经网络（下）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
 </div></article></div>
             </main>
             <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>

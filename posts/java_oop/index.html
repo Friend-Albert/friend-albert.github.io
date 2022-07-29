@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/friend-albert.github.io\/posts\/java_oop\/"
-        },"genre": "posts","keywords": "Java","wordcount":  2170 ,
+        },"genre": "posts","keywords": "Java","wordcount":  2675 ,
         "url": "https:\/\/friend-albert.github.io\/posts\/java_oop\/","datePublished": "2022-07-15T21:11:02+08:00","dateModified": "2022-07-15T21:11:02+08:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">Java_OOP</h2><div class="post-meta">
                 <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/java%E6%95%99%E7%A8%8B/"><i class="far fa-folder fa-fw"></i>Java教程</a></span></div>
-                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Fri 2022.7.15">Fri 2022.7.15</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2170 字</span>&nbsp;
-                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟</span>&nbsp;</div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Fri 2022.7.15">Fri 2022.7.15</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2675 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟</span>&nbsp;</div>
             </div>
             
             <hr><div class="details toc" id="toc-static"  data-kept="true">
@@ -132,6 +132,11 @@
     <li><a href="#33-对比">3.3 对比</a></li>
     <li><a href="#34-default方法">3.4 default方法</a></li>
   </ul>
+
+  <ul>
+    <li><a href="#51-可变参数">5.1 可变参数</a></li>
+    <li><a href="#52-参数绑定">5.2 参数绑定</a></li>
+  </ul>
 </nav></div>
                 </div><div class="content" id="content"><h1 id="java-面向对象笔记">Java 面向对象笔记</h1>
 <h1 id="1继承">1.继承</h1>
@@ -145,12 +150,12 @@
 <p>Java只允许一个class继承自一个类，因此，一个类有且仅有一个父类。只有<code>Object</code>特殊，它没有父类。</p>
 <h2 id="13-super">1.3 super</h2>
 <p><code>super</code>关键字表示父类（超类）。子类引用父类的字段时，可以用<code>super.fieldName</code>。例如：</p>
-<pre tabindex="0"><code>class Student extends Person {
-    public String hello() {
-        return &#34;Hello, &#34; + super.name;
-    }
-}
-</code></pre><p>实际上，这里使用<code>super.name</code>，或者<code>this.name</code>，或者<code>name</code>，效果都是一样的。编译器会自动定位到父类的<code>name</code>字段。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Student</span> <span class="kd">extends</span> <span class="n">Person</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">hello</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="s">&#34;Hello, &#34;</span> <span class="o">+</span> <span class="kd">super</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>实际上，这里使用<code>super.name</code>，或者<code>this.name</code>，或者<code>name</code>，效果都是一样的。编译器会自动定位到父类的<code>name</code>字段。</p>
 <p><strong>必须使用super的情况：</strong></p>
 <p>如果父类没有默认的构造方法，子类就必须显式调用<code>super()</code>并给出参数以便让编译器定位到父类的一个合适的构造方法。</p>
 <p>这里还顺带引出了另一个问题：即子类<em>不会继承</em>任何父类的构造方法。子类默认的构造方法是编译器自动生成的，不是继承的。</p>
@@ -274,7 +279,7 @@
 </span></span><span class="line"><span class="cl">        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">getName</span><span class="o">()</span> <span class="o">+</span> <span class="s">&#34; run&#34;</span><span class="o">);</span>
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
-</span></span></code></pre></div><h1 id="内部类">内部类</h1>
+</span></span></code></pre></div><h1 id="4内部类">4.内部类</h1>
 <p><strong>Anonymous Class</strong></p>
 <p>还有一种定义Inner Class的方法，它不需要在Outer Class中明确地定义这个Class，而是在方法内部，通过匿名类（Anonymous Class）来定义。示例代码如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="c1">// Anonymous Class
@@ -303,6 +308,46 @@
 </span></span><span class="line"><span class="cl">    <span class="o">}</span>
 </span></span><span class="line"><span class="cl"><span class="o">}</span>
 </span></span></code></pre></div><p>观察<code>asyncHello()</code>方法，我们在方法内部实例化了一个<code>Runnable</code>。<code>Runnable</code>本身是接口，接口是不能实例化的，所以这里实际上是定义了一个实现了<code>Runnable</code>接口的匿名类，并且通过<code>new</code>实例化该匿名类，然后转型为<code>Runnable</code>。在定义匿名类的时候就必须实例化它</p>
+<h1 id="5方法">5.方法</h1>
+<h2 id="51-可变参数">5.1 可变参数</h2>
+<p>可变参数用<code>类型...</code>定义，可变参数相当于数组类型：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Group</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span><span class="o">[]</span> <span class="n">names</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setNames</span><span class="o">(</span><span class="n">String</span><span class="o">...</span> <span class="n">names</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">names</span> <span class="o">=</span> <span class="n">names</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="52-参数绑定">5.2 参数绑定</h2>
+<p>基本类型参数的传递，是调用方值的复制。双方各自的后续修改，互不影响。</p>
+<p>引用类型参数的传递，调用方的变量，和接收方的参数变量，指向的是同一个对象。双方任意一方对这个对象的修改，都会影响对方（因为指向同一个对象嘛）。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Main</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kt">void</span> <span class="nf">main</span><span class="o">(</span><span class="n">String</span><span class="o">[]</span> <span class="n">args</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Person</span> <span class="n">p</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Person</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">        <span class="n">String</span> <span class="n">bob</span> <span class="o">=</span> <span class="s">&#34;Bob&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">        <span class="n">p</span><span class="o">.</span><span class="na">setName</span><span class="o">(</span><span class="n">bob</span><span class="o">);</span> <span class="c1">// 传入bob变量
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// &#34;Bob&#34;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">bob</span> <span class="o">=</span> <span class="s">&#34;Alice&#34;</span><span class="o">;</span> <span class="c1">// bob改名为Alice
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>        <span class="n">System</span><span class="o">.</span><span class="na">out</span><span class="o">.</span><span class="na">println</span><span class="o">(</span><span class="n">p</span><span class="o">.</span><span class="na">getName</span><span class="o">());</span> <span class="c1">// &#34;Bob&#34;还是&#34;Alice&#34;?
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">class</span> <span class="nc">Person</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="n">String</span> <span class="nf">getName</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="k">this</span><span class="o">.</span><span class="na">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setName</span><span class="o">(</span><span class="n">String</span> <span class="n">name</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="k">this</span><span class="o">.</span><span class="na">name</span> <span class="o">=</span> <span class="n">name</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p><strong>这里两次的输出均为Bob，这是由于String为不可变类型，因此对bob变量的赋值相当于内存中重新开辟了一块空间存放Alice字符串，而p变量的name字段仍然指向原有的Bob字符串（类比python的对象产生和垃圾回收机制）</strong></p>
+<h1 id="6构造方法">6.构造方法</h1>
+<p>实例在创建时通过<code>new</code>操作符会调用其对应的构造方法，构造方法用于初始化实例；</p>
+<p>没有定义构造方法时，编译器会自动创建一个默认的无参数构造方法；</p>
+<p>可以定义多个构造方法，编译器根据参数自动判断；</p>
+<p>可以在一个构造方法内部调用另一个构造方法，便于代码复用。</p>
 </div><div class="post-footer" id="post-footer">
     <div class="post-info"><div class="post-info-tag"><span><a href="/tags/java/">Java</a>
                 </span></div><div class="post-info-line"><div class="post-info-mod">
