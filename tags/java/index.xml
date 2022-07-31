@@ -3,10 +3,16 @@
         <title>Java - 标签 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/tags/java/</link>
         <description>Java - 标签 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 21:51:12 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/java/" rel="self" type="application/rss+xml" /><item>
+    <title>Java_注解</title>
+    <link>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</link>
+    <pubDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</guid>
+    <description><![CDATA[java_注解 1. 使用注解 什么是注解（Annotation）？注解是放在Java源码的类、方法、字段、参数前的一种特殊“注释” 注解的作用 从JV]]></description>
+</item>
+<item>
     <title>Java_反射</title>
     <link>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</link>
-    <pubDate>Thu, 28 Jul 2022 21:51:12 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</guid>
+    <pubDate>Fri, 29 Jul 2022 21:51:12 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</guid>
     <description><![CDATA[反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。 正常情况下，如果我们要调用一个对象的]]></description>
 </item>
 <item>

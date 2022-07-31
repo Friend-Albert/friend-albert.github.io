@@ -3,10 +3,28 @@
         <title>所有文章 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/posts/</link>
         <description>所有文章 | FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 28 Jul 2022 21:51:12 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/posts/" rel="self" type="application/rss+xml" /><item>
+    <title>CV_8纹理表示&amp;卷积神经网络</title>
+    <link>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[纹理表示&amp;卷积神经网络 1.基于卷积核组的纹理表示方法 利用卷积核组提取纹理基元 设计卷积核组 利用卷积核组对图像进行卷积 利用特征响应图的统]]></description>
+</item>
+<item>
+    <title>CV_9经典网络分析（上）</title>
+    <link>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</link>
+    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</guid>
+    <description><![CDATA[经典网络分析（上） 1.AlexNet 主要贡献： 提出卷积层加全连接层的卷积神经网络 首先使用Relu激活函数 首次提出dropout正则化 使用加入动量的小批量梯度]]></description>
+</item>
+<item>
+    <title>Java_注解</title>
+    <link>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</link>
+    <pubDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</guid>
+    <description><![CDATA[java_注解 1. 使用注解 什么是注解（Annotation）？注解是放在Java源码的类、方法、字段、参数前的一种特殊“注释” 注解的作用 从JV]]></description>
+</item>
+<item>
     <title>Java_反射</title>
     <link>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</link>
-    <pubDate>Thu, 28 Jul 2022 21:51:12 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</guid>
+    <pubDate>Fri, 29 Jul 2022 21:51:12 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</guid>
     <description><![CDATA[反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。 正常情况下，如果我们要调用一个对象的]]></description>
 </item>
 <item>
@@ -44,24 +62,6 @@
     <link>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link>
     <pubDate>Mon, 25 Jul 2022 22:45:56 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid>
     <description><![CDATA[全连接神经网络（上） 全连接神经网络通过多个变换来实现输入到输出的映射 eg.两层神经网络：$f=W_2\max(0,W_1x+b_1)+b_2]]></description>
-</item>
-<item>
-    <title>CV_3线性分类器（下）</title>
-    <link>https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/</link>
-    <pubDate>Mon, 25 Jul 2022 18:19:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/</guid>
-    <description><![CDATA[线性分类器（下） 1.正则项与超参数 含义：对模型的偏好设置 情景：如果有多个$W$均可得到最优的损失函数，该如何选择？ 定义： $$ L(w)=\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)+\lambda R(W) $$ $\frac]]></description>
-</item>
-<item>
-    <title>CV_2图像分类和线性分类器（上）</title>
-    <link>https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/</link>
-    <pubDate>Sun, 24 Jul 2022 14:12:26 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/</guid>
-    <description><![CDATA[二、图像分类和线性分类器（上） （一）图像分类 1.定义 根据图像特征进行区分 从已知标签集合中为输入图片选定一个标签 2.难点 语义鸿沟-图像的特征、]]></description>
-</item>
-<item>
-    <title>CV_1前言</title>
-    <link>https://friend-albert.github.io/posts/cv_1%E5%89%8D%E8%A8%80/</link>
-    <pubDate>Sat, 23 Jul 2022 23:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_1%E5%89%8D%E8%A8%80/</guid>
-    <description><![CDATA[一.前言 [https://www.bilibili.com/video/BV1V54y1B7K3?spm_id_from=333.337.s]]></description>
 </item>
 </channel>
 </rss>

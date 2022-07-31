@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_9经典网络分析（上） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_9经典网络分析（上）" />
+<meta property="og:description" content="经典网络分析（上） 1.AlexNet 主要贡献： 提出卷积层加全连接层的卷积神经网络 首先使用Relu激活函数 首次提出dropout正则化 使用加入动量的小批量梯度" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-01T00:09:35+08:00" />
+<meta property="article:modified_time" content="2022-08-01T00:09:35+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_9经典网络分析（上）"/>
+<meta name="twitter:description" content="经典网络分析（上） 1.AlexNet 主要贡献： 提出卷积层加全连接层的卷积神经网络 首先使用Relu激活函数 首次提出dropout正则化 使用加入动量的小批量梯度"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/" /><link rel="prev" href="https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_9经典网络分析（上）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A\/"
+        },"genre": "posts","keywords": "CV","wordcount":  1159 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A\/","datePublished": "2022-08-01T00:09:35+08:00","dateModified": "2022-08-01T00:09:35+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_9经典网络分析（上）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.8.1">Mon 2022.8.1</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 1159 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 3 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1alexnet">1.AlexNet</a>
+      <ul>
+        <li><a href="#主要贡献">主要贡献：</a></li>
+        <li><a href="#结构">结构：</a></li>
+        <li><a href="#计算过程">计算过程</a></li>
+      </ul>
+    </li>
+    <li><a href="#2zfnet">2.ZFNet</a></li>
+    <li><a href="#3vgg16">3.VGG16</a></li>
+    <li><a href="#3googlenet">3.GoogLeNet</a>
+      <ul>
+        <li><a href="#inception模块">Inception模块</a></li>
+        <li><a href="#最终网络结构">最终网络结构：</a></li>
+        <li><a href="#补充资料">补充资料：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="经典网络分析上">经典网络分析（上）</h1>
+<h2 id="1alexnet">1.AlexNet</h2>
+<h3 id="主要贡献">主要贡献：</h3>
+<ul>
+<li>提出卷积层加全连接层的卷积神经网络</li>
+<li>首先使用Relu激活函数</li>
+<li>首次提出dropout正则化</li>
+<li>使用加入动量的小批量梯度下降优化算法</li>
+<li>使用数据增强抑制过拟合</li>
+<li>使用GPU进行并行计算</li>
+</ul>
+<h3 id="结构">结构：</h3>
+<ul>
+<li>5个卷积层</li>
+<li>3个全连接层</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/01/1e09b81dc032556b.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/01/1e09b81dc032556b.png, https://s3.bmp.ovh/imgs/2022/08/01/1e09b81dc032556b.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/01/1e09b81dc032556b.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/01/1e09b81dc032556b.png"
+        title="image-20220801003349658" /></p>
+<h3 id="计算过程">计算过程</h3>
+<ol>
+<li>去均值：算出每个位置（像素）的rgb平均值，在输入图像后先将该图像向量化并减去平均值向量</li>
+<li>CONV1:96个11*11*3的卷积核，步长为4，无零填充</li>
+<li>MAX POOL1:窗口大小3*3，步长为2$\to$重叠池化，有助于对抗过拟合（重叠池化现已广泛被非重叠池化代替）</li>
+<li>NORM1：已弃用，作用不大但是会带来计算量的提升</li>
+<li>CONV2:246个5*5卷积核，步长为1，使用零填充p=2</li>
+<li>MAX POOL2 + NORM2</li>
+<li>CONV3，CONV4:384个3*3卷积核，步长为1，使用零填充p=1</li>
+<li>CONV5:256个3*3卷积核，步长为1，p=1</li>
+<li>MAX POOL3：进一步缩小特征图尺寸</li>
+<li>FC6,7,8：全连接神经网络</li>
+</ol>
+<p>重点：</p>
+<ul>
+<li>卷积层与全连接层是同时学习的</li>
+<li>学习过程中互相促进</li>
+<li>验证集损失不下降则手动降低10倍学习率（经验）</li>
+<li>集成多个模型，进一步提高精度</li>
+</ul>
+<p>AlexNet卷积层作用：</p>
+<ul>
+<li>从数据中学习有助于分类的结构特征</li>
+<li>描述输入的结构信息</li>
+<li>结果储存于最终输出的特征响应图中</li>
+</ul>
+<h2 id="2zfnet">2.ZFNet</h2>
+<p>结构同AlexNet一致</p>
+<p>提升：</p>
+<ul>
+<li>第一卷积层卷积核大小改为7*7，步长改为2$\to$特征提取更为细致</li>
+<li>第二三卷积层步长调整为2$\to$与上一条结合使得信息损失速率下降</li>
+<li>增加三四层卷积核个数$\to$可视化后发现三四层已经包含语义信息，应该增加数量从而记住更多不同语义</li>
+</ul>
+<h2 id="3vgg16">3.VGG16</h2>
+<ul>
+<li>
+<p>只使用3*3的卷积核串联获得更大的感知野       *感知野：感知范围</p>
+</li>
+<li>
+<p>去掉了NORM层</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/01/58a500e920726c91.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/01/58a500e920726c91.png, https://s3.bmp.ovh/imgs/2022/08/01/58a500e920726c91.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/01/58a500e920726c91.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/01/58a500e920726c91.png"
+        title="image-20220801004706689" /></p>
+</li>
+</ul>
+<p>预处理：</p>
+<ul>
+<li>Alex：对每点求平均后减平均</li>
+<li>VGG：对全部点求总rgb平均后减（可以减少计算）</li>
+</ul>
+<p>特点：</p>
+<ol>
+<li>13个卷积层和3个全连接层</li>
+<li>分为五段卷积层，每一段卷积层中卷积核的个数相同</li>
+<li>采用最大池化，窗口为2*2，步长为2</li>
+<li>每次池化使得卷积核数量翻倍，直到512（更多核导致计算量过大）
+<ul>
+<li>前层学习基元</li>
+<li>后层学习语义</li>
+</ul>
+</li>
+</ol>
+<p>思考：</p>
+<ul>
+<li>使用小卷积核构建网络使得网络深度更深，非线性更强，参数更少</li>
+<li>池化使得内存占用明显减少</li>
+</ul>
+<h2 id="3googlenet">3.GoogLeNet</h2>
+<p>改进：</p>
+<ul>
+<li>
+<p>提出Inception结构，可以保存更多特征信息</p>
+</li>
+<li>
+<p>去掉AlexNet前两个全连接层，在得到最终特征响应图组后使用平均池化$\to$只有五万参数，比AlexNet减少了12倍</p>
+</li>
+<li>
+<p>加入辅助分类器，减少梯度消失问题</p>
+</li>
+</ul>
+<p><strong>串联结构问题：信息不断丢失，如果前层丢失信息，后层无法找回</strong></p>
+<h3 id="inception模块">Inception模块</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/01/211d090f64cd8e58.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/01/211d090f64cd8e58.png, https://s3.bmp.ovh/imgs/2022/08/01/211d090f64cd8e58.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/01/211d090f64cd8e58.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/01/211d090f64cd8e58.png"
+        title="image-20220801005652976" /></p>
+<p>解读：</p>
+<ul>
+<li>
+<p>1*1卷积（黄色模块）：将空间信息压缩保留</p>
+</li>
+<li>
+<p>3*3卷积：提取小感知野信息</p>
+</li>
+<li>
+<p>5*5卷积：提取大感知野信息</p>
+</li>
+<li>
+<p>3*3最大池化：将强信号向周围扩展</p>
+</li>
+<li>
+<p>1*1卷积（红色模块）降低计算量</p>
+</li>
+</ul>
+<h3 id="最终网络结构">最终网络结构：</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdnimg.cn/20190711215516297.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhb2NodW5jaHU=,size_16,color_FFFFFF,t_70"
+        data-srcset="https://img-blog.csdnimg.cn/20190711215516297.png?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhb2NodW5jaHU=%2csize_16%2ccolor_FFFFFF%2ct_70, https://img-blog.csdnimg.cn/20190711215516297.png?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhb2NodW5jaHU=%2csize_16%2ccolor_FFFFFF%2ct_70 1.5x, https://img-blog.csdnimg.cn/20190711215516297.png?x-oss-process=image/watermark%2ctype_ZmFuZ3poZW5naGVpdGk%2cshadow_10%2ctext_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhb2NodW5jaHU=%2csize_16%2ccolor_FFFFFF%2ct_70 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdnimg.cn/20190711215516297.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhb2NodW5jaHU=,size_16,color_FFFFFF,t_70"
+        title="https://img-blog.csdnimg.cn/20190711215516297.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L3lhb2NodW5jaHU=,size_16,color_FFFFFF,t_70" /></p>
+<h3 id="补充资料">补充资料：</h3>
+<p><a href="https://blog.csdn.net/weixin_43427721/article/details/122147162" target="_blank" rel="noopener noreffer">GoogLeNet网络结构详解（代码）</a></p>
+<p><a href="https://blog.csdn.net/yaochunchu/article/details/95526388" target="_blank" rel="noopener noreffer">深度学习经典网络（3）GoogleNet网络结构详解</a></p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Mon 2022.8.1</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/" data-title="CV_9经典网络分析（上）" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/java_%E6%B3%A8%E8%A7%A3/" class="prev" rel="prev" title="Java_注解"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/" class="next" rel="next" title="CV_8纹理表示&amp;卷积神经网络">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>
