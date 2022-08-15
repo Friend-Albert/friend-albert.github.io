@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_11多目标检测 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_11多目标检测" />
+<meta property="og:description" content="多目标检测 问题：不清楚目标数$\to$不清楚输出维度 困境：CNN需要对图像中所有可能方法穷举，计算量过大，不现实 RCNN 找出潜在候选区域（通过区域" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-06T14:37:35+08:00" />
+<meta property="article:modified_time" content="2022-08-06T14:37:35+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_11多目标检测"/>
+<meta name="twitter:description" content="多目标检测 问题：不清楚目标数$\to$不清楚输出维度 困境：CNN需要对图像中所有可能方法穷举，计算量过大，不现实 RCNN 找出潜在候选区域（通过区域"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" /><link rel="prev" href="https://friend-albert.github.io/posts/java_%E6%B3%9B%E5%9E%8B/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_11多目标检测",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B\/"
+        },"genre": "posts","keywords": "CV","wordcount":  479 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B\/","datePublished": "2022-08-06T14:37:35+08:00","dateModified": "2022-08-06T14:37:35+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_11多目标检测</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Sat 2022.8.6">Sat 2022.8.6</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 479 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#rcnn">RCNN</a></li>
+    <li><a href="#fast-rcnn">Fast RCNN</a></li>
+    <li><a href="#区域裁剪">区域裁剪</a>
+      <ul>
+        <li><a href="#roi-pool">RoI POOL</a></li>
+        <li><a href="#roi-align">ROI Align</a></li>
+      </ul>
+    </li>
+    <li><a href="#faster-rcnn">Faster RCNN</a>
+      <ul>
+        <li><a href="#区域建议网络-rpn">区域建议网络 RPN</a></li>
+        <li><a href="#总结">总结：</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="多目标检测">多目标检测</h1>
+<p>问题：不清楚目标数$\to$不清楚输出维度</p>
+<p>困境：CNN需要对图像中所有可能方法穷举，计算量过大，不现实</p>
+<h2 id="rcnn">RCNN</h2>
+<ol>
+<li>找出潜在候选区域（通过区域建议方法产生）</li>
+<li>对区域缩放</li>
+<li>进入卷积网络特征提取</li>
+<li>支持向量机对区域分类</li>
+<li>边界回归$\to$找到真实对象的区域（Bbox reg）修正初始候选区域边界不准确的问题</li>
+</ol>
+<p><strong>问题：计算效率低下</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/15/e1403a5035deab3b.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/15/e1403a5035deab3b.png, https://s3.bmp.ovh/imgs/2022/08/15/e1403a5035deab3b.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/15/e1403a5035deab3b.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/15/e1403a5035deab3b.png"
+        title="image-20220815144122069" /></p>
+<h2 id="fast-rcnn">Fast RCNN</h2>
+<ol>
+<li>卷积特征网络对全图提取特征</li>
+<li>找出候选区域（利用区域建议方法）</li>
+<li>裁剪+缩放特征</li>
+</ol>
+<p><strong>效率提升20倍以上</strong></p>
+<p><strong>问题：用于区域建议的时间几乎等于检测时长</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/15/4232619407295b6f.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/15/4232619407295b6f.png, https://s3.bmp.ovh/imgs/2022/08/15/4232619407295b6f.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/15/4232619407295b6f.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/15/4232619407295b6f.png"
+        title="image-20220815144242978" /></p>
+<h2 id="区域裁剪">区域裁剪</h2>
+<h3 id="roi-pool">RoI POOL</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/15/a5f969e0524ce08e.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/15/a5f969e0524ce08e.png, https://s3.bmp.ovh/imgs/2022/08/15/a5f969e0524ce08e.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/15/a5f969e0524ce08e.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/15/a5f969e0524ce08e.png"
+        title="image-20220815144424808" /></p>
+<h3 id="roi-align">ROI Align</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/15/e0f89e5bf3402c87.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/15/e0f89e5bf3402c87.png, https://s3.bmp.ovh/imgs/2022/08/15/e0f89e5bf3402c87.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/15/e0f89e5bf3402c87.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/15/e0f89e5bf3402c87.png"
+        title="image-20220815144515000" /></p>
+<h2 id="faster-rcnn">Faster RCNN</h2>
+<p>利用卷积网络产生候选区域（<strong>Region Proposal Network</strong>）</p>
+<p>四种损失联合训练：</p>
+<ol>
+<li>RPN分类损失</li>
+<li>RPN边界框坐标回归损失</li>
+<li>候选区域分类损失</li>
+<li>最终边界框坐标回归损失</li>
+</ol>
+<p><strong>效率提升200倍以上</strong></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/15/483653863d34e818.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/15/483653863d34e818.png, https://s3.bmp.ovh/imgs/2022/08/15/483653863d34e818.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/15/483653863d34e818.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/15/483653863d34e818.png"
+        title="image-20220815144750617" /></p>
+<h3 id="区域建议网络-rpn">区域建议网络 RPN</h3>
+<ol>
+<li>在特征图上划区域并分类（确定锚点）</li>
+<li>若区域被认定为包含对象，则认定锚点为该对象</li>
+<li>每个位置（锚点）需要预测多个区域，每个区域均需分类</li>
+<li>预测区域内是否包含物体</li>
+</ol>
+<h3 id="总结">总结：</h3>
+<p>阶段一（每图一次）：</p>
+<ol>
+<li>主干网络特征提取</li>
+<li>区域间=建议网络产生候选区域</li>
+</ol>
+<p>阶段二（每区域运行一次）：</p>
+<ol>
+<li>扣取区域特征（ROI POOL/Align）</li>
+<li>预测目标类别</li>
+<li>预测目标偏移量</li>
+</ol>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Sat 2022.8.6</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" data-title="CV_11多目标检测" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/java_%E6%B3%9B%E5%9E%8B/" class="prev" rel="prev" title="Java_泛型"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" class="next" rel="next" title="CV_12可视化">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

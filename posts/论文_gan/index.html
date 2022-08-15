@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>GAN论文笔记 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="GAN论文笔记" />
+<meta property="og:description" content="NIPS-2014-generative-adversarial-nets-Paper GAN论文精读 使用MLP（全连接神经网络）$\to$可使用反向传播简单的训练网络 生成器通过真实数据X（多维随机变量）学习$p_g$分布 定义" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-10T21:03:00+08:00" />
+<meta property="article:modified_time" content="2022-08-10T21:03:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="GAN论文笔记"/>
+<meta name="twitter:description" content="NIPS-2014-generative-adversarial-nets-Paper GAN论文精读 使用MLP（全连接神经网络）$\to$可使用反向传播简单的训练网络 生成器通过真实数据X（多维随机变量）学习$p_g$分布 定义"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" /><link rel="next" href="https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "GAN论文笔记",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BA%E6%96%87_gan\/"
+        },"genre": "posts","keywords": "CV, GAN, 论文精读","wordcount":  655 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BA%E6%96%87_gan\/","datePublished": "2022-08-10T21:03:00+08:00","dateModified": "2022-08-10T21:03:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">GAN论文笔记</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Wed 2022.8.10">Wed 2022.8.10</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 655 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gan论文精读httpswwwbilibilicomvideobv1rb4y187vdspm_id_from33399900vd_source968d6730d11b993d4d78ec8178cf9cc8"><a href="https://www.bilibili.com/video/BV1rb4y187vD?spm_id_from=333.999.0.0&amp;vd_source=968d6730d11b993d4d78ec8178cf9cc8">GAN论文精读</a></a></li>
+    <li><a href="#算法">算法</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="nips-2014-generative-adversarial-nets-paper">NIPS-2014-generative-adversarial-nets-Paper</h1>
+<h2 id="gan论文精读httpswwwbilibilicomvideobv1rb4y187vdspm_id_from33399900vd_source968d6730d11b993d4d78ec8178cf9cc8"><a href="https://www.bilibili.com/video/BV1rb4y187vD?spm_id_from=333.999.0.0&amp;vd_source=968d6730d11b993d4d78ec8178cf9cc8" target="_blank" rel="noopener noreffer">GAN论文精读</a></h2>
+<ul>
+<li>
+<p>使用MLP（全连接神经网络）$\to$可使用反向传播简单的训练网络</p>
+</li>
+<li>
+<p>生成器通过真实数据X（多维随机变量）学习$p_g$分布</p>
+</li>
+<li>
+<p>定义一个先验高斯噪声分布$p_z(z)$其中z为多维随机变量（每次通过采样该分布得到），通过$G(z;\theta_g)$映射到输出，$\theta_g$为超参数</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i0.hdslb.com/bfs/note/da0c9e75fe17de15f2c9f0b6dd909b8c7f2d8ae4.png"
+        data-srcset="https://i0.hdslb.com/bfs/note/da0c9e75fe17de15f2c9f0b6dd909b8c7f2d8ae4.png, https://i0.hdslb.com/bfs/note/da0c9e75fe17de15f2c9f0b6dd909b8c7f2d8ae4.png 1.5x, https://i0.hdslb.com/bfs/note/da0c9e75fe17de15f2c9f0b6dd909b8c7f2d8ae4.png 2x"
+        data-sizes="auto"
+        alt="https://i0.hdslb.com/bfs/note/da0c9e75fe17de15f2c9f0b6dd909b8c7f2d8ae4.png"
+        title="img" /></p>
+</li>
+<li>
+<p>问题：收敛不够稳定，在求导更新梯度时产生很多问题</p>
+</li>
+</ul>
+<p>最优辨别器：
+$$
+D_G^*(x)=\frac{P_{data(x)}}{P_{data}(x)+P_g(x)}
+$$</p>
+<h2 id="算法">算法</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://i0.hdslb.com/bfs/note/cdbef8832c64d04e411e88b5846d7b434f3e67e9.png"
+        data-srcset="https://i0.hdslb.com/bfs/note/cdbef8832c64d04e411e88b5846d7b434f3e67e9.png, https://i0.hdslb.com/bfs/note/cdbef8832c64d04e411e88b5846d7b434f3e67e9.png 1.5x, https://i0.hdslb.com/bfs/note/cdbef8832c64d04e411e88b5846d7b434f3e67e9.png 2x"
+        data-sizes="auto"
+        alt="https://i0.hdslb.com/bfs/note/cdbef8832c64d04e411e88b5846d7b434f3e67e9.png"
+        title="img" /></p>
+<pre tabindex="0"><code>每一次做迭代 
+
+for number of training iterations do
+
+​	采样 k * 2m 个 examples	
+​	for k steps do
+​		每一步有 2m 个 examples
+​		【从噪声变量 z 的先验分布采样的 m 个 noise examples，从真实数据 data x 中采样 m 个 examples】	
+​		用 2m 个examples 输入价值函数 求梯度
+​		m 个 examples 放进 log D(x^(i))
+​		m 个 noise examples 放进 log (1 - D(G(z^(i)))
+
+​	对 判别器 D 的参数求梯度，更新判别器 D 的参数
+
+​	end for # for k steps do, 完成 k 次 2m 个数据采样 
+
+​	从噪音的先验分布中 sample m 个 noise samples 
+
+​	把 m 个 noise samples 放进 价值函数 （只有第二项，第一项与生成器 G 无关）
+​	得到生成器 G 的梯度，更新生成器 G 的参数
+
+​	每次迭代，先更新 D 再更新 G 
+
+end for # for number of training iterations  
+</code></pre><ol>
+<li>k 不能太小 &ndash;&gt; 保证 判别器 D 有足够的更新</li>
+</ol>
+<ul>
+<li>D 要对 G 生成的不错的数据 有一定的判别能力，不然 G 很无聊的，都不想糊弄 D，轻而易举。
+警察不给力，假钞不会被发现，抓不到造假者，无需提升工艺，游戏结束。</li>
+</ul>
+<ol start="2">
+<li>k 不能太大 &ndash;&gt; D 过于完美，D(G(z^(i)))  = 0，对值为 0 求导，G 梯度更新有困难</li>
+</ol>
+<ul>
+<li>警察超厉害，造假者产一点假钞就会被发现，端掉制造工厂；造假者赚不到钱，不能提升工艺，结束游戏。</li>
+</ul>
+<p><strong>最好情况：双方实力相当、相爱相杀、一起进步。</strong></p>
+<p>k 的设计目标：使得 D 和 G 的更新进度差不多</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span><span><a href="/tags/gan/">GAN</a>
+                </span><span><a href="/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/">论文精读</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Wed 2022.8.10</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/" data-title="GAN论文笔记" data-hashtags="CV,GAN,论文精读"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" class="prev" rel="prev" title="CV_12可视化"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/" class="next" rel="next" title="CV_13生成模型（上）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

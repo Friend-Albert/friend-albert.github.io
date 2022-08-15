@@ -1,0 +1,1079 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_13生成模型（上） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_13生成模型（上）" />
+<meta property="og:description" content="生成模型（上） 给定训练集，产生与训练集同分布的新样本，希望学习模型的分布$p_{model}$使其与训练样本的$p_{data}$相近 关键：" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-10T21:03:00+08:00" />
+<meta property="article:modified_time" content="2022-08-10T21:03:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_13生成模型（上）"/>
+<meta name="twitter:description" content="生成模型（上） 给定训练集，产生与训练集同分布的新样本，希望学习模型的分布$p_{model}$使其与训练样本的$p_{data}$相近 关键："/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/" /><link rel="prev" href="https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/" /><link rel="next" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_13生成模型（上）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A\/"
+        },"genre": "posts","keywords": "CV","wordcount":  4380 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A\/","datePublished": "2022-08-10T21:03:00+08:00","dateModified": "2022-08-10T21:03:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_13生成模型（上）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Wed 2022.8.10">Wed 2022.8.10</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 4380 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 9 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li>
+      <ul>
+        <li><a href="#关键密度估计问题无监督学习">关键：密度估计问题（无监督学习）</a></li>
+      </ul>
+    </li>
+    <li><a href="#生成模型分类">生成模型分类</a></li>
+    <li><a href="#pixel-rnn">Pixel RNN</a></li>
+    <li><a href="#pixel-cnn">Pixel CNN</a></li>
+    <li><a href="#总结">总结</a></li>
+    <li><a href="#vae-变分自编码网络">VAE 变分自编码网络</a>
+      <ul>
+        <li><a href="#1vae的设计思路">1.VAE的设计思路</a></li>
+        <li><a href="#2vae的模型架构">2.VAE的模型架构</a></li>
+        <li><a href="#3vae的作用原理">3.VAE的作用原理</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="生成模型上">生成模型（上）</h1>
+<p><strong>给定训练集，产生与训练集同分布的新样本</strong>，希望学习模型的分布$p_{model}$使其与训练样本的$p_{data}$相近</p>
+<h3 id="关键密度估计问题无监督学习">关键：密度估计问题（无监督学习）</h3>
+<ul>
+<li>显式定义密度估计：显式定义并求解$p_{model}$</li>
+<li>隐式定义密度估计：学习模型$p_{model}$而无需显式定义</li>
+</ul>
+<p>应用：</p>
+<ul>
+<li>图像合成</li>
+<li>图像属性编辑</li>
+<li>图片风格转移</li>
+<li>&hellip;&hellip;</li>
+</ul>
+<h2 id="生成模型分类">生成模型分类</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/10/92bc6ee4034ba5c5.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/10/92bc6ee4034ba5c5.png, https://s3.bmp.ovh/imgs/2022/08/10/92bc6ee4034ba5c5.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/10/92bc6ee4034ba5c5.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/10/92bc6ee4034ba5c5.png"
+        title="image-20220810210757666" /></p>
+<h2 id="pixel-rnn">Pixel RNN</h2>
+<p>显式定义密度模型：
+$$
+p(x)=\prod_{i=1}^np(x_i|x_1,&hellip;,x_{i-1})\
+图像X的似然（p(x)）=给定已生成像素的前提下生成第i的像素的概率
+$$
+<strong>利用链式法则将图像x的生成概率转变为每个像素生成概率的乘积</strong></p>
+<ul>
+<li>需定义像素产生顺序</li>
+<li>分布复杂，但可以通过神经网络建模并求解</li>
+</ul>
+<p>缺点：训练太慢；将像素生成看做序列生成的问题，并利用RNN（LSTM）序列描述能力生成新像素</p>
+<h2 id="pixel-cnn">Pixel CNN</h2>
+<p><strong>基于已生成像素，用CNN生成新像素（只有卷积核套住的已生成像素参与运算）</strong></p>
+<p>采用多个卷积核输出预测选择概率最大的，并通过交叉熵计算损失</p>
+<p>缺陷：仍然比较慢</p>
+<h2 id="总结">总结</h2>
+<ul>
+<li>似然函数可以精确计算</li>
+<li>利用似然函数可以有效评估模型性能</li>
+<li>由于都是采用序列产生的办法导致速度难以接受</li>
+</ul>
+<h2 id="vae-变分自编码网络">VAE 变分自编码网络</h2>
+<p>VAE作为一个生成模型，其基本思路是很容易理解的：把一堆真实样本通过编码器网络变换成一个理想的数据分布，然后这个数据分布再传递给一个解码器网络，得到一堆生成样本，生成样本与真实样本足够接近的话，就训练出了一个自编码器模型。那VAE(变分自编码器)就是在自编码器模型上做进一步变分处理，使得编码器的输出结果能对应到目标分布的均值和方差，如下图所示，具体的方法和思想在后文会介绍：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image001.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image001.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image001.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image001.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image001.jpg"
+        title="https://ss.csdn.net/p?https://mmbiz.qpic.cn/mmbiz_png/VBcD02jFhglfkZGTLyG60rcuZfgLf2T2sOWXic8RwekfcDHGpUew6q9TuXor5aPg8tTuTAWuF6dJdZwxhXTib5Ow/640" /></p>
+<h3 id="1vae的设计思路">1.VAE的设计思路</h3>
+<p>VAE最想解决的问题是什么？当然是如何构造编码器和解码器，使得图片能够编码成易于表示的形态，并且这一形态能够尽可能无损地解码回原真实图像。</p>
+<p>这似乎听起来与PCA（主成分分析）有些相似，而PCA本身是用来做矩阵降维的：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image002.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image002.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image002.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image002.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image002.jpg"
+        title="img" /></p>
+<p>如图，X本身是一个矩阵，通过一个变换W变成了一个低维矩阵c，因为这一过程是线性的，所以再通过一个$W^T$变换就能还原出一个$\hat X$，现在我们要找到一种变换W，使得矩阵X与<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image004.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image004.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image004.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image004.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image004.png"
+        title="img" />能够尽可能地一致，这就是PCA做的事情。在PCA中找这个变换W用到的方法是SVD（奇异值分解)算法，这是一个纯数学方法，不再细述，因为在VAE中不再需要使用SVD，直接用神经网络代替。</p>
+<p>​    回顾上述介绍，我们会发现PCA与我们想要构造的自编码器的相似之处是在于，如果把矩阵X视作输入图像，W视作一个编码器，低维矩阵c视作图像的编码，然后$W^T$和$\hat X$分别视作解码器和生成图像，PCA就变成了一个自编码器网络模型的雏形。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image005.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image005.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image005.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image005.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image005.jpg"
+        title="img" /></p>
+<p>​    现在我们需要对这一雏形进行改进。首先一个最明显能改进的地方是用神经网络代替W变换和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image003.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image003.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image003.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image003.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image003.png"
+        title="img" />变换，就得到了如下Deep Auto-Encoder模型：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image006.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image006.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image006.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image006.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image006.jpg"
+        title="img" /></p>
+<p>​    这一替换的明显好处是，引入了神经网络强大的拟合能力，使得编码（Code）的维度能够比原始图像（X）的维度低非常多。在一个手写数字图像的生成模型中，Deep Auto-Encoder能够把一个784维的向量（28*28图像）压缩到只有30维，并且解码回的图像具备清楚的辨认度（如下图）。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image007.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image007.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image007.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image007.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image007.jpg"
+        title="img" /></p>
+<p>​    至此我们构造出了一个重构图像比较清晰的自编码模型，但是这并没有达到我们真正想要构造的生成模型的标准，因为，对于一个生成模型而言，解码器部分应该是单独能够提取出来的，并且对于在规定维度下任意采样的一个编码，都应该能通过解码器产生一张清晰且真实的图片。</p>
+<p>​    我们先来分析一下现有模型无法达到这一标准的原因。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image008.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image008.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image008.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image008.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image008.jpg"
+        title="img" /></p>
+<p>​    如上图所示，假设有两张训练图片，一张是全月图，一张是半月图，经过训练我们的自编码器模型已经能无损地还原这两张图片。接下来，我们在code空间上，两张图片的编码点中间处取一点，然后将这一点交给解码器，我们希望新的生成图片是一张清晰的图片（类似3/4全月的样子）。但是，实际的结果是，生成图片是模糊且无法辨认的乱码图。一个比较合理的解释是，因为编码和解码的过程使用了深度神经网络，这是一个非线性的变换过程，所以在code空间上点与点之间的迁移是非常没有规律的。</p>
+<p>​    如何解决这个问题呢？我们可以引入噪声，使得图片的编码区域得到扩大，从而掩盖掉失真的空白编码点。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image009.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image009.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image009.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image009.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image009.jpg"
+        title="img" /></p>
+<p>​    如上图所示，现在在给两张图片编码的时候加上一点噪音，使得每张图片的编码点出现在绿色箭头所示范围内，于是在训练模型的时候，绿色箭头范围内的点都有可能被采样到，这样解码器在训练时会把绿色范围内的点都尽可能还原成和原图相似的图片。然后我们可以关注之前那个失真点，现在它处于全月图和半月图编码的交界上，于是解码器希望它既要尽量相似于全月图，又要尽量相似于半月图，于是它的还原结果就是两种图的折中（3/4全月图）。</p>
+<p>​    由此我们发现，给编码器增添一些噪音，可以有效覆盖失真区域。不过这还并不充分，因为在上图的距离训练区域很远的黄色点处，它依然不会被覆盖到，仍是个失真点。为了解决这个问题，我们可以试图把噪音无限拉长，使得对于每一个样本，它的编码会覆盖整个编码空间，不过我们得保证，在原编码附近编码的概率最高，离原编码点越远，编码概率越低。在这种情况下，图像的编码就由原先离散的编码点变成了一条连续的编码分布曲线，如下图所示。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image010.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image010.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image010.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image010.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image010.jpg"
+        title="img" /></p>
+<p>​    那么上述的这种将图像编码由离散变为连续的方法，就是变分自编码的核心思想。下面就会介绍VAE的模型架构，以及解释VAE是如何实现上述构思的。</p>
+<h3 id="2vae的模型架构">2.VAE的模型架构</h3>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image011.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image011.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image011.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image011.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image011.jpg"
+        title="img" /></p>
+<p>上面这张图就是VAE的模型架构，我们先粗略地领会一下这个模型的设计思想。</p>
+<p>在auto-encoder中，编码器是直接产生一个编码的，但是在VAE中，为了给编码添加合适的噪音，编码器会输出两个编码，一个是原有编码(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image012.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image012.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image012.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image012.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image012.png"
+        title="img" />)，另外一个是控制噪音干扰程度的编码(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png"
+        title="img" />)，第二个编码其实很好理解，就是为随机噪音码(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image014.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image014.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image014.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image014.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image014.png"
+        title="img" />)分配权重，然后加上exp(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        title="img" />)的目的是为了保证这个分配的权重是个正值，最后将原编码与噪音编码相加，就得到了VAE在code层的输出结果(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image016.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image016.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image016.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image016.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image016.png"
+        title="img" />)。其它网络架构都与Deep Auto-encoder无异。</p>
+<p>损失函数方面，除了必要的重构损失外，VAE还增添了一个损失函数（见上图Minimize2内容），这同样是必要的部分，因为如果不加的话，整个模型就会出现问题：为了保证生成图片的质量越高，编码器肯定希望噪音对自身生成图片的干扰越小，于是分配给噪音的权重越小，这样只需要将(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png"
+        title="img" />)赋为接近负无穷大的值就好了。所以，<strong>第二个损失函数就有限制编码器走这样极端路径的作用，这也从直观上就能看出来，exp(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        title="img" />)-(1+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        title="img" />)在<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image015.png"
+        title="img" />=0处取得最小值，于是(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image013.png"
+        title="img" />)就会避免被赋值为负无穷大。</strong></p>
+<p>上述我们只是粗略地理解了VAE的构造机理，但是还有一些更深的原理需要挖掘，例如第二个损失函数为何选用这样的表达式，以及VAE是否真的能实现我们的预期设想，即“图片能够编码成易于表示的形态，并且这一形态能够尽可能无损地解码回原真实图像”，是否有相应的理论依据。</p>
+<p>下面我们会从理论上深入地分析一下VAE的构造依据以及作用原理。</p>
+<h3 id="3vae的作用原理">3.VAE的作用原理</h3>
+<p>​    我们知道，对于生成模型而言，主流的理论模型可以分为隐马尔可夫模型HMM、朴素贝叶斯模型NB和高斯混合模型GMM，而VAE的理论基础就是高斯混合模型。</p>
+<p>​    什么是高斯混合模型呢？就是说，任何一个数据的分布，都可以看作是若干高斯分布的叠加。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image017.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image017.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image017.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image017.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image017.jpg"
+        title="img" /></p>
+<p>​    如图所示，如果P(X)代表一种分布的话，存在一种拆分方法能让它表示成图中若干浅蓝色曲线对应的高斯分布的叠加。有意思的是，这种拆分方法已经证明出，当拆分的数量达到512时，其叠加的分布相对于原始分布而言，误差是非常非常小的了。</p>
+<p>​    于是我们可以利用这一理论模型去考虑如何给数据进行编码。一种最直接的思路是，直接用每一组高斯分布的参数作为一个编码值实现编码。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image018.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image018.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image018.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image018.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image018.jpg"
+        title="img" /></p>
+<p>​    如上图所示，m代表着编码维度上的编号，譬如实现一个512维的编码，m的取值范围就是1,2,3……512。m会服从于一个概率分布P(m)（多项式分布）。现在编码的对应关系是，每采样一个m，其对应到一个小的高斯分布<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image019.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image019.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image019.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image019.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image019.png"
+        title="img" />，P(X)就可以等价为所有的这些高斯分布的叠加，即：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image020.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image020.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image020.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image020.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image020.png"
+        title="img" /></p>
+<p>​    其中，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image021.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image021.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image021.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image021.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image021.png"
+        title="img" />，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image022.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image022.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image022.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image022.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image022.png"
+        title="img" />。</p>
+<p>​    上述的这种编码方式是非常简单粗暴的，它对应的是我们之前提到的离散的、有大量失真区域的编码方式。于是我们需要对目前的编码方式进行改进，使得它成为连续有效的编码。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image023.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image023.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image023.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image023.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image023.jpg"
+        title="img" /></p>
+<p>​    现在我们的编码换成一个连续变量z，我们规定z服从正态分布<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png"
+        title="img" />（实际上并不一定要选用<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image024.png"
+        title="img" />，其他的连续分布都是可行的）。每对于一个采样z，会有两个函数<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        title="img" />和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        title="img" />，分别决定z对应到的高斯分布的均值和方差，然后在积分域上所有的高斯分布的累加就成为了原始分布P(X),即：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png"
+        title="img" /></p>
+<p>​    其中<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image028.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image028.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image028.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image028.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image028.png"
+        title="img" />，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png"
+        title="img" />。</p>
+<p>​    接下来就可以求解这个式子。由于<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image030.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image030.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image030.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image030.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image030.png"
+        title="img" />是已知的，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />未知，而<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image029.png"
+        title="img" />，于是我们真正需要求解的，是<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        title="img" />和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        title="img" />两个函数的表达式。又因为P(<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image032.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image032.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image032.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image032.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image032.png"
+        title="img" />)通常非常复杂，导致<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        title="img" />和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        title="img" />难以计算，我们需要引入两个神经网络来帮助我们求解。</p>
+<p>第一个神经网络叫做Decoder，它求解的是<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image025.png"
+        title="img" />和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image026.png"
+        title="img" />两个函数，这等价于求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image033.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image033.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image033.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image033.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image033.jpg"
+        title="img" /></p>
+<p>​    第二个神经网络叫做Encoder，它求解的结果是<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png"
+        title="img" />，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image035.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image035.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image035.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image035.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image035.png"
+        title="img" />可以代表任何分布。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image036.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image036.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image036.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image036.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image036.jpg"
+        title="img" /></p>
+<p>​    值得注意的是，这儿引入第二个神经网路Encoder的目的是，辅助第一个Decoder求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />，这也是整个VAE理论中最精妙的部分，下面我会详细地解释其中的奥妙。</p>
+<p>​    我们先回到最开始要求解的目标式：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image027.png"
+        title="img" /></p>
+<p>我们希望<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image037.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image037.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image037.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image037.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image037.png"
+        title="img" />越大越好，这等价于求解：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image038.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image038.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image038.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image038.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image038.png"
+        title="img" /></p>
+<p>​    注意到：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image039.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image039.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image039.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image039.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image039.png"
+        title="img" />     （<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image034.png"
+        title="img" />可以是任何分布）</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image040.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image040.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image040.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image040.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image040.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image041.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image041.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image041.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image041.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image041.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image042.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image042.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image042.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image042.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image042.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image043.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image043.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image043.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image043.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image043.png"
+        title="img" /></p>
+<p>​    上式的第二项是一个大于等于0的值，于是我们就找到了一个<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />的下界：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image045.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image045.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image045.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image045.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image045.png"
+        title="img" /></p>
+<p>​    我们把这个下界记作<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image046.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image046.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image046.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image046.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image046.png"
+        title="img" />。</p>
+<p>​    于是原式化为：<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image047.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image047.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image047.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image047.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image047.png"
+        title="img" />。</p>
+<p>​    接下类，VAE思维的巧妙设计就体现出来了。原本，我们需要求<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />使得<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png"
+        title="img" />最大，现在引入了一个<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        title="img" />，变成了同时求<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        title="img" />使得<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png"
+        title="img" />最大。不妨观察一下<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        title="img" />的关系：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image051.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image051.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image051.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image051.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image051.jpg"
+        title="img" /></p>
+<p>一个有趣的现象是，当我们固定住<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />时，因为<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />只与<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />有关，所以<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />的值是会不变的，此时我们去调节<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        title="img" />，使得<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        title="img" />越来越高，同时KL散度越来越小，当我们调节到<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        title="img" />与<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image052.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image052.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image052.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image052.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image052.png"
+        title="img" />完全一致时，KL散度就消失为0，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        title="img" />与<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />完全一致。由此可以得出，不论<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />的值如何，我们总能够通过调节使得<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        title="img" />等于<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image048.png"
+        title="img" />，又因为<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image050.png"
+        title="img" />是<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image044.png"
+        title="img" />的下界，所以求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image053.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image053.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image053.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image053.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image053.png"
+        title="img" />等价为求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png"
+        title="img" />。</p>
+<p>这个现象从宏观上来看也是很有意思，调节<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image031.png"
+        title="img" />就是在调节<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        title="img" />，调节<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        title="img" />就是在调节<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png"
+        title="img" />。于是，VAE的训练逻辑就变成了，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        title="img" />每前进一步，<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image056.png"
+        title="img" />就调节成与其一致的样子，并且站在那拿“枪”顶住<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        title="img" />，这样<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image055.png"
+        title="img" />在下次训练的时候就只能前进，不能退步了。</p>
+<p>上述便是VAE的巧妙设计之处。再回到我们之前的步骤上，现在需求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png"
+        title="img" />。</p>
+<p>注意到：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image057.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image057.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image057.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image057.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image057.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image058.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image058.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image058.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image058.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image058.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image059.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image059.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image059.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image059.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image059.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image060.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image060.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image060.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image060.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image060.png"
+        title="img" /></p>
+<p>所以，求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image054.png"
+        title="img" />，等价于求解<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png"
+        title="img" />的最小值和<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image062.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image062.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image062.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image062.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image062.png"
+        title="img" />的最大值。</p>
+<p>我们先来求第一项，其实-<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image061.png"
+        title="img" />的展开式刚好等于：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image063.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image063.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image063.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image063.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image063.png"
+        title="img" /></p>
+<p>具体的展开计算过程可以参阅《Auto-Encoding Variational Bayes》的Appendix B。</p>
+<p>于是，第一项式子就是第二节VAE模型架构中第二个损失函数的由来。</p>
+<p>接下来求第二项，注意到</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image064.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image064.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image064.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image064.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image064.png"
+        title="img" /></p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image065.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image065.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image065.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image065.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image065.png"
+        title="img" /></p>
+<p>上述的这个期望，也就是表明在给定<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image049.png"
+        title="img" />（编码器输出）的情况下<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image066.png"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image066.png, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image066.png 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image066.png 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image066.png"
+        title="img" />（解码器输出）的值尽可能高，这其实就是一个类似于Auto-Encoder的损失函数（方差忽略不计的话）：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image067.jpg"
+        data-srcset="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image067.jpg, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image067.jpg 1.5x, http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image067.jpg 2x"
+        data-sizes="auto"
+        alt="http://www.gwylab.com/files/VAE%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0.files/image067.jpg"
+        title="img" /></p>
+<p>因此，第二项式子就是第二节VAE模型架构中第一个损失函数的由来。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Wed 2022.8.10</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/" data-title="CV_13生成模型（上）" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/%E8%AE%BA%E6%96%87_gan/" class="prev" rel="prev" title="GAN论文笔记"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/" class="next" rel="next" title="设计模式之美：开篇">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

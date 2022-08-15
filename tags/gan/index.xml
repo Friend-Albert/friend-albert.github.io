@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>GAN - 标签 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/tags/gan/</link>
+        <description>GAN - 标签 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/gan/" rel="self" type="application/rss+xml" /><item>
+    <title>GAN论文笔记</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/</guid>
+    <description><![CDATA[NIPS-2014-generative-adversarial-nets-Paper GAN论文精读 使用MLP（全连接神经网络）$\to$可使用反向传播简单的训练网络 生成器通过真实数据X（多维随机变量）学习$p_g$分布 定义]]></description>
+</item>
+</channel>
+</rss>

@@ -3,16 +3,64 @@
         <title>Tags - 标签 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/tags/</link>
         <description>Tags - 标签 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/" rel="self" type="application/rss+xml" /><item>
+    <title>面向对象</title>
+    <link>https://friend-albert.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</link>
+    <pubDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>设计模式</title>
+    <link>https://friend-albert.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</link>
+    <pubDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>重构</title>
+    <link>https://friend-albert.github.io/tags/%E9%87%8D%E6%9E%84/</link>
+    <pubDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E9%87%8D%E6%9E%84/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
     <title>CV</title>
     <link>https://friend-albert.github.io/tags/cv/</link>
-    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/cv/</guid>
+    <pubDate>Thu, 11 Aug 2022 20:11:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/cv/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>GAN</title>
+    <link>https://friend-albert.github.io/tags/gan/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/gan/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>论文精读</title>
+    <link>https://friend-albert.github.io/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E8%AE%BA%E6%96%87%E7%B2%BE%E8%AF%BB/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
     <title>Java</title>
     <link>https://friend-albert.github.io/tags/java/</link>
-    <pubDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/java/</guid>
+    <pubDate>Tue, 02 Aug 2022 15:21:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/java/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>机器学习</title>
+    <link>https://friend-albert.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</link>
+    <pubDate>Sat, 23 Jul 2022 23:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E6%9C%BA%E5%99%A8%E5%AD%A6%E4%B9%A0/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>数学</title>
+    <link>https://friend-albert.github.io/tags/%E6%95%B0%E5%AD%A6/</link>
+    <pubDate>Sat, 23 Jul 2022 23:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E6%95%B0%E5%AD%A6/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>算法</title>
+    <link>https://friend-albert.github.io/tags/%E7%AE%97%E6%B3%95/</link>
+    <pubDate>Sat, 23 Jul 2022 23:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/tags/%E7%AE%97%E6%B3%95/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

@@ -3,7 +3,13 @@
         <title>Java教程 - 分类 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/categories/java%E6%95%99%E7%A8%8B/</link>
         <description>Java教程 - 分类 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/java%E6%95%99%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 02 Aug 2022 15:21:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/java%E6%95%99%E7%A8%8B/" rel="self" type="application/rss+xml" /><item>
+    <title>Java_泛型</title>
+    <link>https://friend-albert.github.io/posts/java_%E6%B3%9B%E5%9E%8B/</link>
+    <pubDate>Tue, 02 Aug 2022 15:21:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%B3%9B%E5%9E%8B/</guid>
+    <description><![CDATA[泛型 1.使用泛型 使用泛型时，把泛型参数&lt;T&gt;替换为需要的class类型，例如：ArrayList&lt;String&gt;，A]]></description>
+</item>
+<item>
     <title>Java_注解</title>
     <link>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</link>
     <pubDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</guid>

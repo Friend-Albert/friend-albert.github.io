@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_14生成模型（下） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_14生成模型（下）" />
+<meta property="og:description" content="生成模型GAN 问题：希望从训练样本中采集新数据，但是样本分布往往维度高且十分复杂，难以直接实现 解决：对简单分布采样并且学习一种映射将其变换到" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-11T20:11:00+08:00" />
+<meta property="article:modified_time" content="2022-08-11T20:11:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_14生成模型（下）"/>
+<meta name="twitter:description" content="生成模型GAN 问题：希望从训练样本中采集新数据，但是样本分布往往维度高且十分复杂，难以直接实现 解决：对简单分布采样并且学习一种映射将其变换到"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/" /><link rel="prev" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/" /><link rel="next" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8A/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_14生成模型（下）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B\/"
+        },"genre": "posts","keywords": "CV","wordcount":  501 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B\/","datePublished": "2022-08-11T20:11:00+08:00","dateModified": "2022-08-11T20:11:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_14生成模型（下）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Thu 2022.8.11">Thu 2022.8.11</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 501 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#gan-生成对抗网络">GAN 生成对抗网络</a></li>
+    <li><a href="#最大化似然最小化kl散度">最大化似然=最小化KL散度</a></li>
+    <li><a href="#具体算法">具体算法</a></li>
+    <li><a href="#总结">总结</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="生成模型gan">生成模型GAN</h1>
+<p>问题：希望从训练样本中采集新数据，但是样本分布往往维度高且十分复杂，难以直接实现</p>
+<p><strong>解决：对简单分布采样并且学习一种映射将其变换到训练样本分布</strong></p>
+<h2 id="gan-生成对抗网络">GAN 生成对抗网络</h2>
+<ul>
+<li>生成网络：期望产生真实图片骗过判别器</li>
+<li>判别网络：期望能够准确分辨真假图片</li>
+</ul>
+<p><strong>两个网络先后训练，产生对抗，不断进步</strong></p>
+<p>采用minimax方法训练：
+$$
+\min_{\theta_{g}}\max_{\theta_{d}}[E_{x\sim p_{data}}\log{D_{\theta_{d}}}(x)+E_{x\sim p(z)}\log(1-D_{\theta_{d}}(G_{\theta_{g}}(z)))]\
+p_{data}:真实样本分布\
+p(z):噪声分布\
+\theta_{d}:网络参数\
+\theta_{g}:网络参数
+$$
+公式解释：</p>
+<ol>
+<li>$max \ \theta_{d}$：在生成水平不变的情况下，尽量提高判别网络的正确率</li>
+<li>$min \ \theta_{g}$：期望生成图片被判别为真</li>
+</ol>
+<p>训练过程：</p>
+<ol>
+<li>
+<p>先训练判别器（<strong>梯度上升</strong>）：
+$$
+\max_{\theta_{d}}[E_{x\sim p_{data}}\log{D_{\theta_{d}}}(x)+E_{x\sim p(z)}\log(1-D_{\theta_{d}}(G_{\theta_{g}}(z)))]
+$$</p>
+</li>
+<li>
+<p>再训练生成器（<strong>梯度下降</strong>）：
+$$
+\min_{\theta_{g}}E_{x\sim p(z)}\log(1-D_{\theta_{d}}(G_{\theta_{g}}(z)))
+$$
+但是上述公式梯度过小，训练过程太慢，因此实际使用如下公式进行学习：
+$$
+\max_{\theta_{g}}E_{x\sim p(z)}\log(D_{\theta_{d}}(G_{\theta_{g}}(z)))
+$$</p>
+</li>
+</ol>
+<h2 id="最大化似然最小化kl散度">最大化似然=最小化KL散度</h2>
+<p>$$</p>
+<p>$$</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/11/c22e8429024b25dd.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/11/c22e8429024b25dd.png, https://s3.bmp.ovh/imgs/2022/08/11/c22e8429024b25dd.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/11/c22e8429024b25dd.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/11/c22e8429024b25dd.png"
+        title="image-20220811202658154" /></p>
+<h2 id="具体算法">具体算法</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/11/ea7789b69b837e39.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/11/ea7789b69b837e39.png, https://s3.bmp.ovh/imgs/2022/08/11/ea7789b69b837e39.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/11/ea7789b69b837e39.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/11/ea7789b69b837e39.png"
+        title="image-20220811202859446" /></p>
+<h2 id="总结">总结</h2>
+<ul>
+<li>不需要显式的密度函数定义</li>
+<li>采用游戏理论方法：利用两个玩家的博弈，来学习训练数据的分布</li>
+</ul>
+<p>优点：</p>
+<ul>
+<li>优雅，目前最好的生成效果</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li>很难训练，非常不稳定</li>
+<li>无法计算赝本或者隐变量的概率</li>
+</ul>
+<p>领域热点：</p>
+<ul>
+<li>更好的损失函数，更稳定的训练方法</li>
+<li>条件GANS，将GANS应用于更多任务</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Thu 2022.8.11</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/" data-title="CV_14生成模型（下）" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/" class="prev" rel="prev" title="设计模式之美：开篇"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8A/" class="next" rel="next" title="设计原则与思想：面向对象（上）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

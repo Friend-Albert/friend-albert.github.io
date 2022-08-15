@@ -3,17 +3,53 @@
         <title>计算机视觉与深度学习 - 分类 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/</link>
         <description>计算机视觉与深度学习 - 分类 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
-    <title>CV_8纹理表示&amp;卷积神经网络</title>
-    <link>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
-    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
-    <description><![CDATA[纹理表示&amp;卷积神经网络 1.基于卷积核组的纹理表示方法 利用卷积核组提取纹理基元 设计卷积核组 利用卷积核组对图像进行卷积 利用特征响应图的统]]></description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Thu, 11 Aug 2022 20:11:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/" rel="self" type="application/rss+xml" /><item>
+    <title>CV_14生成模型（下）</title>
+    <link>https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/</link>
+    <pubDate>Thu, 11 Aug 2022 20:11:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/</guid>
+    <description><![CDATA[生成模型GAN 问题：希望从训练样本中采集新数据，但是样本分布往往维度高且十分复杂，难以直接实现 解决：对简单分布采样并且学习一种映射将其变换到]]></description>
+</item>
+<item>
+    <title>CV_13生成模型（上）</title>
+    <link>https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/</guid>
+    <description><![CDATA[生成模型（上） 给定训练集，产生与训练集同分布的新样本，希望学习模型的分布$p_{model}$使其与训练样本的$p_{data}$相近 关键：]]></description>
+</item>
+<item>
+    <title>GAN论文笔记</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/</guid>
+    <description><![CDATA[NIPS-2014-generative-adversarial-nets-Paper GAN论文精读 使用MLP（全连接神经网络）$\to$可使用反向传播简单的训练网络 生成器通过真实数据X（多维随机变量）学习$p_g$分布 定义]]></description>
+</item>
+<item>
+    <title>CV_12可视化</title>
+    <link>https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <pubDate>Tue, 09 Aug 2022 23:02:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+    <description><![CDATA[可视化 一、相关理论 本篇博文主要讲解2014年ECCV上的一篇经典文献：《Visualizing and Understanding Convolutional Networks》，可以说是CNN领域可]]></description>
+</item>
+<item>
+    <title>CV_11多目标检测</title>
+    <link>https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</link>
+    <pubDate>Sat, 06 Aug 2022 14:37:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</guid>
+    <description><![CDATA[多目标检测 问题：不清楚目标数$\to$不清楚输出维度 困境：CNN需要对图像中所有可能方法穷举，计算量过大，不现实 RCNN 找出潜在候选区域（通过区域]]></description>
+</item>
+<item>
+    <title>CV_10经典网络分析（下）&amp;视觉识别</title>
+    <link>https://friend-albert.github.io/posts/cv_10%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8B%E8%A7%86%E8%A7%89%E8%AF%86%E5%88%AB/</link>
+    <pubDate>Mon, 01 Aug 2022 01:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_10%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8B%E8%A7%86%E8%A7%89%E8%AF%86%E5%88%AB/</guid>
+    <description><![CDATA[经典网络分析（下）&amp;视觉识别 1.ResNet 问题：不断加深层数会导致正反向信息流通受阻，最终导致梯度消失，网络得不到充分训练，出现欠拟合 贡献 提出残]]></description>
 </item>
 <item>
     <title>CV_9经典网络分析（上）</title>
     <link>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</link>
-    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</guid>
+    <pubDate>Mon, 01 Aug 2022 01:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</guid>
     <description><![CDATA[经典网络分析（上） 1.AlexNet 主要贡献： 提出卷积层加全连接层的卷积神经网络 首先使用Relu激活函数 首次提出dropout正则化 使用加入动量的小批量梯度]]></description>
+</item>
+<item>
+    <title>CV_8纹理表示&amp;卷积神经网络</title>
+    <link>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
+    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
+    <description><![CDATA[纹理表示&amp;卷积神经网络 1.基于卷积核组的纹理表示方法 利用卷积核组提取纹理基元 设计卷积核组 利用卷积核组对图像进行卷积 利用特征响应图的统]]></description>
 </item>
 <item>
     <title>CV_7卷积&amp;图像去噪&amp;边缘提取</title>
@@ -26,36 +62,6 @@
     <link>https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</link>
     <pubDate>Wed, 27 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</guid>
     <description><![CDATA[全连接神经网络（下） 1.欠拟合、过拟合、dropout 过拟合——参数过多，只记住数据而非学习到了特征 欠拟合——过于简单，找不到数据特征 机器学]]></description>
-</item>
-<item>
-    <title>CV_5全连接神经网络（中）</title>
-    <link>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</link>
-    <pubDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</guid>
-    <description><![CDATA[全连接神经网络（中） 1.梯度消失与梯度爆炸 梯度消失将导致参数无法更新，网络无法继续训练（无解决方法） eg.sigmoid函数的导数$\in(]]></description>
-</item>
-<item>
-    <title>CV_4全连接神经网络（上）</title>
-    <link>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link>
-    <pubDate>Mon, 25 Jul 2022 22:45:56 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid>
-    <description><![CDATA[全连接神经网络（上） 全连接神经网络通过多个变换来实现输入到输出的映射 eg.两层神经网络：$f=W_2\max(0,W_1x+b_1)+b_2]]></description>
-</item>
-<item>
-    <title>CV_3线性分类器（下）</title>
-    <link>https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/</link>
-    <pubDate>Mon, 25 Jul 2022 18:19:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_3%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8B/</guid>
-    <description><![CDATA[线性分类器（下） 1.正则项与超参数 含义：对模型的偏好设置 情景：如果有多个$W$均可得到最优的损失函数，该如何选择？ 定义： $$ L(w)=\frac{1}{N}\sum_{i}L_i(f(x_i,W),y_i)+\lambda R(W) $$ $\frac]]></description>
-</item>
-<item>
-    <title>CV_2图像分类和线性分类器（上）</title>
-    <link>https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/</link>
-    <pubDate>Sun, 24 Jul 2022 14:12:26 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_2%E5%9B%BE%E5%83%8F%E5%88%86%E7%B1%BB%E5%92%8C%E7%BA%BF%E6%80%A7%E5%88%86%E7%B1%BB%E5%99%A8%E4%B8%8A/</guid>
-    <description><![CDATA[二、图像分类和线性分类器（上） （一）图像分类 1.定义 根据图像特征进行区分 从已知标签集合中为输入图片选定一个标签 2.难点 语义鸿沟-图像的特征、]]></description>
-</item>
-<item>
-    <title>CV_1前言</title>
-    <link>https://friend-albert.github.io/posts/cv_1%E5%89%8D%E8%A8%80/</link>
-    <pubDate>Sat, 23 Jul 2022 23:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_1%E5%89%8D%E8%A8%80/</guid>
-    <description><![CDATA[一.前言 计算机视觉与深度学习 北京邮电大学 鲁鹏 清晰版合集（完整版） 1.计算机视觉定义 图像-&gt;感知器官-&gt;解释器-&gt;解释（人）]]></description>
 </item>
 </channel>
 </rss>

@@ -1,0 +1,31 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>设计模式之美 - 分类 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/</link>
+        <description>设计模式之美 - 分类 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/" rel="self" type="application/rss+xml" /><item>
+    <title>设计原则与思想：面向对象（下）</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8B/</link>
+    <pubDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8B/</guid>
+    <description><![CDATA[面向对象思想实战 业务开发常用的基于贫血模型的MVC架构违背OOP吗？ MVC架构代码分析 ////////// Controller+VO(View Object) ////////// public class UserController { private UserService userService; //通过构造函数或者IOC框架注]]></description>
+</item>
+<item>
+    <title>设计原则与思想：面向对象（中）</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%AD/</link>
+    <pubDate>Fri, 12 Aug 2022 21:19:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%AD/</guid>
+    <description><![CDATA[设计原则与思想：面向对象（中） 理论五：接口vs抽象类的区别？如何用普通的类模拟抽象类和接口？ 抽象类 抽象类不允许被实例化，只能被继承。也就是说]]></description>
+</item>
+<item>
+    <title>设计原则与思想：面向对象（上）</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8A/</link>
+    <pubDate>Thu, 11 Aug 2022 21:19:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8A/</guid>
+    <description><![CDATA[设计原则与思想：面向对象（上） 理论一：当谈论面向对象的时候，我们到底在谈论什么？ 面向对象编程是一种编程范式或编程风格。它以类或对象作为组织代]]></description>
+</item>
+<item>
+    <title>设计模式之美：开篇</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/</link>
+    <pubDate>Thu, 11 Aug 2022 18:09:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/</guid>
+    <description><![CDATA[]]></description>
+</item>
+</channel>
+</rss>

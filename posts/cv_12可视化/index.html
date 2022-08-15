@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>CV_12可视化 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="CV_12可视化" />
+<meta property="og:description" content="可视化 一、相关理论 本篇博文主要讲解2014年ECCV上的一篇经典文献：《Visualizing and Understanding Convolutional Networks》，可以说是CNN领域可" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-09T23:02:35+08:00" />
+<meta property="article:modified_time" content="2022-08-09T23:02:35+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="CV_12可视化"/>
+<meta name="twitter:description" content="可视化 一、相关理论 本篇博文主要讲解2014年ECCV上的一篇经典文献：《Visualizing and Understanding Convolutional Networks》，可以说是CNN领域可"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" /><link rel="prev" href="https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" /><link rel="next" href="https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "CV_12可视化",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96\/"
+        },"genre": "posts","keywords": "CV","wordcount":  2591 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96\/","datePublished": "2022-08-09T23:02:35+08:00","dateModified": "2022-08-09T23:02:35+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_12可视化</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Tue 2022.8.9">Tue 2022.8.9</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2591 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#1反池化过程">1、反池化过程</a></li>
+    <li><a href="#2反激活">2、反激活</a></li>
+    <li><a href="#3反卷积">3、反卷积</a></li>
+  </ul>
+
+  <ul>
+    <li><a href="#1特征可视化结果">1、特征可视化结果</a></li>
+    <li><a href="#2特征学习的过程">2、特征学习的过程</a></li>
+    <li><a href="#3图像变换">3、图像变换。</a></li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="可视化">可视化</h1>
+<h1 id="一相关理论">一、相关理论</h1>
+<p>本篇博文主要讲解2014年ECCV上的一篇经典文献：《Visualizing and Understanding Convolutional Networks》，可以说是CNN领域可视化理解的开山之作，<strong>这篇文献告诉我们CNN的每一层到底学习到了什么特征</strong>，然后<strong>作者通过可视化进行调整网络，提高了精度</strong>。最近两年深层的卷积神经网络，进展非常惊人，在计算机视觉方面，识别精度不断的突破，CVPR上的关于CNN的文献一大堆。然而很多学者都不明白，为什么通过某种调参、改动网络结构等，精度会提高。可能某一天，我们搞CNN某个项目任务的时候，你调整了某个参数，结果精度飙升，但如果别人问你，为什么这样调参精度会飙升呢，你所设计的CNN到底学习到了什么牛逼的特征？</p>
+<p>这篇文献的目的，就是要<strong>通过特征可视化，告诉我们如何通过可视化的角度，查看你的精度确实提高了</strong>，你设计CNN学习到的特征确实比较牛逼。这篇文献是经典必读文献，才发表了一年多，引用次数就已经达到了好几百，学习这篇文献，对于我们今后深入理解CNN，具有非常重要的意义。总之这篇文章，牛逼哄哄。</p>
+<h1 id="二利用反卷积实现特征可视化">二、利用反卷积实现特征可视化</h1>
+<p>为了解释卷积神经网络为什么work，我们就需要解释CNN的每一层学习到了什么东西。为了理解网络中间的每一层，提取到特征，paper通过反卷积的方法，进行可视化。反卷积网络可以看成是卷积网络的逆过程。反卷积网络在文献《<a href="http://www.uoguelph.ca/~gwtaylor/publications/zeilertaylorfergus_iccv2011.pdf" target="_blank" rel="noopener noreffer">Adaptive deconvolutional networks for mid and high level feature learning</a>》中被提出，是用于无监督学习的。然而本文的反卷积过程并不具备学习的能力，仅仅是用于可视化一个已经训练好的卷积网络模型，没有学习训练的过程。</p>
+<p><strong>反卷积可视化</strong>以各层得到的特征图作为输入，进行反卷积，得到反卷积结果，用以验证显示各层提取到的特征图。举个例子：假如你想要查看Alexnet 的conv5提取到了什么东西，我们就用conv5的特征图<strong>后面接一个反卷积网络</strong>，然后通过：反池化、反激活、反卷积，这样的一个过程，把本来一张13<em>13大小的特征图(conv5大小为13</em>13)，放大回去，最后得到一张与原始输入图片一样大小的图片(227*227)。</p>
+<h2 id="1反池化过程">1、反池化过程</h2>
+<p>我们知道，池化是不可逆的过程，然而我们可以通过记录池化过程中，最大激活值得坐标位置。然后在反池化的时候，只把池化过程中最大激活值所在的位置坐标的值激活，其它的值置为0，当然这个过程只是一种近似，因为我们在池化的过程中，除了最大值所在的位置，其它的值也是不为0的。刚好最近几天看到文献：《Stacked What-Where Auto-encoders》，里面有个反卷积示意图画的比较好，所有就截下图，用这篇文献的示意图进行讲解：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdn.net/20160119192602517?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        data-srcset="https://img-blog.csdn.net/20160119192602517?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center, https://img-blog.csdn.net/20160119192602517?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 1.5x, https://img-blog.csdn.net/20160119192602517?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdn.net/20160119192602517?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        title="此处输入图片的描述" /></p>
+<p>以上面的图片为例，上面的图片中左边表示pooling过程，右边表示unpooling过程。假设我们pooling块的大小是3<em>3，采用max pooling后，我们可以得到一个输出神经元其激活值为9，pooling是一个下采样的过程，本来是3</em>3大小，经过pooling后，就变成了1*1大小的图片了。而upooling刚好与pooling过程相反，它是一个上采样的过程，是pooling的一个反向运算，当我们由一个神经元要扩展到3*3个神经元的时候，我们需要借助于pooling过程中，记录下最大值所在的位置坐标(0,1)，然后在unpooling过程的时候，就把(0,1)这个像素点的位置填上去，其它的神经元激活值全部为0。再来一个例子：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdn.net/20160119192732705?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        data-srcset="https://img-blog.csdn.net/20160119192732705?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center, https://img-blog.csdn.net/20160119192732705?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 1.5x, https://img-blog.csdn.net/20160119192732705?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdn.net/20160119192732705?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        title="此处输入图片的描述" /></p>
+<p>在max pooling的时候，我们不仅要得到最大值，同时还要记录下最大值得坐标（-1，-1），然后再unpooling的时候，就直接把(-1-1)这个点的值填上去，其它的激活值全部为0。</p>
+<h2 id="2反激活">2、反激活</h2>
+<p>我们在Alexnet中，relu函数是用于保证每层输出的激活值都是正数，因此对于反向过程，我们同样需要保证每层的特征图为正值，也就是说这个反激活过程和激活过程没有什么差别，都是直接采用relu函数。</p>
+<h2 id="3反卷积">3、反卷积</h2>
+<p>对于反卷积过程，采用卷积过程转置后的滤波器(参数一样，只不过把参数矩阵水平和垂直方向翻转了一下)。具体过程参见：<a href="https://blog.csdn.net/j_starry/article/details/103574200?utm_medium=distribute.pc_relevant.none-task-blog-2~default~baidujs_baidulandingword~default-0-103574200-blog-82862422.pc_relevant_multi_platform_whitelistv3&amp;spm=1001.2101.3001.4242.1&amp;utm_relevant_index=3" target="_blank" rel="noopener noreffer">对深度学习反卷积网络的理解</a></p>
+<p>最后可视化网络结构如下：
+<img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdn.net/20160119192837550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        data-srcset="https://img-blog.csdn.net/20160119192837550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center, https://img-blog.csdn.net/20160119192837550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 1.5x, https://img-blog.csdn.net/20160119192837550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdn.net/20160119192837550?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        title="网络结构" /></p>
+<p>网络的整个过程，从右边开始：输入图片-》卷积-》Relu-》最大池化-》得到结果特征图-》反池化-》Relu-》反卷积。到了这边，可以说我们的算法已经学习完毕了，其它部分是文献要解释理解CNN部分，可学可不学。</p>
+<p>总的来说算法主要有两个关键点：1、反池化 2、反卷积，这两个源码的实现方法，需要好好理解。</p>
+<h1 id="三理解可视化">三、理解可视化</h1>
+<p>特征可视化：<strong>一旦我们的网络训练完毕了，我们就可以进行可视化，查看学习到了什么东西</strong>。但是要怎么看？怎么理解，又是一回事了。我们利用上面的反卷积网络，对每一层的特征图进行查看。</p>
+<h2 id="1特征可视化结果">1、特征可视化结果</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdn.net/20160119194801423?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        data-srcset="https://img-blog.csdn.net/20160119194801423?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center, https://img-blog.csdn.net/20160119194801423?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 1.5x, https://img-blog.csdn.net/20160119194801423?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdn.net/20160119194801423?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        title="此处输入图片的描述" /></p>
+<p>总的来说，通过CNN学习后，我们学习到的特征，是具有辨别性的特征，比如要我们区分人脸和狗头，那么通过CNN学习后，背景部位的激活度基本很少，我们通过可视化就可以看到我们提取到的特征忽视了背景，而是把关键的信息给提取出来了。从layer 1、layer 2学习到的特征基本上是颜色、边缘等低层特征；layer 3则开始稍微变得复杂，学习到的是纹理特征，比如上面的一些网格纹理；layer 4学习到的则是比较有区别性的特征，比如狗头；layer 5学习到的则是完整的，具有辨别性关键特征。</p>
+<h2 id="2特征学习的过程">2、特征学习的过程</h2>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://img-blog.csdn.net/20160119194218086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        data-srcset="https://img-blog.csdn.net/20160119194218086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center, https://img-blog.csdn.net/20160119194218086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 1.5x, https://img-blog.csdn.net/20160119194218086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center 2x"
+        data-sizes="auto"
+        alt="https://img-blog.csdn.net/20160119194218086?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQv/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/Center"
+        title="此处输入图片的描述" /></p>
+<p>作者给我们显示了，在网络训练过程中，每一层学习到的特征是怎么变化的，上面每一整张图片是网络的某一层特征图，然后每一行有8个小图片，分别表示网络epochs次数为：1、2、5、10、20、30、40、64的特征图：</p>
+<p>结果：(1)仔细看每一层，在迭代的过程中的变化，出现了sudden jumps;(2)从层与层之间做比较，我们可以看到，低层在训练的过程中基本没啥变化，比较容易收敛，高层的特征学习则变化很大。这解释了低层网络的从训练开始，基本上没有太大的变化，因为梯度弥散嘛。(3)从高层网络conv5的变化过程，我们可以看到，刚开始几次的迭代，基本变化不是很大，但是到了40~50的迭代的时候，变化很大，因此我们以后在训练网络的时候，不要着急看结果，看结果需要保证网络收敛。</p>
+<h2 id="3图像变换">3、图像变换。</h2>
+<p>从文献中的图片5可视化结果，我们可以看到对于一张经过缩放、平移等操作的图片来说：对网络的第一层影响比较大，到了后面几层，基本上这些变换提取到的特征没什么比较大的变化。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/cv/">CV</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Tue 2022.8.9</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" data-title="CV_12可视化" data-hashtags="CV"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/" data-hashtag="CV"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/" class="prev" rel="prev" title="CV_11多目标检测"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/%E8%AE%BA%E6%96%87_gan/" class="next" rel="next" title="GAN论文笔记">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

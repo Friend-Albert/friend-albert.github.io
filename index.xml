@@ -3,67 +3,67 @@
         <title>FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/</link>
         <description>FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</lastBuildDate>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</lastBuildDate>
             <atom:link href="https://friend-albert.github.io/index.xml" rel="self" type="application/rss+xml" />
         <item>
-    <title>CV_8纹理表示&amp;卷积神经网络</title>
-    <link>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</link>
-    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_8%E7%BA%B9%E7%90%86%E8%A1%A8%E7%A4%BA%E5%8D%B7%E7%A7%AF%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C/</guid>
-    <description><![CDATA[纹理表示&amp;卷积神经网络 1.基于卷积核组的纹理表示方法 利用卷积核组提取纹理基元 设计卷积核组 利用卷积核组对图像进行卷积 利用特征响应图的统]]></description>
+    <title>设计原则与思想：面向对象（下）</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8B/</link>
+    <pubDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8B/</guid>
+    <description><![CDATA[面向对象思想实战 业务开发常用的基于贫血模型的MVC架构违背OOP吗？ MVC架构代码分析 ////////// Controller+VO(View Object) ////////// public class UserController { private UserService userService; //通过构造函数或者IOC框架注]]></description>
 </item>
 <item>
-    <title>CV_9经典网络分析（上）</title>
-    <link>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</link>
-    <pubDate>Mon, 01 Aug 2022 00:09:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_9%E7%BB%8F%E5%85%B8%E7%BD%91%E7%BB%9C%E5%88%86%E6%9E%90%E4%B8%8A/</guid>
-    <description><![CDATA[经典网络分析（上） 1.AlexNet 主要贡献： 提出卷积层加全连接层的卷积神经网络 首先使用Relu激活函数 首次提出dropout正则化 使用加入动量的小批量梯度]]></description>
+    <title>设计原则与思想：面向对象（中）</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%AD/</link>
+    <pubDate>Fri, 12 Aug 2022 21:19:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%AD/</guid>
+    <description><![CDATA[设计原则与思想：面向对象（中） 理论五：接口vs抽象类的区别？如何用普通的类模拟抽象类和接口？ 抽象类 抽象类不允许被实例化，只能被继承。也就是说]]></description>
 </item>
 <item>
-    <title>Java_注解</title>
-    <link>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</link>
-    <pubDate>Sat, 30 Jul 2022 23:00:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%B3%A8%E8%A7%A3/</guid>
-    <description><![CDATA[java_注解 1. 使用注解 什么是注解（Annotation）？注解是放在Java源码的类、方法、字段、参数前的一种特殊“注释” 注解的作用 从JV]]></description>
+    <title>设计原则与思想：面向对象（上）</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8A/</link>
+    <pubDate>Thu, 11 Aug 2022 21:19:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E6%80%9D%E6%83%B3%E4%B8%8A/</guid>
+    <description><![CDATA[设计原则与思想：面向对象（上） 理论一：当谈论面向对象的时候，我们到底在谈论什么？ 面向对象编程是一种编程范式或编程风格。它以类或对象作为组织代]]></description>
 </item>
 <item>
-    <title>Java_反射</title>
-    <link>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</link>
-    <pubDate>Fri, 29 Jul 2022 21:51:12 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%8F%8D%E5%B0%84/</guid>
-    <description><![CDATA[反射 什么是反射？ 反射就是Reflection，Java的反射是指程序在运行期可以拿到一个对象的所有信息。 正常情况下，如果我们要调用一个对象的]]></description>
+    <title>CV_14生成模型（下）</title>
+    <link>https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/</link>
+    <pubDate>Thu, 11 Aug 2022 20:11:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B/</guid>
+    <description><![CDATA[生成模型GAN 问题：希望从训练样本中采集新数据，但是样本分布往往维度高且十分复杂，难以直接实现 解决：对简单分布采样并且学习一种映射将其变换到]]></description>
 </item>
 <item>
-    <title>CV_7卷积&amp;图像去噪&amp;边缘提取</title>
-    <link>https://friend-albert.github.io/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/</link>
-    <pubDate>Thu, 28 Jul 2022 18:02:55 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_7%E5%8D%B7%E7%A7%AF%E5%9B%BE%E5%83%8F%E5%8E%BB%E5%99%AA%E8%BE%B9%E7%BC%98%E6%8F%90%E5%8F%96/</guid>
-    <description><![CDATA[卷积&amp;图像去噪&amp;边缘提取 1.噪声图像 某一点同周围像素差别大$\to$视觉上突兀 2.卷积 数学定义：设F为图像，H为卷积核，F与]]></description>
+    <title>设计模式之美：开篇</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/</link>
+    <pubDate>Thu, 11 Aug 2022 18:09:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%BC%80%E7%AF%87/</guid>
+    <description><![CDATA[]]></description>
 </item>
 <item>
-    <title>CV_6全连接神经网络（下）</title>
-    <link>https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</link>
-    <pubDate>Wed, 27 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_6%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8B/</guid>
-    <description><![CDATA[全连接神经网络（下） 1.欠拟合、过拟合、dropout 过拟合——参数过多，只记住数据而非学习到了特征 欠拟合——过于简单，找不到数据特征 机器学]]></description>
+    <title>CV_13生成模型（上）</title>
+    <link>https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_13%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8A/</guid>
+    <description><![CDATA[生成模型（上） 给定训练集，产生与训练集同分布的新样本，希望学习模型的分布$p_{model}$使其与训练样本的$p_{data}$相近 关键：]]></description>
 </item>
 <item>
-    <title>Java_核心类</title>
-    <link>https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/</link>
-    <pubDate>Tue, 26 Jul 2022 18:42:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%A0%B8%E5%BF%83%E7%B1%BB/</guid>
-    <description><![CDATA[Java核心类 1.字符串和编码 字符串比较 当我们想要比较两个字符串是否相同时，要特别注意，我们实际上是想比较字符串的内容是否相同。必须使用eq]]></description>
+    <title>GAN论文笔记</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/</link>
+    <pubDate>Wed, 10 Aug 2022 21:03:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BA%E6%96%87_gan/</guid>
+    <description><![CDATA[NIPS-2014-generative-adversarial-nets-Paper GAN论文精读 使用MLP（全连接神经网络）$\to$可使用反向传播简单的训练网络 生成器通过真实数据X（多维随机变量）学习$p_g$分布 定义]]></description>
 </item>
 <item>
-    <title>CV_5全连接神经网络（中）</title>
-    <link>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</link>
-    <pubDate>Tue, 26 Jul 2022 18:03:16 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_5%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%AD/</guid>
-    <description><![CDATA[全连接神经网络（中） 1.梯度消失与梯度爆炸 梯度消失将导致参数无法更新，网络无法继续训练（无解决方法） eg.sigmoid函数的导数$\in(]]></description>
+    <title>CV_12可视化</title>
+    <link>https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/</link>
+    <pubDate>Tue, 09 Aug 2022 23:02:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_12%E5%8F%AF%E8%A7%86%E5%8C%96/</guid>
+    <description><![CDATA[可视化 一、相关理论 本篇博文主要讲解2014年ECCV上的一篇经典文献：《Visualizing and Understanding Convolutional Networks》，可以说是CNN领域可]]></description>
 </item>
 <item>
-    <title>Java_异常</title>
-    <link>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</link>
-    <pubDate>Mon, 25 Jul 2022 23:11:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E5%BC%82%E5%B8%B8/</guid>
-    <description><![CDATA[Java 异常 1.java的异常体系 因为Java的异常是class，它的继承关系如下： ┌───────────┐ │ Object │ └───────────┘ ▲ │]]></description>
+    <title>CV_11多目标检测</title>
+    <link>https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</link>
+    <pubDate>Sat, 06 Aug 2022 14:37:35 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_11%E5%A4%9A%E7%9B%AE%E6%A0%87%E6%A3%80%E6%B5%8B/</guid>
+    <description><![CDATA[多目标检测 问题：不清楚目标数$\to$不清楚输出维度 困境：CNN需要对图像中所有可能方法穷举，计算量过大，不现实 RCNN 找出潜在候选区域（通过区域]]></description>
 </item>
 <item>
-    <title>CV_4全连接神经网络（上）</title>
-    <link>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</link>
-    <pubDate>Mon, 25 Jul 2022 22:45:56 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/cv_4%E5%85%A8%E8%BF%9E%E6%8E%A5%E7%A5%9E%E7%BB%8F%E7%BD%91%E7%BB%9C%E4%B8%8A/</guid>
-    <description><![CDATA[全连接神经网络（上） 全连接神经网络通过多个变换来实现输入到输出的映射 eg.两层神经网络：$f=W_2\max(0,W_1x+b_1)+b_2]]></description>
+    <title>Java_泛型</title>
+    <link>https://friend-albert.github.io/posts/java_%E6%B3%9B%E5%9E%8B/</link>
+    <pubDate>Tue, 02 Aug 2022 15:21:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/java_%E6%B3%9B%E5%9E%8B/</guid>
+    <description><![CDATA[泛型 1.使用泛型 使用泛型时，把泛型参数&lt;T&gt;替换为需要的class类型，例如：ArrayList&lt;String&gt;，A]]></description>
 </item>
 </channel>
 </rss>
