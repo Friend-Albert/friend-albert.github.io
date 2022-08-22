@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>单例模式 - 标签 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+        <description>单例模式 - 标签 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Fri, 19 Aug 2022 19:56:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" rel="self" type="application/rss+xml" /><item>
+    <title>设计模式：单例模式</title>
+    <link>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</link>
+    <pubDate>Fri, 19 Aug 2022 19:56:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/</guid>
+    <description><![CDATA[单例模式 为什么要使用单例？ 单例设计模式（Singleton Design Pattern）理解起来非常简单。一个类只允许创建一个对象（或者实例），那这个类]]></description>
+</item>
+</channel>
+</rss>

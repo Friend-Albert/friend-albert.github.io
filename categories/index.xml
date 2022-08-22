@@ -3,10 +3,10 @@
         <title>Categories - 分类 - FriendA&#39;s Blog</title>
         <link>https://friend-albert.github.io/categories/</link>
         <description>Categories - 分类 - FriendA&#39;s Blog</description>
-        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/" rel="self" type="application/rss+xml" /><item>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Tue, 23 Aug 2022 00:57:00 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/categories/" rel="self" type="application/rss+xml" /><item>
     <title>设计模式之美</title>
     <link>https://friend-albert.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/</link>
-    <pubDate>Sun, 14 Aug 2022 12:13:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/</guid>
+    <pubDate>Tue, 23 Aug 2022 00:57:00 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/</guid>
     <description><![CDATA[]]></description>
 </item>
 <item>
@@ -31,6 +31,12 @@
     <title>SpringBoot</title>
     <link>https://friend-albert.github.io/categories/springboot/</link>
     <pubDate>Sat, 16 Jul 2022 00:32:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/springboot/</guid>
+    <description><![CDATA[]]></description>
+</item>
+<item>
+    <title>Spring Cloud Alibaba微服务原理与实战</title>
+    <link>https://friend-albert.github.io/categories/spring-cloud-alibaba%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/</link>
+    <pubDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/categories/spring-cloud-alibaba%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/</guid>
     <description><![CDATA[]]></description>
 </item>
 </channel>

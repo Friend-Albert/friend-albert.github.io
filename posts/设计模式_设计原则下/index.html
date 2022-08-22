@@ -1,0 +1,354 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>设计原则与思想：设计原则（下） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="设计原则与思想：设计原则（下）" />
+<meta property="og:description" content="设计原则（下） 理论六：我为何说KISS、YAGNI原则看似简单，却经常被用错？ KISS 原则 Keep It Simple and Stupid. Keep It Short and Simple. Keep It Simple and Straightforward. 该如何定义“简单”的代码？" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-15T22:19:00+08:00" />
+<meta property="article:modified_time" content="2022-08-15T22:19:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="设计原则与思想：设计原则（下）"/>
+<meta name="twitter:description" content="设计原则（下） 理论六：我为何说KISS、YAGNI原则看似简单，却经常被用错？ KISS 原则 Keep It Simple and Stupid. Keep It Short and Simple. Keep It Simple and Straightforward. 该如何定义“简单”的代码？"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B/" /><link rel="prev" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8A/" /><link rel="next" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "设计原则与思想：设计原则（下）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B\/"
+        },"genre": "posts","keywords": "设计模式, 重构, 设计原则","wordcount":  2838 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B\/","datePublished": "2022-08-15T22:19:00+08:00","dateModified": "2022-08-15T22:19:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">设计原则与思想：设计原则（下）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"><i class="far fa-folder fa-fw"></i>设计模式之美</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.8.15">Mon 2022.8.15</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2838 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#理论六我为何说kissyagni原则看似简单却经常被用错">理论六：我为何说KISS、YAGNI原则看似简单，却经常被用错？</a>
+      <ul>
+        <li><a href="#kiss-原则">KISS 原则</a></li>
+        <li><a href="#总结">总结</a></li>
+        <li><a href="#yagni-原则">YAGNI 原则</a></li>
+      </ul>
+    </li>
+    <li><a href="#理论七重复的代码就一定违背dry吗如何提高代码的复用性">理论七：重复的代码就一定违背DRY吗？如何提高代码的复用性？</a>
+      <ul>
+        <li><a href="#dry-原则">DRY 原则</a></li>
+        <li><a href="#代码复用性">代码复用性</a></li>
+      </ul>
+    </li>
+    <li><a href="#理论八如何用迪米特法则lod实现高内聚松耦合">理论八：如何用迪米特法则（LOD）实现“高内聚、松耦合”？</a>
+      <ul>
+        <li><a href="#高内聚松耦合">高内聚、松耦合</a></li>
+        <li><a href="#迪米特法则">迪米特法则</a></li>
+        <li><a href="#不该有直接依赖关系的类之间不要有依赖">不该有直接依赖关系的类之间，不要有依赖</a></li>
+        <li><a href="#有依赖关系的类之间尽量只依赖必要的接口">有依赖关系的类之间，尽量只依赖必要的接口</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="设计原则下">设计原则（下）</h1>
+<h2 id="理论六我为何说kissyagni原则看似简单却经常被用错">理论六：我为何说KISS、YAGNI原则看似简单，却经常被用错？</h2>
+<h3 id="kiss-原则">KISS 原则</h3>
+<blockquote>
+<ul>
+<li>Keep It Simple and Stupid.</li>
+<li>Keep It Short and Simple.</li>
+<li>Keep It Simple and Straightforward.</li>
+</ul>
+</blockquote>
+<p><strong>该如何定义“简单”的代码？</strong></p>
+<p>以下是三种不同方式判断IP地址合法性的函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="c1">// 第一种实现方式: 使用正则表达式
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValidIpAddressV1</span><span class="o">(</span><span class="n">String</span> <span class="n">ipAddress</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">ipAddress</span><span class="o">))</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="n">regex</span> <span class="o">=</span> <span class="s">&#34;^(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|[1-9])\\.&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">+</span> <span class="s">&#34;(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\.&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">+</span> <span class="s">&#34;(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)\\.&#34;</span>
+</span></span><span class="line"><span class="cl">          <span class="o">+</span> <span class="s">&#34;(1\\d{2}|2[0-4]\\d|25[0-5]|[1-9]\\d|\\d)$&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="n">ipAddress</span><span class="o">.</span><span class="na">matches</span><span class="o">(</span><span class="n">regex</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 第二种实现方式: 使用现成的工具类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValidIpAddressV2</span><span class="o">(</span><span class="n">String</span> <span class="n">ipAddress</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">StringUtils</span><span class="o">.</span><span class="na">isBlank</span><span class="o">(</span><span class="n">ipAddress</span><span class="o">))</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span><span class="o">[]</span> <span class="n">ipUnits</span> <span class="o">=</span> <span class="n">StringUtils</span><span class="o">.</span><span class="na">split</span><span class="o">(</span><span class="n">ipAddress</span><span class="o">,</span> <span class="sc">&#39;.&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">ipUnits</span><span class="o">.</span><span class="na">length</span> <span class="o">!=</span> <span class="n">4</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">4</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">int</span> <span class="n">ipUnitIntValue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ipUnitIntValue</span> <span class="o">=</span> <span class="n">Integer</span><span class="o">.</span><span class="na">parseInt</span><span class="o">(</span><span class="n">ipUnits</span><span class="o">[</span><span class="n">i</span><span class="o">]);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">NumberFormatException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">ipUnitIntValue</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">ipUnitIntValue</span> <span class="o">&gt;</span> <span class="n">255</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">i</span> <span class="o">==</span> <span class="n">0</span> <span class="o">&amp;&amp;</span> <span class="n">ipUnitIntValue</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 第三种实现方式: 不使用任何工具类
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isValidIpAddressV3</span><span class="o">(</span><span class="n">String</span> <span class="n">ipAddress</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">char</span><span class="o">[]</span> <span class="n">ipChars</span> <span class="o">=</span> <span class="n">ipAddress</span><span class="o">.</span><span class="na">toCharArray</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">length</span> <span class="o">=</span> <span class="n">ipChars</span><span class="o">.</span><span class="na">length</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">ipUnitIntValue</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">boolean</span> <span class="n">isFirstUnit</span> <span class="o">=</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kt">int</span> <span class="n">unitsCount</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">length</span><span class="o">;</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kt">char</span> <span class="n">c</span> <span class="o">=</span> <span class="n">ipChars</span><span class="o">[</span><span class="n">i</span><span class="o">];</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">==</span> <span class="sc">&#39;.&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">ipUnitIntValue</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">ipUnitIntValue</span> <span class="o">&gt;</span> <span class="n">255</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">isFirstUnit</span> <span class="o">&amp;&amp;</span> <span class="n">ipUnitIntValue</span> <span class="o">==</span> <span class="n">0</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">isFirstUnit</span><span class="o">)</span> <span class="n">isFirstUnit</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">ipUnitIntValue</span> <span class="o">=</span> <span class="o">-</span><span class="n">1</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">      <span class="n">unitsCount</span><span class="o">++;</span>
+</span></span><span class="line"><span class="cl">      <span class="k">continue</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">c</span> <span class="o">&lt;</span> <span class="sc">&#39;0&#39;</span> <span class="o">||</span> <span class="n">c</span> <span class="o">&gt;</span> <span class="sc">&#39;9&#39;</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">ipUnitIntValue</span> <span class="o">==</span> <span class="o">-</span><span class="n">1</span><span class="o">)</span> <span class="n">ipUnitIntValue</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="n">ipUnitIntValue</span> <span class="o">=</span> <span class="n">ipUnitIntValue</span> <span class="o">*</span> <span class="n">10</span> <span class="o">+</span> <span class="o">(</span><span class="n">c</span> <span class="o">-</span> <span class="sc">&#39;0&#39;</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">ipUnitIntValue</span> <span class="o">&lt;</span> <span class="n">0</span> <span class="o">||</span> <span class="n">ipUnitIntValue</span> <span class="o">&gt;</span> <span class="n">255</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">if</span> <span class="o">(</span><span class="n">unitsCount</span> <span class="o">!=</span> <span class="n">3</span><span class="o">)</span> <span class="k">return</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="k">return</span> <span class="kc">true</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>第一种实现方式利用的是正则表达式，只用三行代码就把这个问题搞定了。虽然代码行数最少，看似最简单，实际上却很复杂。这正是因为它使用了正则表达式。一方面，正则表达式本身是比较复杂的，写出完全没有 bug 的正则表达本身就比较有挑战；另一方面，并不是每个程序员都精通正则表达式。</p>
+<p>第二种实现方式使用了 StringUtils 类、Integer 类提供的一些现成的工具函数，来处理 IP 地址字符串。</p>
+<p>第三种实现方式，不使用任何工具函数，而是通过逐一处理 IP 地址中的字符，来判断是否合法。</p>
+<p>从代码行数上来说，后两种方式差不多。但是，第三种要比第二种更加有难度，更容易写出 bug。从可读性上来说，第二种实现方式的代码逻辑更清晰、更好理解。所以，在这两种实现方式中，第二种实现方式更加“简单”，更加符合 KISS 原则。</p>
+<h3 id="总结">总结</h3>
+<ul>
+<li>不要使用同事可能不懂的技术来实现代码。比如前面例子中的正则表达式，还有一些编程语言中过于高级的语法等。</li>
+<li>不要重复造轮子，要善于使用已经有的工具类库。经验证明，自己去实现这些类库，出 bug 的概率会更高，维护的成本也比较高。不要过度优化。</li>
+<li>不要过度使用一些奇技淫巧（比如，位运算代替算术运算、复杂的条件语句代替 if-else、使用一些过于底层的函数等）来优化代码，牺牲代码的可读性。</li>
+</ul>
+<h3 id="yagni-原则">YAGNI 原则</h3>
+<blockquote>
+<p>You Ain’t Gonna Need It.</p>
+</blockquote>
+<p>不要去设计当前用不到的功能；不要去编写当前用不到的代码。实际上，这条原则的核心思想就是：不要做过度设计。</p>
+<p><strong>KISS 原则讲的是“如何做”的问题（尽量保持简单），而 YAGNI 原则说的是“要不要做”的问题（当前不需要的就不要做）。</strong></p>
+<h2 id="理论七重复的代码就一定违背dry吗如何提高代码的复用性">理论七：重复的代码就一定违背DRY吗？如何提高代码的复用性？</h2>
+<h3 id="dry-原则">DRY 原则</h3>
+<blockquote>
+<p>Don’t Repeat Yourself</p>
+</blockquote>
+<p>实现逻辑重复、功能语义重复、代码执行重复。实现逻辑重复，但功能语义不重复的代码，并不违反 DRY 原则。实现逻辑不重复，但功能语义重复的代码，也算是违反 DRY 原则。除此之外，代码执行重复也算是违反 DRY 原则。</p>
+<h3 id="代码复用性">代码复用性</h3>
+<ul>
+<li>减少代码耦合</li>
+<li>满足单一职责原则</li>
+<li>模块化</li>
+<li>业务与非业务逻辑分离</li>
+<li>通用代码下沉</li>
+<li>继承、多态、抽象、封装</li>
+<li>应用模板等设计模式</li>
+</ul>
+<p>实际上，除了上面讲到的这些方法之外，复用意识也非常重要。在设计每个模块、类、函数的时候，要像设计一个外部 API 一样去思考它的复用性。我们在第一次写代码的时候，如果当下没有复用的需求，而未来的复用需求也不是特别明确，并且开发可复用代码的成本比较高，那我们就不需要考虑代码的复用性。在之后开发新的功能的时候，发现可以复用之前写的这段代码，那我们就重构这段代码，让其变得更加可复用。</p>
+<h2 id="理论八如何用迪米特法则lod实现高内聚松耦合">理论八：如何用迪米特法则（LOD）实现“高内聚、松耦合”？</h2>
+<h3 id="高内聚松耦合">高内聚、松耦合</h3>
+<ul>
+<li>高内聚，就是指相近的功能应该放到同一个类中，不相近的功能不要放到同一个类中。相近的功能往往会被同时修改，放到同一个类中，修改会比较集中，代码容易维护。——<strong>单一职责原则</strong></li>
+<li>松耦合是说，在代码中，类与类之间的依赖关系简单清晰。即使两个类有依赖关系，一个类的代码改动不会或者很少导致依赖类的代码改动。——<strong>依赖注入、接口隔离、基于接口而非实现编程、迪米特法则</strong></li>
+</ul>
+<h3 id="迪米特法则">迪米特法则</h3>
+<blockquote>
+<p>Each unit should have only limited knowledge about other units: only units “closely” related to the current unit. Or: Each unit should only talk to its friends; Don’t talk to strangers.</p>
+</blockquote>
+<h3 id="不该有直接依赖关系的类之间不要有依赖">不该有直接依赖关系的类之间，不要有依赖</h3>
+<p>观察如下NetworkTransporter 类（负责底层网络通信，根据请求获取数据）：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NetworkTransporter</span> <span class="o">{</span>    <span class="c1">// 省略属性和其他方法...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>	<span class="kd">public</span> <span class="n">Byte</span><span class="o">[]</span> <span class="nf">send</span><span class="o">(</span><span class="n">HtmlRequest</span> <span class="n">htmlRequest</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    	<span class="c1">//...    
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}}</span>
+</span></span></code></pre></div><p>作为一个底层网络通信类，我们希望它的功能尽可能通用，而不只是服务于下载 HTML，所以，我们不应该直接依赖太具体的发送对象 HtmlRequest。从这一点上讲，NetworkTransporter 类的设计违背迪米特法则，依赖了不该有直接依赖关系的 HtmlRequest 类。</p>
+<p>我们应该如何进行重构，让 NetworkTransporter 类满足迪米特法则呢？假如现在要去商店买东西，你肯定不会直接把钱包给收银员，让收银员自己从里面拿钱，而是你从钱包里把钱拿出来交给收银员。这里的 HtmlRequest 对象就相当于钱包，HtmlRequest 里的 address 和 content 对象就相当于钱。我们应该把 address 和 content 交给 NetworkTransporter，而非是直接把 HtmlRequest 交给 NetworkTransporter。根据这个思路，NetworkTransporter 重构之后的代码如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">NetworkTransporter</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 省略属性和其他方法...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="n">Byte</span><span class="o">[]</span> <span class="nf">send</span><span class="o">(</span><span class="n">String</span> <span class="n">address</span><span class="o">,</span> <span class="n">Byte</span><span class="o">[]</span> <span class="n">data</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h3 id="有依赖关系的类之间尽量只依赖必要的接口">有依赖关系的类之间，尽量只依赖必要的接口</h3>
+<p>下面这段代码非常简单，Serialization 类负责对象的序列化和反序列化。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Serialization</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">String</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">serializedResult</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">serializedResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Object</span> <span class="n">deserializedResult</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="n">deserializedResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>那基于迪米特法则后半部分“有依赖关系的类之间，尽量只依赖必要的接口”，只用到序列化操作的那部分类不应该依赖反序列化接口。同理，只用到反序列化操作的那部分类不应该依赖序列化接口。</p>
+<p>根据这个思路，我们应该将 Serialization 类拆分为两个更小粒度的类，一个只负责序列化（Serializer 类），一个只负责反序列化（Deserializer 类）。拆分之后，使用序列化操作的类只需要依赖 Serializer 类，使用反序列化操作的类只需要依赖 Deserializer 类。**但是！尽管拆分之后的代码更能满足迪米特法则，但却违背了高内聚的设计思想。**高内聚要求相近的功能要放到同一个类中，这样可以方便功能修改的时候，修改的地方不至于过于分散。对于刚刚这个例子来说，如果我们修改了序列化的实现方式，那反序列化的实现逻辑也需要一并修改。显然，这种设计思路的代码改动范围变大了。</p>
+<p>实际上，<strong>通过引入两个接口</strong>就能轻松解决这个问题，具体的代码如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Serializable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">String</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">Deserializable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">Object</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">String</span> <span class="n">text</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">Serialization</span> <span class="kd">implements</span> <span class="n">Serializable</span><span class="o">,</span> <span class="n">Deserializable</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">String</span> <span class="nf">serialize</span><span class="o">(</span><span class="n">Object</span> <span class="n">object</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">serializedResult</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">serializedResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">deserialize</span><span class="o">(</span><span class="n">String</span> <span class="n">str</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">Object</span> <span class="n">deserializedResult</span> <span class="o">=</span> <span class="o">...;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">...</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">deserializedResult</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoClass_1</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="n">Serializable</span> <span class="n">serializer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Demo</span><span class="o">(</span><span class="n">Serializable</span> <span class="n">serializer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">serializer</span> <span class="o">=</span> <span class="n">serializer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">DemoClass_2</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="n">Deserializable</span> <span class="n">deserializer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="nf">Demo</span><span class="o">(</span><span class="n">Deserializable</span> <span class="n">deserializer</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="o">.</span><span class="na">deserializer</span> <span class="o">=</span> <span class="n">deserializer</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="c1">//...
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="o">}</span>
+</span></span></code></pre></div><p><strong>尽管我们还是要往 DemoClass_1 的构造函数中，传入包含序列化和反序列化的 Serialization 实现类，但是，我们依赖的 Serializable 接口只包含序列化操作，DemoClass_1 无法使用 Serialization 类中的反序列化接口，对反序列化操作无感知，这也就符合了迪米特法则后半部分所说的“依赖有限接口”的要求。</strong></p>
+<p>实际上，上面的的代码实现思路，也体现了“基于接口而非实现编程”的设计原则，结合迪米特法则，我们可以总结出一条新的设计原则，那就是“基于最小接口而非最大实现编程”。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                </span><span><a href="/tags/%E9%87%8D%E6%9E%84/">重构</a>
+                </span><span><a href="/tags/%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99/">设计原则</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Mon 2022.8.15</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B/" data-title="设计原则与思想：设计原则（下）" data-hashtags="设计模式,重构,设计原则"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B/" data-hashtag="设计模式"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8A/" class="prev" rel="prev" title="设计原则与思想：设计原则（上）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A/" class="next" rel="next" title="设计原则与思想：规范与重构（上）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>设计模式：工厂模式 - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="设计模式：工厂模式" />
+<meta property="og:description" content="工厂模式 一般情况下，工厂模式分为三种更加细分的类型：简单工厂、工厂方法和抽象工厂。不过，在 GoF 的《设计模式》一书中，它将简单工厂模式看作是工厂" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-22T22:49:00+08:00" />
+<meta property="article:modified_time" content="2022-08-22T22:49:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="设计模式：工厂模式"/>
+<meta name="twitter:description" content="工厂模式 一般情况下，工厂模式分为三种更加细分的类型：简单工厂、工厂方法和抽象工厂。不过，在 GoF 的《设计模式》一书中，它将简单工厂模式看作是工厂"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" /><link rel="prev" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" /><link rel="next" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%88%9B%E9%80%A0%E8%80%85%E5%8E%9F%E5%9E%8B/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "设计模式：工厂模式",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F\/"
+        },"genre": "posts","keywords": "设计模式, 工厂模式, 创建型模式","wordcount":  3772 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F\/","datePublished": "2022-08-22T22:49:00+08:00","dateModified": "2022-08-22T22:49:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">设计模式：工厂模式</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"><i class="far fa-folder fa-fw"></i>设计模式之美</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Mon 2022.8.22">Mon 2022.8.22</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 3772 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 8 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#简单工厂simple-factory">简单工厂（Simple Factory）</a></li>
+    <li><a href="#工厂方法factory-method">工厂方法（Factory Method）</a></li>
+    <li><a href="#工厂方法模式与简单工厂模式的取舍">工厂方法模式与简单工厂模式的取舍</a></li>
+    <li><a href="#工厂模式的使用">工厂模式的使用</a></li>
+    <li><a href="#工厂模式和-di-容器有何区别">工厂模式和 DI 容器有何区别？</a>
+      <ul>
+        <li><a href="#配置解析">配置解析</a></li>
+        <li><a href="#对象创建">对象创建</a></li>
+        <li><a href="#对象的生命周期管理">对象的生命周期管理</a></li>
+        <li><a href="#核心工厂类代码示例">核心工厂类代码示例</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="工厂模式">工厂模式</h1>
+<p>一般情况下，工厂模式分为三种更加细分的类型：<strong>简单工厂、工厂方法和抽象工厂</strong>。不过，在 GoF 的《设计模式》一书中，它将简单工厂模式看作是工厂方法模式的一种特例，所以工厂模式只被分成了工厂方法和抽象工厂两类。实际上，前面一种分类方法更加常见，而在这三种细分的工厂模式中，简单工厂、工厂方法原理比较简单，在实际的项目中也比较常用。而抽象工厂的原理稍微复杂点，在实际的项目中相对也不常用。</p>
+<h2 id="简单工厂simple-factory">简单工厂（Simple Factory）</h2>
+<p>为了让类的职责更加单一、代码更加清晰，我们将负责对象创建的某些函数剥离到一个独立的类中，让这个类<strong>只负责对象的创建</strong>。</p>
+<p>同时，如果该对象可以复用，为了节省内存和对象创建的时间，我们可以将它们事先创建好缓存起来。当调用 createParser() 函数的时候，我们从缓存中取出 parser 对象直接使用。这有点类似单例模式和简单工厂模式的结合，具体的代码实现如下所示。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="c1">//方法一：将负责对象创建的某些函数剥离到一个独立的类中，让这个类只负责对象的创建。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">(</span><span class="n">String</span> <span class="n">configFormat</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IRuleConfigParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="s">&#34;json&#34;</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">configFormat</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">JsonRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">&#34;xml&#34;</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">configFormat</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">XmlRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">&#34;yaml&#34;</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">configFormat</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">YamlRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">else</span> <span class="k">if</span> <span class="o">(</span><span class="s">&#34;properties&#34;</span><span class="o">.</span><span class="na">equalsIgnoreCase</span><span class="o">(</span><span class="n">configFormat</span><span class="o">))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">parser</span> <span class="o">=</span> <span class="k">new</span> <span class="n">PropertiesRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">parser</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//方法二：对象可以复用，事先创建好缓存起来
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">RuleConfigParser</span><span class="o">&gt;</span> <span class="n">cachedParsers</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">static</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedParsers</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;json&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">JsonRuleConfigParser</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedParsers</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;xml&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">XmlRuleConfigParser</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedParsers</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;yaml&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">YamlRuleConfigParser</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedParsers</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;properties&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">PropertiesRuleConfigParser</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">(</span><span class="n">String</span> <span class="n">configFormat</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">configFormat</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">configFormat</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span><span class="c1">//返回null还是IllegalArgumentException全凭你自己说了算
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IRuleConfigParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">cachedParsers</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">configFormat</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">parser</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="工厂方法factory-method">工厂方法（Factory Method）</h2>
+<p>在 RuleConfigParserFactory 的第一种代码实现中，有一组 if 分支判断逻辑，是否合适呢？实际上，如果 if 分支并不是很多，代码中有 if 分支也是完全可以接受的。如果非要将 if 分支逻辑去掉，比较经典处理方法就是利用多态。按照多态的实现思路，对上面的代码进行重构。重构之后的代码如下所示：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">interface</span> <span class="nc">IRuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">JsonRuleConfigParserFactory</span> <span class="kd">implements</span> <span class="n">IRuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">JsonRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">XmlRuleConfigParserFactory</span> <span class="kd">implements</span> <span class="n">IRuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">XmlRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">YamlRuleConfigParserFactory</span> <span class="kd">implements</span> <span class="n">IRuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">YamlRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">PropertiesRuleConfigParserFactory</span> <span class="kd">implements</span> <span class="n">IRuleConfigParserFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="nd">@Override</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">IRuleConfigParser</span> <span class="nf">createParser</span><span class="o">()</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="k">new</span> <span class="n">PropertiesRuleConfigParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><p>实际上，这就是工厂方法模式的典型代码实现。这样当我们新增一种 parser 的时候，只需要新增一个实现了 IRuleConfigParserFactory 接口的 Factory 类即可。所以，工厂方法模式比起简单工厂模式更加符合开闭原则。</p>
+<p>同时，由于这些工厂方法需要按照需求创建工厂对象，这样也会产生大量的if-else分支结构，虽然避免了原有简单工厂的复杂分支，但是并没能消除代码中的分支结构，利用多态提升可读性，因此**我们还需要创建该工厂方法的简单工厂，即工厂的工厂解决这一问题。**其中，RuleConfigParserFactoryMap 类是创建工厂对象的工厂类，getParserFactory() 返回的是缓存好的单例工厂对象。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-Java" data-lang="Java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuleConfigSource</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">RuleConfig</span> <span class="nf">load</span><span class="o">(</span><span class="n">String</span> <span class="n">ruleConfigFilePath</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">ruleConfigFileExtension</span> <span class="o">=</span> <span class="n">getFileExtension</span><span class="o">(</span><span class="n">ruleConfigFilePath</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">IRuleConfigParserFactory</span> <span class="n">parserFactory</span> <span class="o">=</span> <span class="n">RuleConfigParserFactoryMap</span><span class="o">.</span><span class="na">getParserFactory</span><span class="o">(</span><span class="n">ruleConfigFileExtension</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">parserFactory</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="n">InvalidRuleConfigException</span><span class="o">(</span><span class="s">&#34;Rule config file format is not supported: &#34;</span> <span class="o">+</span> <span class="n">ruleConfigFilePath</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IRuleConfigParser</span> <span class="n">parser</span> <span class="o">=</span> <span class="n">parserFactory</span><span class="o">.</span><span class="na">createParser</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">String</span> <span class="n">configText</span> <span class="o">=</span> <span class="s">&#34;&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//从ruleConfigFilePath文件中读取配置文本到configText中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="n">RuleConfig</span> <span class="n">ruleConfig</span> <span class="o">=</span> <span class="n">parser</span><span class="o">.</span><span class="na">parse</span><span class="o">(</span><span class="n">configText</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">ruleConfig</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="n">String</span> <span class="nf">getFileExtension</span><span class="o">(</span><span class="n">String</span> <span class="n">filePath</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">//...解析文件名获取扩展名，比如rule.json，返回json
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="k">return</span> <span class="s">&#34;json&#34;</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">//因为工厂类只包含方法，不包含成员变量，完全可以复用，
+</span></span></span><span class="line"><span class="cl"><span class="c1">//不需要每次都创建新的工厂类对象，所以，简单工厂模式的第二种实现思路更加合适。
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">public</span> <span class="kd">class</span> <span class="nc">RuleConfigParserFactoryMap</span> <span class="o">{</span> <span class="c1">//工厂的工厂
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>  <span class="kd">private</span> <span class="kd">static</span> <span class="kd">final</span> <span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">IRuleConfigParserFactory</span><span class="o">&gt;</span> <span class="n">cachedFactories</span> <span class="o">=</span> <span class="k">new</span> <span class="n">HashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">static</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedFactories</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;json&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">JsonRuleConfigParserFactory</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedFactories</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;xml&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">XmlRuleConfigParserFactory</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedFactories</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;yaml&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">YamlRuleConfigParserFactory</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="n">cachedFactories</span><span class="o">.</span><span class="na">put</span><span class="o">(</span><span class="s">&#34;properties&#34;</span><span class="o">,</span> <span class="k">new</span> <span class="n">PropertiesRuleConfigParserFactory</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kd">static</span> <span class="n">IRuleConfigParserFactory</span> <span class="nf">getParserFactory</span><span class="o">(</span><span class="n">String</span> <span class="n">type</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">type</span> <span class="o">==</span> <span class="kc">null</span> <span class="o">||</span> <span class="n">type</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="n">IRuleConfigParserFactory</span> <span class="n">parserFactory</span> <span class="o">=</span> <span class="n">cachedFactories</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">type</span><span class="o">.</span><span class="na">toLowerCase</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">parserFactory</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div><h2 id="工厂方法模式与简单工厂模式的取舍">工厂方法模式与简单工厂模式的取舍</h2>
+<p>我们前面提到，之所以将某个代码块剥离出来，独立为函数或者类，原因是这个代码块的逻辑过于复杂，剥离之后能让代码更加清晰，更加可读、可维护。但是，如果代码块本身并不复杂，就几行代码而已，我们完全没必要将它拆分成单独的函数或者类。</p>
+<p>基于这个设计思想，当对象的创建逻辑比较复杂，不只是简单的 new 一下就可以，而是要组合其他类对象，做各种初始化操作的时候，我们推荐使用工厂方法模式，将复杂的创建逻辑拆分到多个工厂类中，让每个工厂类都不至于过于复杂。而使用简单工厂模式，将所有的创建逻辑都放到一个工厂类中，会导致这个工厂类变得很复杂。除此之外，在某些场景下，如果对象不可复用，那工厂类每次都要返回不同的对象。如果我们使用简单工厂模式来实现，就只能选择第一种包含 if 分支逻辑的实现方式。如果我们还想避免烦人的 if-else 分支逻辑，这个时候，我们就推荐使用工厂方法模式。</p>
+<h2 id="工厂模式的使用">工厂模式的使用</h2>
+<p>当创建逻辑比较复杂，是一个“大工程”的时候，我们就考虑使用工厂模式，封装对象的创建过程，将对象的创建和使用相分离。何为创建逻辑比较复杂呢？</p>
+<ol>
+<li>类似规则配置解析的例子，代码中存在 if-else 分支判断，动态地根据不同的类型创建不同的对象。针对这种情况，我们就考虑使用工厂模式，将这一大坨 if-else 创建对象的代码抽离出来，放到工厂类中。</li>
+<li>单个对象本身的创建过程比较复杂，比如前面提到的要组合其他类对象，做各种初始化操作。在这种情况下，我们也可以考虑使用工厂模式，将对象的创建过程封装到工厂类中。</li>
+</ol>
+<p>工厂模式的本质作用：</p>
+<ol>
+<li><strong>封装变化</strong>：创建逻辑有可能变化，封装成工厂类之后，创建逻辑的变更对调用者透明。</li>
+<li><strong>代码复用</strong>：创建代码抽离到独立的工厂类之后可以复用。</li>
+<li><strong>隔离复杂性</strong>：封装复杂的创建逻辑，调用者无需了解如何创建对象。</li>
+<li><strong>控制复杂度</strong>：将创建代码抽离出来，让原本的函数或类职责更单一，代码更简洁。</li>
+</ol>
+<h2 id="工厂模式和-di-容器有何区别">工厂模式和 DI 容器有何区别？</h2>
+<p>实际上，DI 容器底层最基本的设计思路就是基于工厂模式的。DI 容器相当于一个大的工厂类，负责在程序启动的时候，根据配置（要创建哪些类对象，每个类对象的创建需要依赖哪些其他类对象）事先创建好对象。当应用程序需要使用某个类对象的时候，直接从容器中获取即可。正是因为它持有一堆对象，所以这个框架才被称为“容器”。DI 容器相对于我们上节课讲的工厂模式的例子来说，它处理的是更大的对象创建工程。</p>
+<h3 id="配置解析">配置解析</h3>
+<p>作为一个通用的框架来说，框架代码跟应用代码应该是高度解耦的，DI 容器事先并不知道应用会创建哪些对象，不可能把某个应用要创建的对象写死在框架代码中。所以，我们需要通过一种形式，让应用告知 DI 容器要创建哪些对象。这种形式就是我们要讲的配置。我们将需要由 DI 容器来创建的类对象和创建类对象的必要信息（使用哪个构造函数以及对应的构造函数参数都是什么等等），放到配置文件中。容器读取配置文件，根据配置文件提供的信息来创建对象。</p>
+<blockquote>
+<p>示例：配置文件解析主要包含 BeanConfigParser 接口和 XmlBeanConfigParser 实现类，负责将配置文件解析为 BeanDefinition 结构，以便 BeansFactory 根据这个结构来创建对象。</p>
+</blockquote>
+<h3 id="对象创建">对象创建</h3>
+<p>通过<strong>反射机制</strong>，在程序运行的过程中，动态地加载类、创建对象，不需要事先在代码中写死要创建哪些对象。所以，不管是创建一个对象还是十个对象，BeansFactory 工厂类代码都是一样的。</p>
+<h3 id="对象的生命周期管理">对象的生命周期管理</h3>
+<p>在 Spring 框架中，我们可以通过配置 scope 属性，来区分这两种不同类型的对象。scope=prototype 表示返回新创建的对象，scope=singleton 表示返回单例对象。除此之外，我们还可以配置对象是否支持懒加载。如果 lazy-init=true，对象在真正被使用到的时候（比如：BeansFactory.getBean(“userService”)）才被被创建；如果 lazy-init=false，对象在应用启动的时候就事先创建好。</p>
+<p>不仅如此，我们还可以配置对象的 init-method 和 destroy-method 方法，比如 init-method=loadProperties()，destroy-method=updateConfigFile()。DI 容器在创建好对象之后，会主动调用 init-method 属性指定的方法来初始化对象。在对象被最终销毁之前，DI 容器会主动调用 destroy-method 属性指定的方法来做一些清理工作，比如释放数据库连接池、关闭文件。</p>
+<h3 id="核心工厂类代码示例">核心工厂类代码示例</h3>
+<p>这是我们这个 DI 容器最核心的一个类了。<strong>它负责根据从配置文件解析得到的 BeanDefinition 来创建对象</strong>。如果对象的 scope 属性是 singleton，那对象创建之后会缓存在 singletonObjects 这样一个 map 中，下次再请求此对象的时候，直接从 map 中取出返回，不需要重新创建。如果对象的 scope 属性是 prototype，那每次请求对象，BeansFactory 都会创建一个新的对象返回。</p>
+<p>BeansFactory 创建对象用到的主要技术点就是 Java 中的反射语法：一种动态加载类和创建对象的机制。我们知道，JVM 在启动的时候会根据代码自动地加载类、创建对象。至于都要加载哪些类、创建哪些对象，这些都是在代码中写死的，或者说提前写好的。但是，如果某个对象的创建并不是写死在代码中，而是放到配置文件中，我们需要在程序运行期间，动态地根据配置文件来加载类、创建对象，那这部分工作就没法让 JVM 帮我们自动完成了，我们需要利用 Java 提供的反射语法自己去编写代码。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-java" data-lang="java"><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeansFactory</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">Object</span><span class="o">&gt;</span> <span class="n">singletonObjects</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">private</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;</span><span class="n">String</span><span class="o">,</span> <span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">beanDefinitions</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ConcurrentHashMap</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="kt">void</span> <span class="nf">addBeanDefinitions</span><span class="o">(</span><span class="n">List</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">&gt;</span> <span class="n">beanDefinitionList</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">BeanDefinition</span> <span class="n">beanDefinition</span> <span class="o">:</span> <span class="n">beanDefinitionList</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">this</span><span class="o">.</span><span class="na">beanDefinitions</span><span class="o">.</span><span class="na">putIfAbsent</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">beanDefinition</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">for</span> <span class="o">(</span><span class="n">BeanDefinition</span> <span class="n">beanDefinition</span> <span class="o">:</span> <span class="n">beanDefinitionList</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">isLazyInit</span><span class="o">()</span> <span class="o">==</span> <span class="kc">false</span> <span class="o">&amp;&amp;</span> <span class="n">beanDefinition</span><span class="o">.</span><span class="na">isSingleton</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">createBean</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="kd">public</span> <span class="n">Object</span> <span class="nf">getBean</span><span class="o">(</span><span class="n">String</span> <span class="n">beanId</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="n">BeanDefinition</span> <span class="n">beanDefinition</span> <span class="o">=</span> <span class="n">beanDefinitions</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">beanId</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">beanDefinition</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="n">NoSuchBeanDefinitionException</span><span class="o">(</span><span class="s">&#34;Bean is not defined: &#34;</span> <span class="o">+</span> <span class="n">beanId</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">createBean</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nd">@VisibleForTesting</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">protected</span> <span class="n">Object</span> <span class="nf">createBean</span><span class="o">(</span><span class="n">BeanDefinition</span> <span class="n">beanDefinition</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">isSingleton</span><span class="o">()</span> <span class="o">&amp;&amp;</span> <span class="n">singletonObjects</span><span class="o">.</span><span class="na">contains</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">getId</span><span class="o">()))</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">singletonObjects</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="n">Object</span> <span class="n">bean</span> <span class="o">=</span> <span class="kc">null</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">try</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">Class</span> <span class="n">beanClass</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">getClassName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">      <span class="n">List</span><span class="o">&lt;</span><span class="n">BeanDefinition</span><span class="o">.</span><span class="na">ConstructorArg</span><span class="o">&gt;</span> <span class="n">args</span> <span class="o">=</span> <span class="n">beanDefinition</span><span class="o">.</span><span class="na">getConstructorArgs</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="k">if</span> <span class="o">(</span><span class="n">args</span><span class="o">.</span><span class="na">isEmpty</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bean</span> <span class="o">=</span> <span class="n">beanClass</span><span class="o">.</span><span class="na">newInstance</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Class</span><span class="o">[]</span> <span class="n">argClasses</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Class</span><span class="o">[</span><span class="n">args</span><span class="o">.</span><span class="na">size</span><span class="o">()];</span>
+</span></span><span class="line"><span class="cl">        <span class="n">Object</span><span class="o">[]</span> <span class="n">argObjects</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Object</span><span class="o">[</span><span class="n">args</span><span class="o">.</span><span class="na">size</span><span class="o">()];</span>
+</span></span><span class="line"><span class="cl">        <span class="k">for</span> <span class="o">(</span><span class="kt">int</span> <span class="n">i</span> <span class="o">=</span> <span class="n">0</span><span class="o">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">args</span><span class="o">.</span><span class="na">size</span><span class="o">();</span> <span class="o">++</span><span class="n">i</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">          <span class="n">BeanDefinition</span><span class="o">.</span><span class="na">ConstructorArg</span> <span class="n">arg</span> <span class="o">=</span> <span class="n">args</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">i</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">          <span class="k">if</span> <span class="o">(!</span><span class="n">arg</span><span class="o">.</span><span class="na">getIsRef</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">argClasses</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="na">getType</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">            <span class="n">argObjects</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">arg</span><span class="o">.</span><span class="na">getArg</span><span class="o">();</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span> <span class="k">else</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">            <span class="n">BeanDefinition</span> <span class="n">refBeanDefinition</span> <span class="o">=</span> <span class="n">beanDefinitions</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">arg</span><span class="o">.</span><span class="na">getArg</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="k">if</span> <span class="o">(</span><span class="n">refBeanDefinition</span> <span class="o">==</span> <span class="kc">null</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">              <span class="k">throw</span> <span class="k">new</span> <span class="n">NoSuchBeanDefinitionException</span><span class="o">(</span><span class="s">&#34;Bean is not defined: &#34;</span> <span class="o">+</span> <span class="n">arg</span><span class="o">.</span><span class="na">getArg</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="o">}</span>
+</span></span><span class="line"><span class="cl">            <span class="n">argClasses</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">Class</span><span class="o">.</span><span class="na">forName</span><span class="o">(</span><span class="n">refBeanDefinition</span><span class="o">.</span><span class="na">getClassName</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">            <span class="n">argObjects</span><span class="o">[</span><span class="n">i</span><span class="o">]</span> <span class="o">=</span> <span class="n">createBean</span><span class="o">(</span><span class="n">refBeanDefinition</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">          <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="o">}</span>
+</span></span><span class="line"><span class="cl">        <span class="n">bean</span> <span class="o">=</span> <span class="n">beanClass</span><span class="o">.</span><span class="na">getConstructor</span><span class="o">(</span><span class="n">argClasses</span><span class="o">).</span><span class="na">newInstance</span><span class="o">(</span><span class="n">argObjects</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span> <span class="k">catch</span> <span class="o">(</span><span class="n">ClassNotFoundException</span> <span class="o">|</span> <span class="n">IllegalAccessException</span>
+</span></span><span class="line"><span class="cl">            <span class="o">|</span> <span class="n">InstantiationException</span> <span class="o">|</span> <span class="n">NoSuchMethodException</span> <span class="o">|</span> <span class="n">InvocationTargetException</span> <span class="n">e</span><span class="o">)</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="k">throw</span> <span class="k">new</span> <span class="n">BeanCreationFailureException</span><span class="o">(</span><span class="s">&#34;&#34;</span><span class="o">,</span> <span class="n">e</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="k">if</span> <span class="o">(</span><span class="n">bean</span> <span class="o">!=</span> <span class="kc">null</span> <span class="o">&amp;&amp;</span> <span class="n">beanDefinition</span><span class="o">.</span><span class="na">isSingleton</span><span class="o">())</span> <span class="o">{</span>
+</span></span><span class="line"><span class="cl">      <span class="n">singletonObjects</span><span class="o">.</span><span class="na">putIfAbsent</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">getId</span><span class="o">(),</span> <span class="n">bean</span><span class="o">);</span>
+</span></span><span class="line"><span class="cl">      <span class="k">return</span> <span class="n">singletonObjects</span><span class="o">.</span><span class="na">get</span><span class="o">(</span><span class="n">beanDefinition</span><span class="o">.</span><span class="na">getId</span><span class="o">());</span>
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="n">bean</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">  <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">public</span> <span class="kd">class</span> <span class="nc">BeanDefinition</span> <span class="o">{</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">id</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">String</span> <span class="n">className</span><span class="o">;</span>  
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">List</span><span class="o">&lt;</span><span class="n">ConstructorArg</span><span class="o">&gt;</span> <span class="n">constructorArgs</span> <span class="o">=</span> <span class="k">new</span> <span class="n">ArrayList</span><span class="o">&lt;&gt;();</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="n">Scope</span> <span class="n">scope</span> <span class="o">=</span> <span class="n">Scope</span><span class="o">.</span><span class="na">SINGLETON</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">lazyInit</span> <span class="o">=</span> <span class="kc">false</span><span class="o">;</span>
+</span></span><span class="line"><span class="cl">    <span class="c1">// 省略必要的getter/setter/constructors
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="kd">public</span> <span class="kt">boolean</span> <span class="nf">isSingleton</span><span class="o">()</span> <span class="o">{</span>    
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="n">scope</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">Scope</span><span class="o">.</span><span class="na">SINGLETON</span><span class="o">);</span>  
+</span></span><span class="line"><span class="cl">    <span class="o">}</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">enum</span> <span class="n">Scope</span> <span class="o">{</span> <span class="n">SINGLETON</span><span class="o">,</span> <span class="n">PROTOTYPE</span> <span class="o">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">    <span class="kd">public</span> <span class="kd">static</span> <span class="kd">class</span> <span class="nc">ConstructorArg</span> <span class="o">{</span> 
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="kt">boolean</span> <span class="n">isRef</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="n">Class</span> <span class="n">type</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">        <span class="kd">private</span> <span class="n">Object</span> <span class="n">arg</span><span class="o">;</span> 
+</span></span><span class="line"><span class="cl">        <span class="c1">// 省略必要的getter/setter/constructors
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="o">}</span>
+</span></span><span class="line"><span class="cl"><span class="o">}</span>
+</span></span></code></pre></div></div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                </span><span><a href="/tags/%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/">工厂模式</a>
+                </span><span><a href="/tags/%E5%88%9B%E5%BB%BA%E5%9E%8B%E6%A8%A1%E5%BC%8F/">创建型模式</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Mon 2022.8.22</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" data-title="设计模式：工厂模式" data-hashtags="设计模式,工厂模式,创建型模式"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%B7%A5%E5%8E%82%E6%A8%A1%E5%BC%8F/" data-hashtag="设计模式"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%8D%95%E4%BE%8B%E6%A8%A1%E5%BC%8F/" class="prev" rel="prev" title="设计模式：单例模式"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E5%88%9B%E9%80%A0%E8%80%85%E5%8E%9F%E5%9E%8B/" class="next" rel="next" title="设计模式：建造者&amp;原型模式">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

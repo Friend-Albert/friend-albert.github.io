@@ -1,0 +1,13 @@
+<rss xmlns:atom="http://www.w3.org/2005/Atom" version="2.0">
+    <channel>
+        <title>Spring Cloud Alibaba - 标签 - FriendA&#39;s Blog</title>
+        <link>https://friend-albert.github.io/tags/spring-cloud-alibaba/</link>
+        <description>Spring Cloud Alibaba - 标签 - FriendA&#39;s Blog</description>
+        <generator>Hugo -- gohugo.io</generator><language>zh-CN</language><lastBuildDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</lastBuildDate><atom:link href="https://friend-albert.github.io/tags/spring-cloud-alibaba/" rel="self" type="application/rss+xml" /><item>
+    <title>Spring Cloud Alibaba读书笔记(1)</title>
+    <link>https://friend-albert.github.io/posts/spring-cloud-alibaba1/</link>
+    <pubDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/spring-cloud-alibaba1/</guid>
+    <description><![CDATA[Spring Cloud Alibaba微服务原理与实战(1) CH1 微服务的发展简史 单体架构 通常来说，如果一个war或者jar包中包含了一个应用的所有功能，我们称这种]]></description>
+</item>
+</channel>
+</rss>

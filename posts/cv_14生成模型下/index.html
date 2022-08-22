@@ -28,7 +28,7 @@
         "mainEntityOfPage": {
             "@type": "WebPage",
             "@id": "https:\/\/friend-albert.github.io\/posts\/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B\/"
-        },"genre": "posts","keywords": "CV","wordcount":  501 ,
+        },"genre": "posts","keywords": "CV","wordcount":  506 ,
         "url": "https:\/\/friend-albert.github.io\/posts\/cv_14%E7%94%9F%E6%88%90%E6%A8%A1%E5%9E%8B%E4%B8%8B\/","datePublished": "2022-08-11T20:11:00+08:00","dateModified": "2022-08-11T20:11:00+08:00","publisher": {
             "@type": "Organization",
             "name": "作者"},"author": {
@@ -104,8 +104,8 @@
             <div class="toc-content" id="toc-content-auto"></div>
         </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">CV_14生成模型（下）</h2><div class="post-meta">
                 <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E8%A7%86%E8%A7%89%E4%B8%8E%E6%B7%B1%E5%BA%A6%E5%AD%A6%E4%B9%A0/"><i class="far fa-folder fa-fw"></i>计算机视觉与深度学习</a></span></div>
-                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Thu 2022.8.11">Thu 2022.8.11</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 501 字</span>&nbsp;
-                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 1 分钟</span>&nbsp;</div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Thu 2022.8.11">Thu 2022.8.11</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 506 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 2 分钟</span>&nbsp;</div>
             </div>
             
             <hr><div class="details toc" id="toc-static"  data-kept="true">
@@ -132,13 +132,15 @@
 <p><strong>两个网络先后训练，产生对抗，不断进步</strong></p>
 <p>采用minimax方法训练：
 $$
-\min_{\theta_{g}}\max_{\theta_{d}}[E_{x\sim p_{data}}\log{D_{\theta_{d}}}(x)+E_{x\sim p(z)}\log(1-D_{\theta_{d}}(G_{\theta_{g}}(z)))]\
-p_{data}:真实样本分布\
-p(z):噪声分布\
-\theta_{d}:网络参数\
-\theta_{g}:网络参数
-$$
-公式解释：</p>
+\min_{\theta_{g}}\max_{\theta_{d}}[E_{x\sim p_{data}}\log{D_{\theta_{d}}}(x)+E_{x\sim p(z)}\log(1-D_{\theta_{d}}(G_{\theta_{g}}(z)))]
+$$</p>
+<ul>
+<li>$ p_{data}$:真实样本分布</li>
+<li>$p(z)$:噪声分布</li>
+<li>$\theta_{d}:$网络参数</li>
+<li>$\theta_{g}$:网络参数</li>
+</ul>
+<p>公式解释：</p>
 <ol>
 <li>$max \ \theta_{d}$：在生成水平不变的情况下，尽量提高判别网络的正确率</li>
 <li>$min \ \theta_{g}$：期望生成图片被判别为真</li>

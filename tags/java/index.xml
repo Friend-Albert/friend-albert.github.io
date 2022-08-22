@@ -40,6 +40,12 @@
     <description><![CDATA[MVC设计模式（框架） 1.简介 MVC是三个单词的首字母缩写，它们是Model（模型）、View（视图）和Controller（控制）。 1.1 视图]]></description>
 </item>
 <item>
+    <title>Spring Cloud Alibaba读书笔记(1)</title>
+    <link>https://friend-albert.github.io/posts/spring-cloud-alibaba1/</link>
+    <pubDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/spring-cloud-alibaba1/</guid>
+    <description><![CDATA[Spring Cloud Alibaba微服务原理与实战(1) CH1 微服务的发展简史 单体架构 通常来说，如果一个war或者jar包中包含了一个应用的所有功能，我们称这种]]></description>
+</item>
+<item>
     <title>SpringBoot_General</title>
     <link>https://friend-albert.github.io/posts/springboot_general/</link>
     <pubDate>Sat, 16 Jul 2022 00:26:02 &#43;0800</pubDate><guid>https://friend-albert.github.io/posts/springboot_general/</guid>

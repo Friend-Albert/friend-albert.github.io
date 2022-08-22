@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>设计原则与思想：规范与重构（上） - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="设计原则与思想：规范与重构（上）" />
+<meta property="og:description" content="设计原则与思想：规范与重构（上） 理论一：什么情况下要重构？到底重构什么？又该如何重构？ 1. 重构的目的：为什么重构（why）？ 对于项目来言，重构" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-08-17T14:29:00+08:00" />
+<meta property="article:modified_time" content="2022-08-17T14:29:00+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="设计原则与思想：规范与重构（上）"/>
+<meta name="twitter:description" content="设计原则与思想：规范与重构（上） 理论一：什么情况下要重构？到底重构什么？又该如何重构？ 1. 重构的目的：为什么重构（why）？ 对于项目来言，重构"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A/" /><link rel="prev" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B/" /><link rel="next" href="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8B/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "设计原则与思想：规范与重构（上）",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A\/"
+        },"genre": "posts","keywords": "设计模式, 重构","wordcount":  2032 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A\/","datePublished": "2022-08-17T14:29:00+08:00","dateModified": "2022-08-17T14:29:00+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">设计原则与思想：规范与重构（上）</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F%E4%B9%8B%E7%BE%8E/"><i class="far fa-folder fa-fw"></i>设计模式之美</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Wed 2022.8.17">Wed 2022.8.17</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2032 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 5 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#理论一什么情况下要重构到底重构什么又该如何重构">理论一：什么情况下要重构？到底重构什么？又该如何重构？</a>
+      <ul>
+        <li></li>
+        <li><a href="#理论二为了保证重构不出错有哪些非常能落地的技术手段">理论二：为了保证重构不出错，有哪些非常能落地的技术手段？</a></li>
+      </ul>
+    </li>
+    <li><a href="#理论三什么是代码的可测试性如何写出可测试性好的代码">理论三：什么是代码的可测试性？如何写出可测试性好的代码？</a>
+      <ul>
+        <li></li>
+      </ul>
+    </li>
+    <li><a href="#理论四如何通过封装抽象模块化中间层等解耦代码">理论四：如何通过封装、抽象、模块化、中间层等解耦代码？</a>
+      <ul>
+        <li><a href="#1-封装与抽象封装和抽象">1. 封装与抽象封装和抽象</a></li>
+        <li><a href="#2-中间层">2. 中间层</a></li>
+        <li><a href="#3-模块化">3. 模块化</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="设计原则与思想规范与重构上">设计原则与思想：规范与重构（上）</h1>
+<h2 id="理论一什么情况下要重构到底重构什么又该如何重构">理论一：什么情况下要重构？到底重构什么？又该如何重构？</h2>
+<h4 id="1-重构的目的为什么重构why">1. 重构的目的：为什么重构（why）？</h4>
+<p>对于项目来言，重构可以保持代码质量持续处于一个可控状态，不至于腐化到无可救药的地步。对于个人而言，重构非常锻炼一个人的代码能力，并且是一件非常有成就感的事情。它是我们学习的经典设计思想、原则、模式、编程规范等理论知识的练兵场。</p>
+<h4 id="2-重构的对象重构什么what">2. 重构的对象：重构什么（what）？</h4>
+<p>按照重构的规模，我们可以将重构大致分为大规模高层次的重构和小规模低层次的重构。大规模高层次重构包括对代码分层、模块化、解耦、梳理类之间的交互关系、抽象复用组件等等。这部分工作利用的更多的是比较抽象、比较顶层的设计思想、原则、模式。小规模低层次的重构包括规范命名、注释、修正函数参数过多、消除超大类、提取重复代码等等编程细节问题，主要是针对类、函数级别的重构。小规模低层次的重构更多的是利用编码规范这一理论知识。</p>
+<h4 id="3-重构的时机什么时候重构when">3. 重构的时机：什么时候重构（when）？</h4>
+<p>我反复强调，我们一定要建立持续重构意识，把重构作为开发必不可少的部分，融入到日常开发中，而不是等到代码出现很大问题的时候，再大刀阔斧地重构。</p>
+<h4 id="4-重构的方法如何重构how">4. 重构的方法：如何重构（how）？</h4>
+<p>大规模高层次的重构难度比较大，需要组织、有计划地进行，分阶段地小步快跑，时刻让代码处于一个可运行的状态。而小规模低层次的重构，因为影响范围小，改动耗时短，所以，只要你愿意并且有时间，随时随地都可以去做。</p>
+<h3 id="理论二为了保证重构不出错有哪些非常能落地的技术手段">理论二：为了保证重构不出错，有哪些非常能落地的技术手段？</h3>
+<h4 id="1-什么是单元测试">1. 什么是单元测试？</h4>
+<p>单元测试是代码层面的测试，由研发自己来编写，用于测试“自己”编写的代码的逻辑的正确性。单元测试顾名思义是测试一个“单元”，有别于集成测试，这个“单元”一般是类或函数，而不是模块或者系统。</p>
+<h4 id="2-为什么要写单元测试">2. 为什么要写单元测试？</h4>
+<p>写单元测试的过程本身就是代码 Code Review 和重构的过程，能有效地发现代码中的 bug 和代码设计上的问题。除此之外，单元测试还是对集成测试的有力补充，还能帮助我们快速熟悉代码，是 TDD 可落地执行的改进方案。</p>
+<h4 id="3-如何编写单元测试">3. 如何编写单元测试？</h4>
+<p>写单元测试就是针对代码设计各种测试用例，以覆盖各种输入、异常、边界情况，并将其翻译成代码。我们可以利用一些测试框架来简化单元测试的编写。除此之外，对于单元测试，我们需要建立以下正确的认知：</p>
+<ul>
+<li>编写单元测试尽管繁琐，但并不是太耗时；</li>
+<li>我们可以稍微放低对单元测试代码质量的要求；</li>
+<li>覆盖率作为衡量单元测试质量的唯一标准是不合理的；</li>
+<li>单元测试不要依赖被测代码的具体实现逻辑；</li>
+<li>单元测试框架无法测试，多半是因为代码的可测试性不好。</li>
+</ul>
+<h2 id="理论三什么是代码的可测试性如何写出可测试性好的代码">理论三：什么是代码的可测试性？如何写出可测试性好的代码？</h2>
+<h4 id="1-什么是代码的可测试性">1. 什么是代码的可测试性？</h4>
+<p>粗略地讲，所谓代码的可测试性，就是针对代码编写单元测试的难易程度。对于一段代码，如果很难为其编写单元测试，或者单元测试写起来很费劲，需要依靠单元测试框架中很高级的特性，那往往就意味着代码设计得不够合理，代码的可测试性不好。</p>
+<h4 id="2-编写可测试性代码的最有效手段">2. 编写可测试性代码的最有效手段</h4>
+<p><strong>依赖注入是编写可测试性代码的最有效手段</strong>。通过依赖注入，我们在编写单元测试的时候，可以通过 mock 的方法解依赖外部服务，这也是我们在编写单元测试的过程中最有技术挑战的地方。</p>
+<h4 id="3-常见的-anti-patterns">3. 常见的 Anti-Patterns</h4>
+<p>常见的测试不友好的代码有下面这 5 种：</p>
+<ul>
+<li>代码中包含未决行为（随机数等）</li>
+<li>滥用可变全局变量</li>
+<li>滥用静态方法</li>
+<li>使用复杂的继承关系</li>
+<li>高度耦合的代码</li>
+</ul>
+<h2 id="理论四如何通过封装抽象模块化中间层等解耦代码">理论四：如何通过封装、抽象、模块化、中间层等解耦代码？</h2>
+<h3 id="1-封装与抽象封装和抽象">1. 封装与抽象封装和抽象</h3>
+<p>作为两个非常通用的设计思想，可以应用在很多设计场景中，比如系统、模块、lib、组件、接口、类等等的设计。封装和抽象可以有效地隐藏实现的复杂性，隔离实现的易变性，给依赖的模块提供稳定且易用的抽象接口。</p>
+<h3 id="2-中间层">2. 中间层</h3>
+<p>引入中间层能简化模块或类之间的依赖关系。下面这张图是引入中间层前后的依赖关系对比图。在引入数据存储中间层之前，A、B、C 三个模块都要依赖内存一级缓存、Redis 二级缓存、DB 持久化存储三个模块。在引入中间层之后，三个模块只需要依赖数据存储一个模块即可。从图上可以看出，中间层的引入明显地简化了依赖关系，让代码结构更加清晰。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/17/749919b16bfd39b9.jpeg"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/17/749919b16bfd39b9.jpeg, https://s3.bmp.ovh/imgs/2022/08/17/749919b16bfd39b9.jpeg 1.5x, https://s3.bmp.ovh/imgs/2022/08/17/749919b16bfd39b9.jpeg 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/17/749919b16bfd39b9.jpeg"
+        title="img" /></p>
+<p>为了让重构能小步快跑，我们可以分下面四个阶段来完成接口的修改。</p>
+<ul>
+<li>第一阶段：引入一个中间层，包裹老的接口，提供新的接口定义。</li>
+<li>第二阶段：新开发的代码依赖中间层提供的新接口。</li>
+<li>第三阶段：将依赖老接口的代码改为调用新接口。</li>
+<li>第四阶段：确保所有的代码都调用新接口之后，删除掉老的接口。</li>
+</ul>
+<h3 id="3-模块化">3. 模块化</h3>
+<p>我们再聚焦到代码层面。合理地划分模块能有效地解耦代码，提高代码的可读性和可维护性。所以，我们在开发代码的时候，一定要有模块化意识，将每个模块都当作一个独立的 lib 一样来开发，只提供封装了内部实现细节的接口给其他模块使用，这样可以减少不同模块之间的耦合度。</p>
+<p>实际上，从刚刚的讲解中我们也可以发现，模块化的思想无处不在，像 SOA、微服务、lib 库、系统内模块划分，甚至是类、函数的设计，都体现了模块化思想。如果追本溯源，<strong>模块化思想更加本质的东西就是分而治之</strong>。</p>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F/">设计模式</a>
+                </span><span><a href="/tags/%E9%87%8D%E6%9E%84/">重构</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Wed 2022.8.17</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A/" data-title="设计原则与思想：规范与重构（上）" data-hashtags="设计模式,重构"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8A/" data-hashtag="设计模式"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%AE%BE%E8%AE%A1%E5%8E%9F%E5%88%99%E4%B8%8B/" class="prev" rel="prev" title="设计原则与思想：设计原则（下）"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/%E8%AE%BE%E8%AE%A1%E6%A8%A1%E5%BC%8F_%E8%A7%84%E8%8C%83%E4%B8%8E%E9%87%8D%E6%9E%84%E4%B8%8B/" class="next" rel="next" title="设计原则与思想：规范与重构（下）">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>

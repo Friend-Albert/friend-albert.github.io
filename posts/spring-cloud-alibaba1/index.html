@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="robots" content="noodp" />
+        <title>Spring Cloud Alibaba读书笔记(1) - FriendA&#39;s Blog</title><meta name="description" content=""><meta property="og:title" content="Spring Cloud Alibaba读书笔记(1)" />
+<meta property="og:description" content="Spring Cloud Alibaba微服务原理与实战(1) CH1 微服务的发展简史 单体架构 通常来说，如果一个war或者jar包中包含了一个应用的所有功能，我们称这种" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://friend-albert.github.io/posts/spring-cloud-alibaba1/" /><meta property="og:image" content="https://friend-albert.github.io/logo.png"/><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-07-16T00:26:02+08:00" />
+<meta property="article:modified_time" content="2022-07-16T00:26:02+08:00" />
+
+<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://friend-albert.github.io/logo.png"/>
+
+<meta name="twitter:title" content="Spring Cloud Alibaba读书笔记(1)"/>
+<meta name="twitter:description" content="Spring Cloud Alibaba微服务原理与实战(1) CH1 微服务的发展简史 单体架构 通常来说，如果一个war或者jar包中包含了一个应用的所有功能，我们称这种"/>
+<meta name="application-name" content="FeelIt">
+<meta name="apple-mobile-web-app-title" content="FeelIt"><meta name="theme-color" content="#ffffff"><meta name="msapplication-TileColor" content="#da532c"><link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"><link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png"><link rel="mask-icon" href="/safari-pinned-tab.svg" color="#5bbad5"><link rel="manifest" href="/site.webmanifest"><link rel="canonical" href="https://friend-albert.github.io/posts/spring-cloud-alibaba1/" /><link rel="prev" href="https://friend-albert.github.io/posts/springboot_general/" /><link rel="next" href="https://friend-albert.github.io/posts/mvc/" /><link rel="stylesheet" href="/css/page.min.css"><link rel="stylesheet" href="/css/home.min.css"><script type="application/ld+json">
+    {
+        "@context": "http://schema.org",
+        "@type": "BlogPosting",
+        "headline": "Spring Cloud Alibaba读书笔记(1)",
+        "inLanguage": "zh-CN",
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": "https:\/\/friend-albert.github.io\/posts\/spring-cloud-alibaba1\/"
+        },"genre": "posts","keywords": "Java, Spring Cloud Alibaba","wordcount":  2590 ,
+        "url": "https:\/\/friend-albert.github.io\/posts\/spring-cloud-alibaba1\/","datePublished": "2022-07-16T00:26:02+08:00","dateModified": "2022-07-16T00:26:02+08:00","publisher": {
+            "@type": "Organization",
+            "name": "作者"},"author": {
+                "@type": "Person",
+                "name": "作者"
+            },"description": ""
+    }
+    </script></head>
+    <body data-header-desktop="fixed" data-header-mobile="auto"><script>(window.localStorage && localStorage.getItem('theme') ? localStorage.getItem('theme') === 'dark' : ('' === 'auto' ? window.matchMedia('(prefers-color-scheme: dark)').matches : '' === 'dark')) && document.body.setAttribute('theme', 'dark');</script>
+
+        <div id="mask"></div><div class="wrapper"><header class="desktop" id="header-desktop">
+    <div class="header-wrapper">
+        <div class="header-title">
+            <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+        </div>
+        <div class="menu">
+            <div class="menu-inner"><a class="menu-item" href="/"> 主页 </a><a class="menu-item" href="/posts/"> 文章 </a><a class="menu-item" href="/tags/"> 标签 </a><a class="menu-item" href="/categories/"> 分类 </a><span class="menu-item delimiter"></span><span class="menu-item search" id="search-desktop">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-desktop">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-desktop" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-desktop" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-desktop">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </span><a href="javascript:void(0);" class="menu-item theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div>
+        </div>
+    </div>
+</header><header class="mobile" id="header-mobile">
+    <div class="header-container">
+        <div class="header-wrapper">
+            <div class="header-title">
+                <a href="/" title="FriendA&#39;s Blog">FriendA&#39;s Blog</a>
+            </div>
+            <div class="menu-toggle" id="menu-toggle-mobile">
+                <span></span><span></span><span></span>
+            </div>
+        </div>
+        <div class="menu" id="menu-mobile"><div class="search-wrapper">
+                    <div class="search mobile" id="search-mobile">
+                        <input type="text" placeholder="搜索文章标题或内容..." id="search-input-mobile">
+                        <a href="#" class="search-button search-toggle" id="search-toggle-mobile" title="搜索">
+                            <i class="fas fa-search fa-fw"></i>
+                        </a>
+                        <a href="#" class="search-button search-clear" id="search-clear-mobile" title="清空">
+                            <i class="fas fa-times-circle fa-fw"></i>
+                        </a>
+                        <span class="search-button search-loading" id="search-loading-mobile">
+                            <i class="fas fa-spinner fa-fw fa-spin"></i>
+                        </span>
+                    </div>
+                    <a href="#" class="search-cancel" id="search-cancel-mobile">
+                        取消
+                    </a>
+                </div><a class="menu-item" href="/" title="">主页</a><a class="menu-item" href="/posts/" title="">文章</a><a class="menu-item" href="/tags/" title="">标签</a><a class="menu-item" href="/categories/" title="">分类</a><div class="menu-item"><a href="javascript:void(0);" class="theme-switch" title="切换主题">
+                    <i class="fas fa-adjust fa-fw"></i>
+                </a>
+            </div></div>
+    </div>
+</header><div class="search-dropdown desktop">
+    <div id="search-dropdown-desktop"></div>
+</div>
+<div class="search-dropdown mobile">
+    <div id="search-dropdown-mobile"></div>
+</div><main class="main">
+                <div class="container"><div class="toc" id="toc-auto">
+            <h2 class="toc-title">目录</h2>
+            <div class="toc-content" id="toc-content-auto"></div>
+        </div><article class="page single" data-toc="enable"><div class="single-card" ><h2 class="single-title animated flipInX">Spring Cloud Alibaba读书笔记(1)</h2><div class="post-meta">
+                <div class="post-meta-line"><span class="post-author"><a href="/" title="Author" rel=" author" class="author"><i class="fas fa-user-circle fa-fw"></i></a></span>&nbsp;<span class="post-category">收录于 <a href="/categories/spring-cloud-alibaba%E5%BE%AE%E6%9C%8D%E5%8A%A1%E5%8E%9F%E7%90%86%E4%B8%8E%E5%AE%9E%E6%88%98/"><i class="far fa-folder fa-fw"></i>Spring Cloud Alibaba微服务原理与实战</a></span></div>
+                <div class="post-meta-line"><span><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime="Sat 2022.7.16">Sat 2022.7.16</time></span>&nbsp;<span><i class="fas fa-pencil-alt fa-fw"></i>&nbsp;约 2590 字</span>&nbsp;
+                    <span><i class="far fa-clock fa-fw"></i>&nbsp;预计阅读 6 分钟</span>&nbsp;</div>
+            </div>
+            
+            <hr><div class="details toc" id="toc-static"  data-kept="true">
+                    <div class="details-summary toc-title">
+                        <span>目录</span>
+                        <span><i class="details-icon fas fa-angle-right"></i></span>
+                    </div>
+                    <div class="details-content toc-content" id="toc-content-static"><nav id="TableOfContents">
+  <ul>
+    <li><a href="#ch1-微服务的发展简史">CH1 微服务的发展简史</a>
+      <ul>
+        <li><a href="#单体架构">单体架构</a></li>
+        <li><a href="#集群及垂直化">集群及垂直化</a></li>
+        <li><a href="#soa-面向服务架构">SOA 面向服务架构</a></li>
+        <li><a href="#微服务架构">微服务架构</a></li>
+        <li><a href="#微服务架构的优点和挑战">微服务架构的优点和挑战</a></li>
+      </ul>
+    </li>
+    <li><a href="#ch2-spring-cloud简介">CH2 Spring Cloud简介</a>
+      <ul>
+        <li><a href="#spring-cloud-alibaba">Spring Cloud Alibaba</a></li>
+      </ul>
+    </li>
+  </ul>
+</nav></div>
+                </div><div class="content" id="content"><h1 id="spring-cloud-alibaba微服务原理与实战1">Spring Cloud Alibaba微服务原理与实战(1)</h1>
+<h2 id="ch1-微服务的发展简史">CH1 微服务的发展简史</h2>
+<h3 id="单体架构">单体架构</h3>
+<p>通常来说，如果一个war或者jar包中包含了一个应用的所有功能，我们称这种架构为单体架构。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/16/fdf70eb1a9e2a3bf.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/16/fdf70eb1a9e2a3bf.png, https://s3.bmp.ovh/imgs/2022/08/16/fdf70eb1a9e2a3bf.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/16/fdf70eb1a9e2a3bf.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/16/fdf70eb1a9e2a3bf.png"
+        title="image-20220816135134890" /></p>
+<h3 id="集群及垂直化">集群及垂直化</h3>
+<p>单体架构的挑战：</p>
+<ul>
+<li>用户量的增多导致访问量不断上升进而使得后端服务器的负载越来越高</li>
+<li>用户量增大导致需求增多，业务场景不断复杂。</li>
+</ul>
+<p>最终导致单个包中代码量不断上升，业务代码间的耦合度不断加深，后期代码的维护和测试上线越发困难，微小的调整也可能带来整个应用的重新测试和部署，因此我们可以进行如下优化：</p>
+<ol>
+<li>通过横向增加服务器，把单台机器变为多台机器的集群</li>
+<li>按照业务的垂直领域进行拆分，减少业务的耦合度并降低单个包带来的伸缩性困难问题</li>
+</ol>
+<p>将各个系统进行拆分（<strong>分而治之</strong>）后有：</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/16/d221af610d13b19d.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/16/d221af610d13b19d.png, https://s3.bmp.ovh/imgs/2022/08/16/d221af610d13b19d.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/16/d221af610d13b19d.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/16/d221af610d13b19d.png"
+        title="image-20220816135617541" /></p>
+<h3 id="soa-面向服务架构">SOA 面向服务架构</h3>
+<p>SOA（service-oriented architecture） 面向服务架构——将一些通用的、会被多个上层服务调用的共享业务提取成独立的基础服务，进而<strong>实现服务的调用者以及服务的提供者之间的高度解耦</strong>。主要用于解决：</p>
+<ul>
+<li>信息孤岛</li>
+<li>共享业务的重用</li>
+</ul>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/16/3f71f171fc75242d.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/16/3f71f171fc75242d.png, https://s3.bmp.ovh/imgs/2022/08/16/3f71f171fc75242d.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/16/3f71f171fc75242d.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/16/3f71f171fc75242d.png"
+        title="image-20220816135925229" /></p>
+<blockquote>
+<p>企业服务总线是系统和服务间的通信桥梁，提供服务地址的管理、不同系统间的协议转化以及数据格式转化等功能</p>
+</blockquote>
+<h3 id="微服务架构">微服务架构</h3>
+<p>SOA与微服务本质上都是服务化思想的一种体现，可以把SOA看做微服务的超集：</p>
+<ul>
+<li>SOA关注的是服务的重用性以及解决信息孤岛问题</li>
+<li>微服务关注的是解耦，用于降低业务之间的耦合度而非关注服务的复用</li>
+<li>微服务更多的关注于DevOps的持续交付上，因此微服务与容器化技术的结合更加紧密</li>
+</ul>
+<p>每个微服务只关注于某个特定的功能，服务之间采用轻量级通信机制REST API进行通信。</p>
+<p><img
+        class="lazyload"
+        src="/svg/loading.min.svg"
+        data-src="https://s3.bmp.ovh/imgs/2022/08/16/86552023da98476f.png"
+        data-srcset="https://s3.bmp.ovh/imgs/2022/08/16/86552023da98476f.png, https://s3.bmp.ovh/imgs/2022/08/16/86552023da98476f.png 1.5x, https://s3.bmp.ovh/imgs/2022/08/16/86552023da98476f.png 2x"
+        data-sizes="auto"
+        alt="https://s3.bmp.ovh/imgs/2022/08/16/86552023da98476f.png"
+        title="image-20220816140502930" /></p>
+<h3 id="微服务架构的优点和挑战">微服务架构的优点和挑战</h3>
+<p><strong>优点：</strong></p>
+<ul>
+<li>
+<p>复杂度可控∶通过对共享业务服务更细粒度的拆分，一个服务只需要关注一个特定的业务领域，并通过定义良好的接口清晰表述服务边界。由于体积小、复杂度低，开发、维护会更加简单。</p>
+</li>
+<li>
+<p>技术选型更灵活∶每个微服务都由不同的团队来维护，所以可以结合业务特性自由选择技术栈。</p>
+</li>
+<li>
+<p>可扩展性更强∶可以根据每个微服务的性能要求和业务特点来对服务进行灵活扩展，比如通过增加单个服务的集群规模，提升部署了该服务的节点的硬件配置。</p>
+</li>
+<li>
+<p>独立部署∶由于每个微服务都是一个独立运行的进程，所以可以实现独立部署。当某个微服务发生变更时不需要重新编译部署整个应用，并且单个微服务的代码量比较小，使得发布更加高效。</p>
+</li>
+<li>
+<p>容错性∶在微服务架构中，如果某一个服务发生故障，我们可以使故障隔离在单个服务中。</p>
+</li>
+</ul>
+<p><strong>挑战：</strong></p>
+<ul>
+<li>故障排查∶一次请求可能会经历多个不同的微服务的多次交互，交互的链路可能会比较长，每个微服务会产生自己的日志，在这种情况下如果出现一个故障，开发人员定位问题的根源会比较困难。</li>
+<li>服务监控∶在一个单体架构中很容易实现服务的监控，因为所有的功能都在一个服务中。在微服务架构中，服务监控开销会非常大，可以想象一下，在几百个微服务组成的架构中，我们不仅要对整个链路进行监控，还需要对每一个微服务都实现一套类似单体架构的监控。</li>
+<li>分布式架构的复杂性∶微服务本身构建的是一个分布式系统，分布式系统涉及服务之间的远程通信，而网络通信中网络的延迟和网络故障是无法避免的，从而增加了应用程序的复杂度。</li>
+<li>服务依赖∶微服务数量增加之后，各个服务之间会存在更多的依赖关系，使得系统整体更为复杂。幸运的是，许多改变一般只影响一个服务，需要协调多服务的改变很少。</li>
+<li>运维成本∶在微服务中，需要保证几百个微服务的正常运行，对于运维的挑战是巨大的。比如单个服务流量激增时如何快速扩容、服务拆分之后导致故障点增多如何处理、如何快速部署和统一管理众多的服务等。</li>
+</ul>
+<h2 id="ch2-spring-cloud简介">CH2 Spring Cloud简介</h2>
+<p>Spring Cloud提供了一些可以让开发者快速构建微服务应用的工具，比如配置管理、服务发现、熔断、智能路由等，这些服务可以在任何分布式环境下很好地工作。Spring Cloud 主要致力于解决如下问题∶</p>
+<ul>
+<li>Distributed/versioned configuration，分布式及版化配置</li>
+<li>Service registration and discovery，服务注册与发现</li>
+<li>Routing，服务路由</li>
+<li>Service-to-service calls，服务调用</li>
+<li>Load balancing，负载均衡</li>
+<li>Circuit Breakers，断路器</li>
+<li>Global locks， 全局锁</li>
+<li>Leadership election and cluster state，Leader 选举及集群状态</li>
+<li>Distributed messaging，分布式消息。</li>
+</ul>
+<p>Spring Cloud并不是Spring团队全新研发的框架，它只是把一些比较优秀的解决微服务架构中常见问题的开源框架基于Spring Cloud规范进行了整合，通过Spring Boot这个框架进行再次封装后屏蔽掉了复杂的配置，给开发者提供良好的开箱即用的微服务开发体验。不难看出，Spring Cloud其实就是一套规范，而 Spring Cloud Netflix、Spring Cloud Consul、Spring Cloud Alibaba才是 Spring Cloud规范的实现。</p>
+<h3 id="spring-cloud-alibaba">Spring Cloud Alibaba</h3>
+<p>Spring Cloud Alibaba 主要为微服务开发提供一站式的解决方案，使开发者通过Spring Cloud 编程模型轻松地解决微服务架构下的各类技术问题。以下是Spring Cloud Alibaba生态下的主要功能组件，这些组件包含开源组件和阿里云产品组件，云产品是需要付费使用的。</p>
+<ul>
+<li>Sentinel，流量控制和服务降级</li>
+<li>Nacos，服务注册与发现</li>
+<li>Nacos，分布式配置中心</li>
+<li>RocketMQ，消息驱动</li>
+<li>Seate，分布式事务</li>
+<li>Dubbo， RPC通信。</li>
+<li>OSS，阿里云对象存储（收费的云服务）。</li>
+</ul>
+<p><strong>Spring Cloud Alibaba的独特优势：</strong></p>
+<ul>
+<li>Alibaba的开源组件在没有织入 Spring Cloud生态之前，已经在各大公司广泛应用，所以集成到 Spring Cloud生态使得开发者能够很轻松地实现技术整合及迁移。我从2013年开始接触 Dubbo，当时所在公司使用Webservice 来实现服务的远程通信，但是Webservice在服务治理这块的能力是缺失的，因此使用 Dubbo 进行了全部替换。有意思的是，Dubbo 天然支持多协议，因此在迁移和改造过程中并没有投入太多的成本，这也使得笔者开始关注Dubbo。在后续的几个公司中，也都是通过 Dubbo来实现服务通信及服务治理的。</li>
+<li>Alibaba 的开源组件在服务治理上和处理高并发的能力上有天然的优势，毕竟这些组件都经历过数次双11的考验，也在各大互联网公司大规模应用过。所以，相比 Spring Cloud Netflix来说，Spring Cloud Alibaba 在服务治理这块的能力更适合于国内的技术场景，同时，Spring Cloud Alibaba在功能上不仅完全覆盖了Spring Cloud Netflix原生特性，而且还提供了更加稳定和成熟的实现，因此笔者很看好Spring Cloud Alibaba未来的发展。</li>
+</ul>
+</div><div class="post-footer" id="post-footer">
+    <div class="post-info"><div class="post-info-tag"><span><a href="/tags/java/">Java</a>
+                </span><span><a href="/tags/spring-cloud-alibaba/">Spring Cloud Alibaba</a>
+                </span></div><div class="post-info-line"><div class="post-info-mod">
+                <span>更新于 Sat 2022.7.16</span>
+            </div><div class="post-info-mod"></div>
+        </div><div class="post-info-share">
+            <span><a href="javascript:void(0);" title="分享到 Twitter" data-sharer="twitter" data-url="https://friend-albert.github.io/posts/spring-cloud-alibaba1/" data-title="Spring Cloud Alibaba读书笔记(1)" data-hashtags="Java,Spring Cloud Alibaba"><i class="fab fa-twitter fa-fw"></i></a><a href="javascript:void(0);" title="分享到 Facebook" data-sharer="facebook" data-url="https://friend-albert.github.io/posts/spring-cloud-alibaba1/" data-hashtag="Java"><i class="fab fa-facebook-square fa-fw"></i></a></span>
+        </div></div><div class="post-nav"><a href="/posts/springboot_general/" class="prev" rel="prev" title="SpringBoot_General"><i class="fas fa-angle-left fa-fw"></i>Previous Post</a>
+            <a href="/posts/mvc/" class="next" rel="next" title="MVC">Next Post<i class="fas fa-angle-right fa-fw"></i></a></div></div>
+</div></article></div>
+            </main>
+            <footer class="footer"><div class="footer-container"><div class="footer-line">由 <a href="https://gohugo.io/" target="_blank" rel="noopener noreffer" title="Hugo 0.101.0">Hugo</a> 强力驱动 | 主题 - <a href="https://github.com/khusika/FeelIt" target="_blank" rel="noopener noreffer" title="FeelIt 1.0.1"><i class="fas fa-hand-holding-heart fa-fw"></i> FeelIt</a>
+        </div><div class="footer-line" itemscope itemtype="http://schema.org/CreativeWork"><i class="far fa-copyright fa-fw"></i><span itemprop="copyrightYear">2022</span><span class="author" itemprop="copyrightHolder">&nbsp;<a href="/"></a></span>&nbsp;|&nbsp;<span class="license"><a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a></span></div>
+</div>
+</footer>
+        </div>
+
+        <div id="fixed-buttons"><a href="#" id="back-to-top" class="fixed-button" title="回到顶部">
+                <i class="fas fa-chevron-up fa-fw"></i>
+            </a></div><link rel="stylesheet" href="/lib/fontawesome-free/all.min.css"><link rel="stylesheet" href="/lib/animate/animate.min.css"><link rel="stylesheet" href="/lib/katex/katex.min.css"><link rel="stylesheet" href="/lib/katex/copy-tex.min.css"><script src="/lib/autocomplete/autocomplete.min.js"></script><script src="/lib/lunr/lunr.min.js"></script><script src="/lib/lunr/lunr.stemmer.support.min.js"></script><script src="/lib/lunr/lunr.zh.min.js"></script><script src="/lib/lazysizes/lazysizes.min.js"></script><script src="/lib/clipboard/clipboard.min.js"></script><script src="/lib/sharer/sharer.min.js"></script><script src="/lib/katex/katex.min.js"></script><script src="/lib/katex/auto-render.min.js"></script><script src="/lib/katex/copy-tex.min.js"></script><script src="/lib/katex/mhchem.min.js"></script><script>window.config={"code":{"copyTitle":"复制到剪贴板","maxShownLines":20},"comment":{},"math":{"delimiters":[{"display":true,"left":"$$","right":"$$"},{"display":true,"left":"\\[","right":"\\]"},{"display":false,"left":"$","right":"$"},{"display":false,"left":"\\(","right":"\\)"}],"strict":false},"search":{"highlightTag":"em","lunrLanguageCode":"zh","lunrSegmentitURL":"/lib/lunr/lunr.segmentit.js","maxResultLength":10,"noResultsFound":"没有找到结果","snippetLength":50}};</script><script src="/js/theme.min.js"></script></body>
+</html>
